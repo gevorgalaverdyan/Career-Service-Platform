@@ -1,0 +1,36 @@
+{
+  "name": "career-service-platform",
+  "version": "1.0.0",
+  "description": "MERN project",
+  "main": "server.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node backend/server.ts",
+    "server": "nodemon backend/server.ts",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gevorgalaverdyan/Career-Service-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gevorgalaverdyan/Career-Service-Platform/issues"
+  },
+  "homepage": "https://github.com/gevorgalaverdyan/Career-Service-Platform#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.8.3"
+  }
+}
