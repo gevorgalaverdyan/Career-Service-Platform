@@ -5,6 +5,7 @@
 ## NOTE
 - For ENV variables add your own and <b>DON'T PUSH IN THE REPO</b>
 - Create your own working branch from master
+- We can create a testing branch to not mess up master (most likely "dev")
 <br><br>
 
 ### package.json explanation
