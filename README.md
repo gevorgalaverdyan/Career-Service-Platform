@@ -1,7 +1,11 @@
 # Career-Service-Platform
 
 <hr>
-<p>NOTE: For ENV variables add your own and <b>DON'T PUSH IN THE REPO</b></p>
+
+## NOTE
+- For ENV variables add your own and <b>DON'T PUSH IN THE REPO</b>
+- Create your own working branch from master
+<br><br>
 
 ### package.json explanation
 
