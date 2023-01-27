@@ -26,13 +26,29 @@ These are the scripts for running frontend/backend
     <tr>
         <th>Name</th>
         <th>Role</th>
-    </tr>
+    </tr>   
     <tr>
         <td>Gevorg Alaverdyan</td>
-        <td>Role</td>
+        <td>"Front-end Developer/UI-UX (Backend-DB)"</td>
     </tr>
     <tr>
-        <td>add your name...</td>
-        <td>Role</td>
+        <td>Khash</td>
+        <td>Generalist/Senior Dev "Developer/Technician Lead"</td>
+    </tr>
+    <tr>
+        <td>Afif</td>
+        <td>"Front-End Developer / Tester"</td>
+    </tr>
+    <tr>
+        <td>Amir</td>
+        <td>"Backend Developer" / CI-CD (Backend-DB) </td>
+    </tr>
+    <tr>
+        <td>Christian</td>
+        <td>"UI-UX/Generalist"</td>
+    </tr>
+    <tr>
+        <td>Jay</td>
+        <td>"Full-Stack Developer"</td>
     </tr>
 </table>
