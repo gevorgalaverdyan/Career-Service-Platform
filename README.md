@@ -14,7 +14,7 @@
         <th>Role</th>
     </tr>   
     <tr>
-        <td>Gevorg Alaverdyan</td>
+        <td>Gevorg Alaverdyan <a href="https://github.com/gevorgalaverdyan">gevorgalaverdyan</a></td>
         <td>"Front-end Developer/UI-UX" (Backend-DB)</td>
     </tr>
     <tr>
