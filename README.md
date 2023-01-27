@@ -29,11 +29,11 @@ These are the scripts for running frontend/backend
     </tr>   
     <tr>
         <td>Gevorg Alaverdyan</td>
-        <td>"Front-end Developer/UI-UX (Backend-DB)"</td>
+        <td>"Front-end Developer/UI-UX" (Backend-DB)</td>
     </tr>
     <tr>
         <td>Khash</td>
-        <td>Generalist/Senior Dev "Developer/Technician Lead"</td>
+        <td>"Developer / Technician Lead"</td>
     </tr>
     <tr>
         <td>Afif</td>
