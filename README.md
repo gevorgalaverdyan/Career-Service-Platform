@@ -2,7 +2,17 @@
 
 <hr>
 
+## Objective 
+<p>
+    Develop a Career service platform
+
+</p>
+
 ## Description
+<p>
+    This web application connects job seekers and employers by providing       features such as browsing available job postings, adding and managing job postings by employers, allowing candidates to apply and receive notifications if selected, and creating and managing student profiles. Candidates can search and view job postings based on their skills, experience and location and student profile feature helps to match with relevant job opportunities.
+
+</p>
 
 ## Members & Roles
 
@@ -22,7 +32,7 @@
         <td>"Developer / Technician Lead"</td>
     </tr>
     <tr>
-        <td>Afif</td>
+        <td>Mohammed [<a href="https://github.com/Afifr2001">Afifr2001</a>]</td>
         <td>"Front-End Developer / Tester"</td>
     </tr>
     <tr>
