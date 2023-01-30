@@ -36,7 +36,7 @@
         <td>"Front-End Developer / Tester"</td>
     </tr>
     <tr>
-        <td>Amir</td>
+        <td>Amir [<a href="https://github.com/amirhossein942">amirhossein942</a>]</td>
         <td>"Backend Developer" / CI-CD (Backend-DB) </td>
     </tr>
     <tr>
