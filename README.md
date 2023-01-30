@@ -40,7 +40,7 @@
         <td>"Backend Developer" / CI-CD (Backend-DB) </td>
     </tr>
     <tr>
-        <td>Christian</td>
+        <td>Cristian</td>
         <td>"UI-UX/Generalist"</td>
     </tr>
     <tr>
