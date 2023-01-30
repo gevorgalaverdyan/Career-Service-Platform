@@ -18,4 +18,16 @@ Acceptance Criteria:
 <hr/>
 
 <!--ADD your user story below and put a <hr> as a separator-->
+## User Story 2
+
+As a student (candidate), I want to be able to register for an account using my information in order to be able to upload my resume, browser job offers and apply to job offers. 
+
+Acceptance criteria: 
+
+<ol>
+    <li>User should be able to enter their information in a form</li>
+    <li>User's information should be validated before submission</li>
+    <li>User's information should be stored in the databse upon registration</li>
+    <li>User should stay logged in after creating an account</li>
+</ol>
 
