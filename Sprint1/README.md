@@ -47,4 +47,22 @@ Acceptance criteria:
     <li>User should be able to accept an interview or decline it. This would require a different tab with another interface. he should be able to choose between      different offered time frames and dates</li>
 </ol>
 
+<hr/>
 
+<!--ADD your user story below and put a <hr> as a separator-->
+## User Story 4
+As a student (candidate),<br>
+I want to have the ability to upload required documents<br>
+so I can apply for jobs <br>
+
+
+Acceptance Criteria:
+
+<ol>
+    <li>The user should be able to upload needed documents (CV, Cover Letter, Transcript)</li>
+    <li>The user should be able to download the said documents if needed</li>
+    <li>There should be a preview option for the user to double check without needing to download</li>
+    <li>The user should be able to rename their uploaded documents</li>
+</ol>
+
+<hr/>
