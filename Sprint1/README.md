@@ -41,8 +41,8 @@ As a student (candidate), I want to be able to see what jobs I have applied to, 
 Acceptance criteria: 
 
 <ol>
-    <li>User should be able see a list of the jobs that he has applied to/li>
-    <li>The interface for jobs that the user has applied to should have a status section saying if the application is processing/declined/filled</li>
+    <li>User should be able see a list of the jobs that he has applied to </li>
+    <li>The interface for jobs that the user has applied to should have a status section saying if the application is processing/declined/filled/interview request</li>
     <li>Jobs applied should prehaps be stored in the database of specific user along with status</li>
     <li>User should be able to accept an interview or decline it. This would require a different tab with another interface. he should be able to choose between      different offered time frames and dates</li>
 </ol>
