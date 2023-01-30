@@ -40,7 +40,7 @@
         <td>"Backend Developer" / CI-CD (Backend-DB) </td>
     </tr>
     <tr>
-        <td>Cristian</td>
+        <td>Cristian [<a href="https://github.com/CritixGames">CritixGames</a>]</td></td>
         <td>"UI-UX/Generalist"</td>
     </tr>
     <tr>
