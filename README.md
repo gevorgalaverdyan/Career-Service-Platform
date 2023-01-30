@@ -28,7 +28,7 @@
         <td>"Front-end Developer/UI-UX" (Backend-DB)</td>
     </tr>
     <tr>
-        <td>Khash</td>
+        <td>Khashayar Azad [<a href="https://github.com/khashazad">khashazad</a>]</td>
         <td>"Developer / Technician Lead"</td>
     </tr>
     <tr>
