@@ -31,3 +31,20 @@ Acceptance criteria:
     <li>User should stay logged in after creating an account</li>
 </ol>
 
+<hr/>
+
+<!--ADD your user story below and put a <hr> as a separator-->
+## User Story 3
+
+As a student (candidate), I want to be able to see what jobs I have applied to, what jobs are still processing my application, which ones I was declined for, which ones are filled and what jobs I have a future interview for.
+
+Acceptance criteria: 
+
+<ol>
+    <li>User should be able see a list of the jobs that he has applied to/li>
+    <li>The interface for jobs that the user has applied to should have a status section saying if the application is processing/declined/filled</li>
+    <li>Jobs applied should prehaps be stored in the database of specific user along with status</li>
+    <li>User should be able to accept an interview or decline it. This would require a different tab with another interface. he should be able to choose between      different offered time frames and dates</li>
+</ol>
+
+
