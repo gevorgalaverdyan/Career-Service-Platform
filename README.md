@@ -44,7 +44,7 @@
         <td>"UI-UX/Generalist"</td>
     </tr>
     <tr>
-        <td>Jay</td>
+        <td>Jay [<a href="https://github.com/jp503">jp503</a>]</td>
         <td>"Full-Stack Developer"</td>
     </tr>
 </table>
