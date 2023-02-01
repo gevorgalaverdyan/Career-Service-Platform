@@ -59,7 +59,9 @@
         <li>Node JS: Server environment</li>
     </ul>
 </p>
-![1_u8xh3we2xdp9piDGFpaHSg](https://user-images.githubusercontent.com/57418717/215917734-83329c68-26b2-46ed-9bc7-34bff88de361.png)
+
+![MERN stack](https://user-images.githubusercontent.com/57418717/215917734-83329c68-26b2-46ed-9bc7-34bff88de361.png)
+
 <br><br>
 <br><br>
 
