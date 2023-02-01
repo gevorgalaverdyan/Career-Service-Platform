@@ -82,3 +82,4 @@ These are the scripts for running frontend/backend
 <li>"server": "nodemon backend/server.ts" → starts the server(backend) but nodemon restarts your node application when it detects any changes </li>
 <li>"client": "npm start --prefix frontend" → starts frontend</li>
 <li>"dev": "concurrently \"npm run server\" \"npm run client\"" → starts frontend & backend</li></ul></pre>
+
