@@ -31,19 +31,19 @@
         <td>"Developer / Technician Lead"</td>
     </tr>
     <tr>
-        <td>Mohammed [<a href="https://github.com/Afifr2001">Afifr2001</a>]</td>
+        <td>Mohammed Rahman [<a href="https://github.com/Afifr2001">Afifr2001</a>]</td>
         <td>"Front-End Developer / Tester"</td>
     </tr>
     <tr>
-        <td>Amir [<a href="https://github.com/amirhossein942">amirhossein942</a>]</td>
+        <td>Amirhossein Tavakkoly [<a href="https://github.com/amirhossein942">amirhossein942</a>]</td>
         <td>"Backend Developer" / CI-CD (Backend-DB) </td>
     </tr>
     <tr>
-        <td>Cristian [<a href="https://github.com/CritixGames">CritixGames</a>]</td></td>
+        <td>Cristian Gasparasc [<a href="https://github.com/CritixGames">CritixGames</a>]</td></td>
         <td>"UI-UX/Generalist"</td>
     </tr>
     <tr>
-        <td>Jay [<a href="https://github.com/jp503">jp503</a>] </td>
+        <td>Jay Patel [<a href="https://github.com/jp503">jp503</a>] </td>
         <td>"Full-Stack Developer"</td>
     </tr>
 </table>
