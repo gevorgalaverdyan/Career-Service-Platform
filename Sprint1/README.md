@@ -30,7 +30,7 @@ Acceptance criteria:
     <li>User should stay logged in after creating an account</li>
 </ol>
 
-<hr/>
+<hr/> 
 
 <!--ADD your user story below and put a <hr> as a separator-->
 ## User Story 3
