@@ -5,7 +5,6 @@
 ## Objective 
 <p>
     Develop a Career service platform
-
 </p>
 
 ## Description
