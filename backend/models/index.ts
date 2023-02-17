@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 const user = require('./user.model');
 const role = require('./role.model');
 
-const ROLES = ['user', 'admin', 'moderator'];
+const ROLES = ['student', 'employee', 'admin'];
 
 function initial(): void {
   role.estimatedDocumentCount((err, count) => {

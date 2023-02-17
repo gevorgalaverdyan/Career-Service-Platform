@@ -6,7 +6,7 @@ const Role = db.role;
 
 var bcrypt = require('bcrypt');
 
-const registerNewUser = async (req, res, next) => {
+const register = async (req, res, next) => {
   const { firstName, lastName, email, phoneNumber, password, roles } = req.body;
 
   const hashedPassword = bcrypt.hashSync(password, 8);
@@ -81,4 +81,4 @@ const login = (req, res, next) => {
     });
 };
 
-module.exports = { registerNewUser, login };
+module.exports = { register, login };

@@ -16,5 +16,5 @@ module.exports = function (app) {
     controller.registerNewUser
   );
 
-  app.post('/api/auth/signin', controller.signin);
+  app.post('/api/auth/login', controller.signin);
 };
