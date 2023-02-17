@@ -6,17 +6,34 @@ const PORT = process.env.PORT || 8000;
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { connectDB } = require('./config/db');
 const { router } = require('./routes/index');
+const dbConfig = require('./config/db.config');
+const db = require('./models/index');
 
-connectDB();
+/** Connect to database */
+db.mongoose
+  .connect(
+    `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log('Successfully connect to MongoDB.');
+    db.initial();
+  })
+  .catch((err) => {
+    console.error('Connection error', err);
+    process.exit();
+  });
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//put ROUTES here
-//
-//
+// routes
+require('./app/routes/auth.routes')(app);
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {

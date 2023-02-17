@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', false);
 mongoose.Promise = global.Promise;
 
-const db = {};
-
-db.mongoose = mongoose;
-
-// db.user = require('./user.model');
+const user = require('./user.model');
 const role = require('./role.model');
 
 const ROLES = ['user', 'admin', 'moderator'];
@@ -28,4 +26,12 @@ function initial(): void {
   });
 }
 
-module.exports = {};
+const db = {
+  mongoose,
+  role,
+  user,
+  ROLES,
+  initial,
+};
+
+module.exports = { db };
