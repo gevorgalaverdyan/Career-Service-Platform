@@ -1,14 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-interface Posting {
-  posting: {
-    id: number;
-    title: string;
-    deadline: string;
-    location: string;
-  };
-}
+import { Posting } from '../common/types';
 
 function JobBoardItem(props: Posting) {
   const { posting } = props;
