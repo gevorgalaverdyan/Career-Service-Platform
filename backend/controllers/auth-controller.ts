@@ -44,7 +44,7 @@ const register = async (req, res, next) => {
   });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   User.findOne({
     email: req.body.email,
   })
@@ -81,4 +81,4 @@ const login = (req, res, next) => {
     });
 };
 
-export { register, login };
+module.exports = { register, login };

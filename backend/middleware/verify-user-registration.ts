@@ -37,4 +37,4 @@ const checkRolesExisted = (req, res, next) => {
   next();
 };
 
-export { checkDuplicateEmail, checkRolesExisted };
+module.exports = { checkDuplicateEmail, checkRolesExisted };

@@ -3,20 +3,19 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 8000;
-const { errorHandler } = require('./middleware/errorMiddleware');
+// const { errorHandler } = require('./middleware/errorMiddleware');
 const dbConfig = require('./config/db.config');
 
 const { db } = require('./models/index');
 
+// const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
+const dbConnectionString = `mongodb+srv://root:kgKn3iRJRsGm0wiU@careerserviceplatform.s0mkfuf.mongodb.net/?retryWrites=true&w=majority`;
 /** Connect to database */
 db.mongoose
-  .connect(
-    `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(dbConnectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('Successfully connect to MongoDB.');
     db.initial();
@@ -47,5 +46,5 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use(errorHandler);
+// app.use(errorHandler);
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
