@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 const user = require('./user.model');
 const role = require('./role.model');
 
-const ROLES = ['student', 'employee', 'admin'];
+const ROLES = ['student', 'employer', 'admin'];
 
 function initial(): void {
   role.estimatedDocumentCount((err, count) => {
@@ -34,4 +34,4 @@ const db = {
   initial,
 };
 
-export { db };
+module.exports = db;

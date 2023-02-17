@@ -16,7 +16,6 @@ const register = async (req, res, next) => {
     email,
     phoneNumber,
     password: hashedPassword,
-    roles,
   });
 
   user.save((err, user) => {
