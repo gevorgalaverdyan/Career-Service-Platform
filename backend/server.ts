@@ -4,10 +4,9 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 8000;
 const { errorHandler } = require('./middleware/errorMiddleware');
-const { connectDB } = require('./config/db');
-const { router } = require('./routes/index');
 const dbConfig = require('./config/db.config');
-const db = require('./models/index');
+
+const { db } = require('./models/index');
 
 /** Connect to database */
 db.mongoose
@@ -33,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // routes
-require('./app/routes/auth.routes')(app);
+require('./routes/auth.routes')(app);
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {

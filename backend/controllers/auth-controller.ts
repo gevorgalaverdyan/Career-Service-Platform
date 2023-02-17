@@ -4,7 +4,7 @@ const db = require('../models');
 const User = db.user;
 const Role = db.role;
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 const register = async (req, res, next) => {
   const { firstName, lastName, email, phoneNumber, password, roles } = req.body;
@@ -81,4 +81,4 @@ const login = (req, res, next) => {
     });
 };
 
-module.exports = { register, login };
+export { register, login };

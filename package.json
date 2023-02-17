@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "nodemon": "^2.0.20",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.0-dev.20230217"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

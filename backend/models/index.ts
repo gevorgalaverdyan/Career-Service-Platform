@@ -34,4 +34,4 @@ const db = {
   initial,
 };
 
-module.exports = { db };
+export { db };

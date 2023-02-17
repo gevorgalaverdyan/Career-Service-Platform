@@ -8,4 +8,4 @@ const errorHandler = (err: any, req: any, res: any, next: any) => {
   });
 };
 
-module.exports = { errorHandler };
+export { errorHandler };

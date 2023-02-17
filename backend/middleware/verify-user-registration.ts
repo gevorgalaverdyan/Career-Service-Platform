@@ -37,9 +37,4 @@ const checkRolesExisted = (req, res, next) => {
   next();
 };
 
-const verifyUserRegistration = {
-  checkDuplicateEmail,
-  checkRolesExisted,
-};
-
-module.exports = verifyUserRegistration;
+export { checkDuplicateEmail, checkRolesExisted };
