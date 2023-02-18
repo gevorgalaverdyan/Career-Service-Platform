@@ -1,5 +1,5 @@
-const verification = require('../middleware/verify-user-registration');
-const controller = require('../controllers/auth-controller');
+const verification = require('../middleware/verifyRegistration');
+const controller = require('../controllers/auth.controller');
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -14,4 +14,6 @@ module.exports = function (app) {
   );
 
   app.post('/auth/login', controller.login);
+
+  app.post('/auth/logout', controller.logout);
 };

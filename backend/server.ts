@@ -1,11 +1,10 @@
 const express = require('express');
-//const colors = require('colors');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 8000;
 // const { errorHandler } = require('./middleware/errorMiddleware');
-const dbConfig = require('./config/db.config');
-
+// const dbConfig = require('./config/db.config');
+const cookieSession = require('cookie-session');
 const db = require('./models/index');
 
 // const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
@@ -29,6 +28,14 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  cookieSession({
+    name: 'career-service-platform-session',
+    secret: 'COOKIE_SECRET',
+    httpOnly: true,
+  })
+);
 
 // routes
 require('./routes/auth.routes')(app);

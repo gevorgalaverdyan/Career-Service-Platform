@@ -1,5 +1,7 @@
-const verifyRegistration = require('./verify-user-registration');
+const verifyJWT = require('./VerifyJWT');
+const verifyRegistration = require('./verifyRegistration');
 
 module.exports = {
   verifyRegistration,
+  verifyJWT,
 };
