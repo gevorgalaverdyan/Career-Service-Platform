@@ -24,13 +24,19 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "nodemon": "^2.0.20",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.0-dev.20230217"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
     "concurrently": "^7.6.0",
+    "cookie-session": "^2.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^6.8.3"
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.3",
+    "react": "^18.2.0",
+    "react-scripts": "^5.0.1"
   }
 }
