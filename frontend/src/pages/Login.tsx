@@ -1,22 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { FaSignInAlt } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../features/auth/authSlice';
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+  const navigate = useNavigate();
   const { email, password } = formData;
 
-  const onChange = (e:any) => {
+  const dispatch: any = useDispatch();
+
+  const { user, isLoading, isSuccess, message, isError } = useSelector(
+    (state: any) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+    }
+  }, [user, isSuccess, message, isError, navigate, dispatch]);
+
+  const onChange = (e: any) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    try {
+      const userData = {
+        email,
+        password,
+      };
+
+      dispatch(login(userData));
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -29,7 +67,7 @@ function Login() {
       </section>
 
       <section className='form'>
-        <form /*onSubmit={onSubmit}*/>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
               type='email'
@@ -39,6 +77,7 @@ function Login() {
               onChange={onChange}
               placeholder='abc@gmail.com'
               name='email'
+              //pattern='^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$'
               required
             />
             <input
