@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import JobPostings from './pages/JobBoardPostings';
 import Login from './pages/Login';
+import Main from './pages/Main';
 import Register from './pages/Register';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path={'/'} element={<Login />} />
+            <Route path={'/'} element={<Main />} />
+            <Route path={'/login'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
             <Route path={'/job-postings'} element={<JobPostings />} />
           </Routes>
