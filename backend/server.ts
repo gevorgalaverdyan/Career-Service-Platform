@@ -8,7 +8,7 @@ const cookieSession = require('cookie-session');
 const db = require('./models/index');
 
 // const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
-const dbConnectionString = `mongodb+srv://root:kgKn3iRJRsGm0wiU@careerserviceplatform.s0mkfuf.mongodb.net/?retryWrites=true&w=majority`;
+const dbConnectionString = `mongodb+srv://DB_User:CSP@careerserviceplatform.oyvurkm.mongodb.net/?retryWrites=true&w=majority`;
 /** Connect to database */
 db.mongoose
   .connect(dbConnectionString, {
