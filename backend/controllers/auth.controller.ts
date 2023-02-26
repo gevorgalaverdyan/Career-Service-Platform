@@ -35,7 +35,13 @@ const register = async (req, res, next) => {
           return;
         }
 
-        res.send({ message: 'User was registered successfully!' });
+        res.status(201).json({
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          token: generateToken(user._id),
+        });
       });
     });
   });
@@ -65,20 +71,18 @@ const login = async (req, res, next) => {
         return res.status(401).send({ message: 'Invalid Password!' });
       }
 
-      const token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
-      });
-
       const authorities = [];
 
       for (let i = 0; i < user.roles.length; i++) {
         authorities.push('ROLE_' + user.roles[i].name.toUpperCase());
       }
 
-      res.status(200).send({
-        id: user._id,
-        roles: authorities,
-        token: token,
+      res.status(200).json({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        token: generateToken(user._id),
       });
     });
 };
@@ -90,6 +94,12 @@ const logout = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, config.secret, {
+    expiresIn: 86400, // 24 hours
+  });
 };
 
 module.exports = { register, login, logout };
