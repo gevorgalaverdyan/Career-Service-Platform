@@ -78,6 +78,7 @@ const login = async (req, res, next) => {
       res.status(200).send({
         id: user._id,
         roles: authorities,
+        token: token,
       });
     });
 };
