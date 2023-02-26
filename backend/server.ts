@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 8000;
+const { errorHandler } = require('./middleware/errorMiddleware');
 // const { errorHandler } = require('./middleware/errorMiddleware');
 // const dbConfig = require('./config/db.config');
 const cookieSession = require('cookie-session');
@@ -53,5 +54,5 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// app.use(errorHandler);
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+app.use(errorHandler);
+app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));

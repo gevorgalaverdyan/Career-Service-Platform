@@ -18,6 +18,19 @@ export const register = createAsyncThunk(
   'auth/register',
   async (user: any, thunkAPI: any) => {
     console.log(user);
+
+    try {
+      return await authService.register(user);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
   }
 );
 
