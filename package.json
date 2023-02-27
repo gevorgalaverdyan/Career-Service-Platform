@@ -5,6 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "build": "tsc",
+    "test": "jest --watchAll --verbose",
     "start": "node backend/server.ts",
     "server": "nodemon backend/server.ts",
     "client": "npm start --prefix frontend",
@@ -22,8 +23,11 @@
   },
   "homepage": "https://github.com/gevorgalaverdyan/Career-Service-Platform#readme",
   "devDependencies": {
+    "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
+    "jest": "^29.4.3",
     "nodemon": "^2.0.20",
+    "ts-jest": "^29.0.5",
     "typescript": "^5.0.0-dev.20230217"
   },
   "dependencies": {

@@ -2,13 +2,14 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 8000;
+const { errorHandler } = require('./middleware/errorMiddleware');
 // const { errorHandler } = require('./middleware/errorMiddleware');
 // const dbConfig = require('./config/db.config');
 const cookieSession = require('cookie-session');
 const db = require('./models/index');
 
 // const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
-const dbConnectionString = `mongodb+srv://root:kgKn3iRJRsGm0wiU@careerserviceplatform.s0mkfuf.mongodb.net/?retryWrites=true&w=majority`;
+const dbConnectionString = `mongodb+srv://DB_User:CSP@careerserviceplatform.oyvurkm.mongodb.net/?retryWrites=true&w=majority`;
 /** Connect to database */
 db.mongoose
   .connect(dbConnectionString, {
@@ -49,9 +50,9 @@ if (process.env.NODE_ENV === 'production') {
   );
 } else {
   app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Welcome to Support Desk API' });
+    res.status(200).json({ message: 'Welcome to  Careers Concordia API' });
   });
 }
 
-// app.use(errorHandler);
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+app.use(errorHandler);
+app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
