@@ -1,0 +1,83 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+  }
+  
+  .profile-picture {
+    margin-right: 20px;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-info h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .profile-info p {
+    margin: 5px 0;
+  }
+  
+  .profile-info h3 {
+    margin-top: 20px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 20px 25px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .links {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .links:hover {
+    text-decoration: underline;
+  }
+
+  .profile-button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 22px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 75px;
+    cursor: pointer;
+    border-radius: 10px; /* add rounded edges */
+    font-weight: bold; /* make text bold */
+  }
+  
+  .profile-button:hover {
+    background-color: gray; /* change background color on hover */
+    border-radius: 15px; /* increase rounded edges on hover */
+  }
