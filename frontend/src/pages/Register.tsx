@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import './userTypeStyles.css';
+import './styles/userTypeStyles.css';
 
 function Register() {
   const [formData, setFormData] = useState({

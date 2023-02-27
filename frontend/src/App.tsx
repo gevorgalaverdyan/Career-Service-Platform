@@ -6,6 +6,8 @@ import Header from './components/Header';
 import JobPostings from './pages/JobBoardPostings';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import EditProfile from './pages/EditProfile';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path={'/'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
             <Route path={'/job-postings'} element={<JobPostings />} />
+            <Route path={'/edit-profile'} element={<EditProfile />} />
+            <Route path={'/user-profile'} element={<UserProfile />} />
           </Routes>
         </div>
       </Router>
