@@ -1,4 +1,4 @@
-const userInfoController = require('..controllers/user-info.controller');
+const userInfoController = require('../controllers/user-info.controller');
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
