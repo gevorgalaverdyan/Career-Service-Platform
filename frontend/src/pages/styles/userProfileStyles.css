@@ -52,6 +52,10 @@
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
+
+  .fields {
+    font-weight: bold;
+  }
   
   .links {
     color: blue;
@@ -81,3 +85,4 @@
     background-color: gray; /* change background color on hover */
     border-radius: 15px; /* increase rounded edges on hover */
   }
+
