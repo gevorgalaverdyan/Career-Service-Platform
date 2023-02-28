@@ -34,12 +34,6 @@ function UserProfile() {
 
         <h2 className='documents-heading'>Documents</h2>
         <table>
-          <thead>
-            <tr>
-              <th>Document Type</th>
-              <th>Download Link</th>
-            </tr>
-          </thead>
           <tbody>
             <tr>
               <td className= 'fields'>Resume</td>
