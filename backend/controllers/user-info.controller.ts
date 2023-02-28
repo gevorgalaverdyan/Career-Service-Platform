@@ -3,26 +3,27 @@ const User = db.user;
 const Role = db.role;
 
 const getUserById = async (req, res) => {
-    User.findOne({
-        _id: (req.params.id)
-    })
-    .populate('roles', '-__v')
+  console.log(req.params.id);
+  User.findOne({
+    _id: db.mongoose.Types.ObjectId(req.params.id),
+  })
+    .populate('roles')
     .exec((err, user) => {
-        if (err) {
-            res.status(500).send({ message: err});
-            return;
-        }
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
 
-        if (!user) {
-            return res.status(404).send({ message: 'User Not Found'})
-        }
+      if (!user) {
+        return res.status(404).send({ message: 'User Not Found' });
+      }
 
-        res.status(200).json({
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
-        });
+      res.status(200).json({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      });
     });
 };
-module.exports = {getUserById};
+module.exports = { getUserById };
