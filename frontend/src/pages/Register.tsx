@@ -1,26 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import './userTypeStyles.css';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
+import './styles/userTypeStyles.css';
+
 
 function Register() {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     password2: '',
     userType: 'student',
   });
 
-  const { name, email, password, password2, userType } = formData;
+  const navigate = useNavigate();
+
+  const { firstName, lastName, email, password, password2, userType } =
+    formData;
+
+  const dispatch: any = useDispatch();
+
+  const { user, isLoading, isSuccess, message, isError } = useSelector(
+    (state: any) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const onChange = (e: any) => {
-    console.log(e.target.value)
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (password !== password2) {
+      toast.error('Passwords must match');
+    } else {
+      const userData = {
+        firstName,
+        lastName,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -33,16 +80,26 @@ function Register() {
       </section>
 
       <section className='form'>
-        <form /*onSubmit={onSubmit}*/>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
               type='text'
               className='form-control'
-              id='name'
-              value={name}
+              id='firstName'
+              value={firstName}
               onChange={onChange}
-              placeholder='Enter your name'
-              name='name'
+              placeholder='Enter your first name'
+              name='firstName'
+              required
+            />
+            <input
+              type='text'
+              className='form-control'
+              id='lastName'
+              value={lastName}
+              onChange={onChange}
+              placeholder='Enter your last name'
+              name='lastName'
               required
             />
             <input
@@ -89,8 +146,8 @@ function Register() {
                 type='radio'
                 name='userType'
                 id='option-2'
-                checked={userType === 'recruiter'}
-                value={'recruiter'}
+                checked={userType === 'employer'}
+                value={'employer'}
                 onChange={onChange}
               />
 
@@ -101,7 +158,7 @@ function Register() {
 
               <label htmlFor='option-2' className='option option-2'>
                 <div className='dot'></div>
-                <span>Recruiter</span>
+                <span>Employer</span>
               </label>
             </div>
           </div>
