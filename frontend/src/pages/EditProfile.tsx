@@ -1,8 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 function EditProfile() {
+  const { user, isLoading, isSuccess, message, isError } = useSelector(
+    (state: any) => state.auth
+  );
+
+  //usestate
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+  }, [user, isSuccess, message, isError]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  //* check for types TS
+  //onchange
+  //onsubmit "const user {}""
+
   return (
     <>
       <section className='heading'>
@@ -23,6 +46,8 @@ function EditProfile() {
                 id='first_name'
                 placeholder='Enter your name'
                 name='firstName'
+                // value={first} [*first, setfirst]
+                // onChange={(e)=>{setfirst(e.text)})}
                 required
               />
             </label>
