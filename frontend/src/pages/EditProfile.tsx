@@ -7,12 +7,10 @@ import Spinner from '../components/Spinner';
 
 function EditProfile() {
   const { user, isLoading, isSuccess, message, isError } = useSelector(
-    (state: any) => state.auth 
+    (state: any) => state.auth
   );
 
-  //It initializes formData to an object with properties for the user's 
-  //first name, last name, email, password, and confirm password.
-  const [formData, setFormData] = useState({ //defining a setFormData function that can be used to update the state.
+  const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -20,26 +18,28 @@ function EditProfile() {
     confirmPassword: '',
   });
 
-  //* check for types TS
-  
-  const onChange = (e: any) => {
-    setFormData({
-      ...formData, // spread operator, reate a copy of the object and modify any of its properties without changing the original object.
-      [e.target.name]: e.target.value, //new object that has the same properties as formData, but with a new value for the property that matches the name of the input field that triggered the function.
-    });
-  };
-  
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    // Do something with the formData object, like sending it to the server for validation
-    console.log(formData);
-  };
-  
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
+
+    //same as login dispatch
   }, [user, isSuccess, message, isError]);
+
+  //* check for types TS
+
+  const onChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    console.log(formData);
+  };
 
   if (isLoading) {
     return <Spinner />;
