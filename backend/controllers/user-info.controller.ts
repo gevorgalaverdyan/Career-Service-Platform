@@ -29,10 +29,10 @@ const getUserById = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    console.log(req.param);
+    console.log(req.param.id);
     User.findOneAndUpdate(
-        req.params.id,
-        req.params
+        {_id:req.params.id},
+        req.body
     )
     .populate('roles', '-__v')
     .exec((err, user) => {
@@ -49,4 +49,4 @@ const updateUser = async (req, res) => {
 });
 
 }
-module.exports = { getUserById };
+module.exports = { getUserById, updateUser };
