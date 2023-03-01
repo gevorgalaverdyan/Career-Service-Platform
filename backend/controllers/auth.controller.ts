@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
         }
 
         res.status(201).json({
-          _id: user._id,
+          userId: user.userId,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -71,18 +71,22 @@ const login = async (req, res, next) => {
         return res.status(401).send({ message: 'Invalid Password!' });
       }
 
+      var token = generateToken(user._id);
+
       const authorities = [];
 
       for (let i = 0; i < user.roles.length; i++) {
         authorities.push('ROLE_' + user.roles[i].name.toUpperCase());
       }
 
+      req.session.token = token;
+
       res.status(200).json({
-        _id: user._id,
+        userId: user.userId,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        token: generateToken(user._id),
+        token: token,
       });
     });
 };
