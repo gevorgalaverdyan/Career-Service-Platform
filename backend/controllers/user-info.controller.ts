@@ -44,8 +44,13 @@ const updateUser = async (req, res) => {
     if (!user) {
     return res.status(404).send({ message: 'User Not Found' });
     }
-
-    res.status(200).send(user);
+ 
+    res.status(200).json({
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
 });
 
 }
