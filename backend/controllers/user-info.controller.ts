@@ -7,7 +7,7 @@ const getUserById = async (req, res) => {
   User.findOne({
     _id: db.mongoose.Types.ObjectId(req.params.id),
   })
-    .populate('roles')
+    .populate('roles', '-__v')
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -25,5 +25,28 @@ const getUserById = async (req, res) => {
         email: user.email,
       });
     });
+
 };
+
+const updateUser = async (req, res) => {
+    console.log(req.param);
+    User.findOneAndUpdate(
+        req.params.id,
+        req.params
+    )
+    .populate('roles', '-__v')
+    .exec((err, user) => {
+    if (err) {
+    res.status(500).send({ message: err });
+    return;
+    }
+
+    if (!user) {
+    return res.status(404).send({ message: 'User Not Found' });
+    }
+
+    res.status(200).send(user);
+});
+
+}
 module.exports = { getUserById };
