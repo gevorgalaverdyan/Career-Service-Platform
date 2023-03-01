@@ -5,6 +5,7 @@ mongoose.Promise = global.Promise;
 
 const user = require('./user.model');
 const role = require('./role.model');
+const counter = require('./counter.model');
 
 const ROLES = ['student', 'employer', 'admin'];
 
@@ -31,6 +32,7 @@ const db = {
   role,
   user,
   ROLES,
+  counter,
   initial,
 };
 
