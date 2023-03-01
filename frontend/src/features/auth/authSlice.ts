@@ -34,6 +34,26 @@ export const register = createAsyncThunk(
   }
 );
 
+export const update = createAsyncThunk(
+  'auth/update',
+  async (user: any, thunkAPI: any) => {
+    console.log(user);
+
+    try {
+      return await authService.update(user, user._id);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //login
 export const login = createAsyncThunk(
   'auth/login',
@@ -105,6 +125,20 @@ export const authSlice = createSlice({
         state.message =
           typeof action.payload === 'string' ? action.payload : '';
         state.user = null;
+      })
+      .addCase(update.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(update.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(update.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message =
+          typeof action.payload === 'string' ? action.payload : '';
       });
   },
 });

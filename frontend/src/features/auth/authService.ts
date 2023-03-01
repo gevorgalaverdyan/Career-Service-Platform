@@ -23,6 +23,16 @@ const login = async (userData: any) => {
   return response.data;
 };
 
+//Update
+const update = async (userData: any, _id: string) => {
+  const response = await axios.put(`/user-info/${_id}`, userData);
+
+  if (response.data) {
+    localStorage.setItem('user', JSON.stringify(response.data));
+  }
+  return response.data;
+};
+
 //logout
 const logout = () => {
   localStorage.removeItem('user');
@@ -32,6 +42,7 @@ const authService = {
   register,
   logout,
   login,
+  update,
 };
 
 export default authService;

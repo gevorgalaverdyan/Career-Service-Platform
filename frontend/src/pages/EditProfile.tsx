@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 
 function EditProfile() {
+
+  const dispatch: any = useDispatch();
+
   const { user, isLoading, isSuccess, message, isError } = useSelector(
     (state: any) => state.auth
   );
@@ -17,6 +20,8 @@ function EditProfile() {
     password: '',
     confirmPassword: '',
   });
+
+  const {firstName, lastName, email, password, confirmPassword} = formData;
 
   useEffect(() => {
     if (isError) {
@@ -37,6 +42,13 @@ function EditProfile() {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
+    try {
+      const _id = user?._id;
+      const userData = {firstName, lastName, email, _id}
+      
+    } catch (error) {
+      
+    }
 
     console.log(formData);
   };
@@ -55,7 +67,7 @@ function EditProfile() {
       </section>
 
       <section className='form'>
-        <form /*onSubmit={onSubmit}*/>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <label htmlFor='first_name'>
               First Name
