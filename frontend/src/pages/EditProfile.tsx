@@ -4,9 +4,11 @@ import './styles/userTypeStyles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { update, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
-
+  const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
   const { user, isLoading, isSuccess, message, isError } = useSelector(
@@ -14,22 +16,27 @@ function EditProfile() {
   );
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
     password: '',
     confirmPassword: '',
   });
 
-  const {firstName, lastName, email, password, confirmPassword} = formData;
+  const { firstName, lastName, email, password, confirmPassword } = formData;
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
+    if (isSuccess) {
+      navigate('/user-profile');
+    }
+
+    dispatch(reset());
     //same as login dispatch
-  }, [user, isSuccess, message, isError]);
+  }, [user, isSuccess, message, isError, navigate, dispatch]);
 
   //* check for types TS
 
@@ -43,14 +50,17 @@ function EditProfile() {
   const onSubmit = (e: any) => {
     e.preventDefault();
     try {
-      const _id = user?._id;
-      const userData = {firstName, lastName, email, _id}
-      
-    } catch (error) {
-      
-    }
+      if (!user) {
+        throw Error('No User | Not signed in');
+      }
 
-    console.log(formData);
+      const _id = user?._id;
+      const userData = { firstName, lastName, email, _id };
+
+      dispatch(update(userData));
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   if (isLoading) {
@@ -108,7 +118,7 @@ function EditProfile() {
                 required
               />
             </label>
-            <label htmlFor='passsword'>
+            {/* <label htmlFor='passsword'>
               Password
               <input
                 type='password'
@@ -133,7 +143,7 @@ function EditProfile() {
                 onChange={onChange}
                 required
               />
-            </label>
+            </label> */}
 
             <label>Resume</label>
             <input type='file' accept='.pdf,.doc,.docx' />
