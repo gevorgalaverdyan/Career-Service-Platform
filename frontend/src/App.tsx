@@ -9,6 +9,7 @@ import Main from './pages/Main';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import UserProfile from './pages/UserProfile';
+import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 
             <Route path={'/edit-profile'} element={<EditProfile />} /> {/*These Routes should also be protected*/}
             <Route path={'/user-profile'} element={<UserProfile />} />
+            <Route path={'/posting'} element={<JobPosting />} />
           </Routes>
         </div>
       </Router>
