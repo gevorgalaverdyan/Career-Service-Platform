@@ -1,8 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 function EditProfile() {
+  const { user, isLoading, isSuccess, message, isError } = useSelector(
+    (state: any) => state.auth 
+  );
+
+  //It initializes formData to an object with properties for the user's 
+  //first name, last name, email, password, and confirm password.
+  const [formData, setFormData] = useState({ //defining a setFormData function that can be used to update the state.
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  //* check for types TS
+  
+  const onChange = (e: any) => {
+    setFormData({
+      ...formData, // spread operator, reate a copy of the object and modify any of its properties without changing the original object.
+      [e.target.name]: e.target.value, //new object that has the same properties as formData, but with a new value for the property that matches the name of the input field that triggered the function.
+    });
+  };
+  
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    // Do something with the formData object, like sending it to the server for validation
+    console.log(formData);
+  };
+  
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+  }, [user, isSuccess, message, isError]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className='heading'>
@@ -23,6 +65,8 @@ function EditProfile() {
                 id='first_name'
                 placeholder='Enter your name'
                 name='firstName'
+                value={formData.firstName}
+                onChange={onChange}
                 required
               />
             </label>
@@ -34,6 +78,8 @@ function EditProfile() {
                 id='last_name'
                 placeholder='Enter your name'
                 name='lastName'
+                value={formData.lastName}
+                onChange={onChange}
                 required
               />
             </label>
@@ -45,6 +91,8 @@ function EditProfile() {
                 id='email'
                 placeholder='abc@gmail.com'
                 name='email'
+                value={formData.email}
+                onChange={onChange}
                 required
               />
             </label>
@@ -56,6 +104,8 @@ function EditProfile() {
                 id='password'
                 className='form-control'
                 placeholder='Password'
+                value={formData.password}
+                onChange={onChange}
                 required
               />
             </label>
@@ -67,6 +117,8 @@ function EditProfile() {
                 id='confirm_password'
                 className='form-control'
                 placeholder='Confirm Password'
+                value={formData.confirmPassword}
+                onChange={onChange}
                 required
               />
             </label>

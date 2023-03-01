@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
 import './styles/userProfileStyles.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 function UserProfile() {
+  const { user, isLoading, isSuccess, message, isError } = useSelector(
+    (state: any) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+  }, [user, isSuccess, message, isError]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className='heading'>
@@ -14,39 +31,29 @@ function UserProfile() {
         </h1>
       </section>
       <div className='profile-info'>
-        <h2>Student Info</h2>
+        <h2>Information</h2>
         <table>
           <tbody>
             <tr>
-              <td>First Name</td>
-              <td>John</td>
+              <td className='fields'>First Name</td>
+              <td>{user.firstName}</td>
             </tr>
             <tr>
-              <td>Last Name</td>
-              <td>Doe</td>
+              <td className='fields'>Last Name</td>
+              <td>{user.lastName}</td>
             </tr>
             <tr>
-              <td>Email</td>
-              <td>johndoe@example.com</td>
-            </tr>
-            <tr>
-              <td>Password:</td>
-              <td>*********</td>
+              <td className='fields'>Email</td>
+              <td>{user.email}</td>
             </tr>
           </tbody>
         </table>
 
         <h2 className='documents-heading'>Documents</h2>
         <table>
-          <thead>
-            <tr>
-              <th>Document Type</th>
-              <th>Download Link</th>
-            </tr>
-          </thead>
           <tbody>
             <tr>
-              <td>Resume</td>
+              <td className='fields'>Resume</td>
               <td>
                 <a className='links' href='path/to/resume.pdf' download>
                   Download Resume
@@ -54,7 +61,7 @@ function UserProfile() {
               </td>
             </tr>
             <tr>
-              <td>Cover Letter</td>
+              <td className='fields'>Cover Letter</td>
               <td>
                 <a className='links' href='path/to/cover_letter.pdf' download>
                   Download Cover Letter
@@ -62,7 +69,7 @@ function UserProfile() {
               </td>
             </tr>
             <tr>
-              <td>Transcript</td>
+              <td className='fields'>Transcript</td>
               <td>
                 <a className='links' href='path/to/transcript.pdf' download>
                   Download Transcript
