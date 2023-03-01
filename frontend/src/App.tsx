@@ -9,6 +9,7 @@ import Main from './pages/Main';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import UserProfile from './pages/UserProfile';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -20,8 +21,12 @@ function App() {
             <Route path={'/'} element={<Main />} />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
-            <Route path={'/job-postings'} element={<JobPostings />} />
-            <Route path={'/edit-profile'} element={<EditProfile />} />
+
+            <Route path={'/job-postings'} element={<PrivateRoute />}>{/*Maybe StudentRoute, AdminRoute, CompanyRoute?*/}
+              <Route path={'/job-postings'} element={<JobPostings />} />
+            </Route>
+
+            <Route path={'/edit-profile'} element={<EditProfile />} /> {/*These Routes should also be protected*/}
             <Route path={'/user-profile'} element={<UserProfile />} />
           </Routes>
         </div>

@@ -21,7 +21,6 @@ function Header() {
   };
 
   //this will be changed and put in REDUX
-  //GET request with user ID
   const onUserProfile = () =>{
     navigate('/user-profile');
   }
