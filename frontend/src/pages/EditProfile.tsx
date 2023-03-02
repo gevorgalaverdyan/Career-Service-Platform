@@ -1,45 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { update, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
+  const navigate = useNavigate();
+  const dispatch: any = useDispatch();
+
   const { user, isLoading, isSuccess, message, isError } = useSelector(
-    (state: any) => state.auth 
+    (state: any) => state.auth
   );
 
-  //It initializes formData to an object with properties for the user's 
-  //first name, last name, email, password, and confirm password.
-  const [formData, setFormData] = useState({ //defining a setFormData function that can be used to update the state.
-    firstName: '',
-    lastName: '',
-    email: '',
+  const [formData, setFormData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
     password: '',
     confirmPassword: '',
   });
 
-  //* check for types TS
-  
-  const onChange = (e: any) => {
-    setFormData({
-      ...formData, // spread operator, reate a copy of the object and modify any of its properties without changing the original object.
-      [e.target.name]: e.target.value, //new object that has the same properties as formData, but with a new value for the property that matches the name of the input field that triggered the function.
-    });
-  };
-  
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    // Do something with the formData object, like sending it to the server for validation
-    console.log(formData);
-  };
-  
+  const { firstName, lastName, email, password, confirmPassword } = formData;
+
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
-  }, [user, isSuccess, message, isError]);
+
+    if (isSuccess) {
+      navigate('/user-profile');
+    }
+
+    dispatch(reset());
+    //same as login dispatch
+  }, [user, isSuccess, message, isError, navigate, dispatch]);
+
+  //* check for types TS
+
+  const onChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    try {
+      if (!user) {
+        throw Error('No User | Not signed in');
+      }
+
+      const _id = user?._id;
+      const userData = { firstName, lastName, email, _id };
+
+      dispatch(update(userData));
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -55,7 +77,7 @@ function EditProfile() {
       </section>
 
       <section className='form'>
-        <form /*onSubmit={onSubmit}*/>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <label htmlFor='first_name'>
               First Name
@@ -96,7 +118,7 @@ function EditProfile() {
                 required
               />
             </label>
-            <label htmlFor='passsword'>
+            {/* <label htmlFor='passsword'>
               Password
               <input
                 type='password'
@@ -121,7 +143,7 @@ function EditProfile() {
                 onChange={onChange}
                 required
               />
-            </label>
+            </label> */}
 
             <label>Resume</label>
             <input type='file' accept='.pdf,.doc,.docx' />

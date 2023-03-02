@@ -25,28 +25,23 @@ const getUserById = async (req, res) => {
         email: user.email,
       });
     });
-
 };
 
 const updateUser = async (req, res) => {
-    console.log(req.param.id);
-    User.findOneAndUpdate(
-        {_id:req.params.id},
-        req.body
-    )
+  console.log(req.params.id);
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .populate('roles', '-__v')
     .exec((err, user) => {
-    if (err) {
-    res.status(500).send({ message: err });
-    return;
-    }
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
 
-    if (!user) {
-    return res.status(404).send({ message: 'User Not Found' });
-    }
+      if (!user) {
+        return res.status(404).send({ message: 'User Not Found' });
+      }
 
-    res.status(200).send(user);
-});
-
-}
+      res.status(200).send(user);
+    });
+};
 module.exports = { getUserById, updateUser };
