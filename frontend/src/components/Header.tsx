@@ -36,7 +36,7 @@ function Header() {
             <li>
               <button className='btn' onClick={onUserProfile}>
                 <FaUserCircle />
-                {user?.firstName + user?.lastName}
+                {user?.firstName[0] +' '+ user?.lastName[0]}
               </button>
             </li>
             <li>
