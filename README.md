@@ -82,3 +82,8 @@ These are the scripts for running frontend/backend
 <li>"client": "npm start --prefix frontend" → starts frontend</li>
 <li>"dev": "concurrently \"npm run server\" \"npm run client\"" → starts frontend & backend</li></ul></pre>
 
+TODO: 
+- in DB add company for recruiter -> backend guys
+- edit profile should also have this feature
+- same for user profile
+- recruiters shouldn't upload CV...

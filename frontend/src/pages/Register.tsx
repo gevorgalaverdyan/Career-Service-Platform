@@ -7,7 +7,6 @@ import { register, reset } from '../features/auth/authSlice';
 import Spinner from '../components/Spinner';
 import './styles/userTypeStyles.css';
 
-
 function Register() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,11 +15,12 @@ function Register() {
     password: '',
     password2: '',
     userType: 'student',
+    company: '',
   });
 
   const navigate = useNavigate();
 
-  const { firstName, lastName, email, password, password2, userType } =
+  const { firstName, lastName, email, password, password2, userType, company } =
     formData;
 
   const dispatch: any = useDispatch();
@@ -82,6 +82,18 @@ function Register() {
       <section className='form'>
         <form onSubmit={onSubmit}>
           <div className='form-group'>
+            {userType === 'employer' && (
+              <input
+                type='text'
+                name='company'
+                id='company'
+                className='form-control'
+                value={company}
+                onChange={onChange}
+                placeholder='Company Name'
+                required
+              />
+            )}
             <input
               type='text'
               className='form-control'
