@@ -30,9 +30,9 @@ function EditProfile() {
       toast.error(message);
     }
 
-    if (isSuccess) {
-      navigate('/user-profile');
-    }
+    // if (isSuccess) {
+    //   navigate('/user-profile');
+    // }
 
     dispatch(reset());
     //same as login dispatch
@@ -57,6 +57,7 @@ function EditProfile() {
       const _id = user?._id;
       const userData = { firstName, lastName, email, _id };
 
+      navigate('/user-profile');
       dispatch(update(userData));
     } catch (error: any) {
       toast.error(error.message);
