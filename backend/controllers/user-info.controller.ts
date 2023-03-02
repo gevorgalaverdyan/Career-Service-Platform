@@ -2,8 +2,6 @@ const db = require('../models');
 const User = db.user;
 const Role = db.role;
 
-const bcrypt = require('bcryptjs');
-
 const getUserById = async (req, res) => {
   console.log(req.params.id);
   User.findOne({
@@ -30,18 +28,16 @@ const getUserById = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 8);
+  const { firstName, lastName, email, _id } = req.body;
   const user = new User({
     firstName,
     lastName,
     email,
-    password: hashedPassword,
+    _id,
   });
 
-  User.findOneAndUpdate({ _id: req.params.id }, user, { new: true })
-    .populate('roles', '-__v')
-    .exec((err, user) => {
+  User.findOneAndUpdate({ _id: req.params.id }, user, { new: true }).exec(
+    (err, user) => {
       if (err) {
         res.status(500).send({ message: err });
         return;
@@ -52,7 +48,8 @@ const updateUser = async (req, res) => {
       }
 
       res.status(200).send(user);
-    });
+    }
+  );
 };
 
 const deleteUser = async (req, res) => {
