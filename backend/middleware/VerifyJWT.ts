@@ -87,3 +87,7 @@ const authJWT = {
   isAdmin,
   isEmployer,
 };
+
+module.exports = {
+  ...authJWT,
+};
