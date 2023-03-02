@@ -10,3 +10,15 @@ export interface Posting {
     location: string;
   };
 }
+export interface UserProfile {
+    role: 'recruiter' | 'student';
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    companyName?: string;
+    jobTitle?: string;
+    coverLetter?: string;
+    transcript?: string;
+    cv?: string;
+}
