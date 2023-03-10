@@ -41,6 +41,8 @@ app.use(
 // routes
 require('./routes/auth.routes')(app);
 require('./routes/user-info.routes')(app);
+require('./routes/job.routes')(app);
+require('./routes/application.routes')(app);
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {

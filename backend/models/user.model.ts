@@ -24,7 +24,6 @@ userSchema.pre('save', function (next) {
       { new: true, upsert: true }
     )
     .then(function (count) {
-      console.log('...count: ' + JSON.stringify(count));
       doc.userId = count.seq;
       next();
     })
