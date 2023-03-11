@@ -15,7 +15,7 @@ const applicationSchema = mongoose.Schema({
   createdOn: String,
 });
 
-applicationSchema.pre('save', function (next) {
+applicationSchema.pre('save', function(next) {
   var doc = this;
   counter
     .findByIdAndUpdate(
@@ -23,11 +23,11 @@ applicationSchema.pre('save', function (next) {
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     )
-    .then(function (count) {
+    .then(function(count) {
       doc.applicationId = count.seq;
       next();
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.error('counter error-> : ' + error);
       throw error;
     });

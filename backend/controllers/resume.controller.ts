@@ -1,14 +1,15 @@
 const db = require('../models');
+const { getStorage, ref, uploadBytes } = require('firebase/storage');
 const Resume = db.resume;
 const User = db.user;
 
 const createResume = async (req, res, next) => {
-  const { studentId, resume } = req.body;
+  const studentId = req.params.studentId;
   const resumeToCreate = new Resume({
-    resume,
+    studentId,
   });
 
-  User.find({ userId: studentId }).exec((err, student) => {
+  User.findOne({ userId: studentId }).exec((err, student) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -26,52 +27,20 @@ const createResume = async (req, res, next) => {
         return;
       }
 
-      res.status(201).json({
-        studentId: student.userId,
-        resume: createdResume.resume,
+      const path = `files/${student.userId}_${req.file.originalname}`;
+
+      const storageRef = ref(getStorage(), path);
+
+      resumeToCreate.resume = path;
+
+      uploadBytes(storageRef, req.file.buffer).then(snapshot => {
+        console.log(snapshot);
+        res.status(201).json({
+          message: 'Resume succesfully uploaded!',
+        });
       });
     });
   });
 };
 
-const getJobById = async (req, res) => {
-  Job.findOne({
-    jobId: req.params.id,
-  }).exec((err, job) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-
-    if (!job) {
-      return res.status(404).send({ message: 'Job Not Found' });
-    }
-
-    res.status(200).json({
-      jobId: job.jobId,
-      title: job.title,
-      company: job.company,
-      description: job.description,
-      deadline: job.deadline,
-    });
-  });
-};
-
-const getAllJobs = async (req, res) => {
-  Job.find({})
-    .select('jobId title company description deadline -_id')
-    .exec((err, jobs) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-
-      if (!jobs) {
-        return res.status(404).send({ message: 'jobs' });
-      }
-
-      res.status(200).json(jobs);
-    });
-};
-
-module.exports = { getJobById, getAllJobs, createJob };
+module.exports = { createResume };
