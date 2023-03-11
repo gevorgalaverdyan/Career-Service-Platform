@@ -1,15 +1,21 @@
 const express = require('express');
-const dotenv = require('dotenv').config();
 const path = require('path');
+const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
-// const { errorHandler } = require('./middleware/errorMiddleware');
 const { errorHandler } = require('./middleware/errorMiddleware');
-// const dbConfig = require('./config/db.config');
 const cookieSession = require('cookie-session');
-const db = require('./models/index');
 
-// const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
-const dbConnectionString = `mongodb+srv://DB_User:CSP@careerserviceplatform.oyvurkm.mongodb.net/?retryWrites=true&w=majority`;
+const db = require('./models/index');
+const dbConfig = require('./config/db.config');
+
+const firebase = require('firebase/app');
+const firebaseConfig = require('./config/firebase.config');
+const multer = require('multer');
+
+firebase.initializeApp(firebaseConfig);
+const upload = multer({ storage: multer.memoryStorage() });
+
+const dbConnectionString = `${dbConfig.ATLAS}`;
 /** Connect to database */
 db.mongoose
   .connect(dbConnectionString, {
@@ -20,7 +26,7 @@ db.mongoose
     console.log('Successfully connect to MongoDB.');
     db.initial();
   })
-  .catch((err) => {
+  .catch(err => {
     console.error('Connection error', err);
     process.exit();
   });
@@ -41,6 +47,9 @@ app.use(
 // routes
 require('./routes/auth.routes')(app);
 require('./routes/user-info.routes')(app);
+require('./routes/job.routes')(app);
+require('./routes/application.routes')(app);
+require('./routes/resume.routes')(app, upload);
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {
