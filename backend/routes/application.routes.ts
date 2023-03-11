@@ -1,7 +1,7 @@
 const applicationController = require('../controllers/application.controller');
 const verifyJWT = require('../middleware/VerifyJWT');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.get(
     '/application/:id',
     [verifyJWT.verifyToken],
@@ -11,7 +11,7 @@ module.exports = function(app) {
   app.get(
     '/application',
     [verifyJWT.verifyToken],
-    applicationController.getAllApplications
+    applicationController.getApplicationByUserId
   );
 
   app.post(

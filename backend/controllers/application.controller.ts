@@ -99,33 +99,43 @@ const getApplicationById = async (req, res) => {
     });
 };
 
-const getAllApplications = async (req, res) => {
-  Application.find({})
-    .populate('candidate', 'job')
-    .exec((err, applications) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+const getApplicationByUserId = async (req, res) => {
+  User.find({ userId: req.userId }).exec((err, user) => {
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
 
-      if (!applications) {
-        return res.status(404).send({ message: 'Applications not found.' });
-      }
+    Application.find({ candidate: user._id })
+      .populate('candidate', 'job')
+      .exec((err, applications) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
 
-      const applicationsFormatted = applications.map(application => {
-        return {
-          jobId: application.job.jobId,
-          userId: application.candidate.userId,
-          status: application.status,
-          createdOn: application.createdOn,
-          resumeUrl: application.resumeUrl,
-          coverLetterUrl: application.coverLetterUrl,
-          transcriptUrl: application.transcriptUrl,
-        };
+        if (!applications) {
+          return res.status(404).send({ message: 'Applications not found.' });
+        }
+
+        const applicationsFormatted = applications.map((application) => {
+          return {
+            jobId: application.job.jobId,
+            userId: application.candidate.userId,
+            status: application.status,
+            createdOn: application.createdOn,
+            resumeUrl: application.resumeUrl,
+            coverLetterUrl: application.coverLetterUrl,
+            transcriptUrl: application.transcriptUrl,
+          };
+        });
+
+        res.status(200).json(applicationsFormatted);
       });
-
-      res.status(200).json(applicationsFormatted);
-    });
+  });
 };
 
-module.exports = { createApplication, getApplicationById, getAllApplications };
+module.exports = {
+  createApplication,
+  getApplicationById,
+  getApplicationByUserId,
+};
