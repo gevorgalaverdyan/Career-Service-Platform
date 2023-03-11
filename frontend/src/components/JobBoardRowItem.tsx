@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { Posting } from '../common/types';
 
 function JobBoardItem(props: Posting) {
-  const { posting } = props;
+  const { job } = props;
 
   return (
     <div className='ticket'>
-      <Link to={`/ticket/`} className='btn btn-reverse btn-sm'>
+      <Link to={`/ticket/${job.jobId}`} className='btn btn-reverse btn-sm'>
         Apply
       </Link>
-      <div>{posting.deadline}</div>
-      <div>{posting.title}</div>
-      <div>{posting.location}</div>
+      <div>{job.deadline}</div>
+      <div>{job.title}</div>
+      <div>{job.company}</div>
     </div>
   );
 }
