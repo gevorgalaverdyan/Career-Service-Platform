@@ -3,7 +3,7 @@ const resumeController = require('../controllers/resume.controller');
 
 module.exports = function(app, upload) {
   app.post(
-    '/resume/:studentId',
+    '/resume/upload/:studentId',
     [verifyJWT.verifyToken, upload.single('resume')],
     resumeController.createResume
   );
