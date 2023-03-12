@@ -7,7 +7,7 @@ function JobBoardItem(props: Posting) {
 
   return (
     <div className='ticket'>
-      <Link to={`/ticket/${job.jobId}`} className='btn btn-reverse btn-sm'>
+      <Link to={`/posting/${job.jobId}`} className='btn btn-reverse btn-sm'>
         Apply
       </Link>
       <div>{job.deadline}</div>

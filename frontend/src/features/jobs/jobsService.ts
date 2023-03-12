@@ -1,38 +1,27 @@
 import axios from 'axios';
 
-const API_URL = '';
+const API_URL = '/job/';
 
 //create a job
 const createJob = async (jobData: any) => {
   //const res = await axios.post(jobData)
 };
 
+const getJob = async (jobId:String) => {
+  const res = await axios.get(API_URL+jobId);
+
+  return res.data;
+}
+
 const getJobs = async (/*TOKEN?*/) => {
-  //const res = await axios.get(API_URL);
+  const res = await axios.get(API_URL);
 
-  const jobs = [
-    {
-      title: 'test',
-      company: 'test',
-      description: 'Great Job, please apply!',
-      deadline: '2023-04-09',
-      jobId: '2',
-    },
-    {
-      title: 'test1',
-      company: 'test1',
-      description: 'Great J!',
-      deadline: '2023-04-01',
-      jobId: '3',
-    },
-  ];
-
-  return jobs;
-  
+  return res.data;
 };
 
 const jobsService = {
   createJob,
+  getJob,
   getJobs,
 };
 
