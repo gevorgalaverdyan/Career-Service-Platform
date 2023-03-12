@@ -5,6 +5,9 @@ mongoose.Promise = global.Promise;
 
 const user = require('./user.model');
 const role = require('./role.model');
+const job = require('./job.model');
+const application = require('./application.model');
+const resume = require('./resume.model');
 const counter = require('./counter.model');
 
 const ROLES = ['student', 'employer', 'admin'];
@@ -31,6 +34,9 @@ const db = {
   mongoose,
   role,
   user,
+  job,
+  application,
+  resume,
   ROLES,
   counter,
   initial,

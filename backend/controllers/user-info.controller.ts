@@ -5,7 +5,6 @@ const Role = db.role;
 const bcrypt = require('bcryptjs');
 
 const getUserById = async (req, res) => {
-  console.log(req.params.id);
   User.findOne({
     _id: db.mongoose.Types.ObjectId(req.params.id),
   })
