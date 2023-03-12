@@ -24,7 +24,7 @@ function JobBoardPostings() {
         <div>Apply</div>
         <div>Deadline</div>
         <div>Job Title</div>
-        <div>Location</div>
+        <div>Company</div>
       </div>
       {jobs.map((job: any) => (
         <JobBoardItem job={job} key={job.jobId} />
