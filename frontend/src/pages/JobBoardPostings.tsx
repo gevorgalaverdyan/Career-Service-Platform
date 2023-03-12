@@ -1,21 +1,22 @@
 import React from 'react';
 import JobBoardItem from '../components/JobBoardRowItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getJobs } from '../features/jobs/jobsSlice';
+import Spinner from '../components/Spinner';
 
-function JobPostings() {
-  const postings = [
-    {
-      id: 1,
-      title: 'Software Dev',
-      deadline: '12/9/2023',
-      location: 'Montreal',
-    },
-    {
-      id: 2,
-      title: 'It Support',
-      deadline: '5/10/2023',
-      location: 'Montreal',
-    },
-  ];
+function JobBoardPostings() {
+  const { jobs } = useSelector((state: any) => state.jobs);
+
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    dispatch(getJobs());
+  }, [dispatch]);
+
+  if (!jobs) {
+    return <Spinner />;
+  }
 
   return (
     <div className='tickets'>
@@ -23,13 +24,13 @@ function JobPostings() {
         <div>Apply</div>
         <div>Deadline</div>
         <div>Job Title</div>
-        <div>Location</div>
+        <div>Company</div>
       </div>
-      {postings.map((posting) => (
-        <JobBoardItem posting={posting} key={posting.id} />
+      {jobs.map((job: any) => (
+        <JobBoardItem job={job} key={job.jobId} />
       ))}
     </div>
   );
 }
 
-export default JobPostings;
+export default JobBoardPostings;
