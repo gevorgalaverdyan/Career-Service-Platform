@@ -29,6 +29,13 @@ const register = async (req, res, next) => {
       }
 
       user.roles = roles.map((role) => role._id);
+
+      const authorities = [];
+
+      for (let i = 0; i < user.roles.length; i++) {
+        authorities.push('ROLE_' + roles[i].name.toUpperCase());
+      }
+
       user.save((err) => {
         if (err) {
           res.status(500).send({ message: err });
@@ -41,6 +48,7 @@ const register = async (req, res, next) => {
           lastName: user.lastName,
           email: user.email,
           token: generateToken(user._id),
+          roles: authorities,
         });
       });
     });
@@ -87,6 +95,7 @@ const login = async (req, res, next) => {
         lastName: user.lastName,
         email: user.email,
         token: token,
+        roles: authorities,
       });
     });
 };
