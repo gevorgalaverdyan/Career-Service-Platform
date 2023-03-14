@@ -7,4 +7,10 @@ module.exports = function(app, upload) {
     [verifyJWT.verifyToken, upload.single('resume')],
     resumeController.createResume
   );
+  
+  app.put(
+    '/resume/update/:studentId',
+    [verifyJWT.verifyToken, upload.single('resume')],
+    resumeController.updateResume
+  );
 };
