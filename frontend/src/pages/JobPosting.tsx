@@ -44,24 +44,22 @@ function JobPosting() {
   return (
     <div>
       <section className='heading'>
-        <h3 className='title'>Job Item (title + Company)</h3>
+        <h3 className='title'>{job.title}</h3>
       </section>
 
       <table>
         <tbody>
+        <tr>
+            <td className='boldpart'>Company</td>
+            <td>
+            {job.company}
+            </td>
+          </tr>
+          
           <tr>
             <td className='boldpart'>Job Description</td>
             <td>
-              Here we will find the job description information for the
-              job(Location, Location type, Salary, duration, etc.)
-            </td>
-          </tr>
-
-          <tr>
-            <td className='boldpart'>Job Requirements</td>
-            <td>
-              Here we will find the job description information for the
-              job(Location, Location type, Salary, duration, etc.)
+              {job.description}
             </td>
           </tr>
 
@@ -78,7 +76,7 @@ function JobPosting() {
 
           <tr>
             <td className='boldpart'>Expiration Date:</td>
-            <td>10/05/2023</td>
+            <td>{job.deadline}</td>
           </tr>
         </tbody>
       </table>
