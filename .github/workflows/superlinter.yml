@@ -1,15 +1,11 @@
-sudo: false
-
-language: node_js
-
-node_js:
-  - node
-
-install: 
-  - npm ci
-
-script: 
-  - npm test
-
-notifications:
- email: false
+on: push
+jobs: 
+  build-node:
+    runs-on: ubintu-latest
+    container: node:16
+    steps:
+      - run: node --version
+      - run: npm --version
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run dev
