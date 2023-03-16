@@ -8,6 +8,4 @@ jobs:
       - run: npm --version
       - uses: actions/checkout@v3
       - run: npm i ts-node -g
-      - run: npm i --force && cd .\frontend\
-      - run: npm i --force && cd ../
-      - run: npm run dev
+      - run: npm run build
