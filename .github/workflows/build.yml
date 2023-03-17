@@ -8,4 +8,5 @@ jobs:
       - run: npm --version
       - uses: actions/checkout@v3
       - run: npm i ts-node -g
+      - run: npm install --force
       - run: npm run server
