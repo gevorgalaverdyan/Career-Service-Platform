@@ -1,45 +1,44 @@
- .title
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: left;
-    margin: 10px;
-} 
-
-.header
-{
-
+.job-posting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.button
-{
-    background-color: black;
-    border: none;
-    color: white;
-    padding: 22px 70px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 1px;
-    cursor: pointer;
-    border-radius: 10px;
-    font-weight: bold;
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  margin: 10px;
 }
 
-.boldpart
-{
-    font-weight: bold;
-    font-size: large;
+.button {
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 22px 70px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 1px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
-.upload{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    margin: 10px;
-    text-align: left;
-    font-weight: 600;
+.boldpart {
+  font-weight: bold;
+  font-size: large;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin: 10px;
+  text-align: left;
+  font-weight: 600;
 }
