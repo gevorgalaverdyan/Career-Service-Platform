@@ -5,7 +5,7 @@
   it.todo('User should see his information');
 });
 */
-//import app from '../server'
+import {app} from '../server'
 import supertest from 'supertest'
 
 const API_URL = '/auth/';
@@ -19,7 +19,7 @@ describe('login to profile', () => {
           password: "123"
         }
 
-        //await supertest(app).post(`${API_URL}login`).send(userData).expect(404);
+        await supertest(app).post(`${API_URL}login`).send(userData).expect(404);
       });
     });
   });
