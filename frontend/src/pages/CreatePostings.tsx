@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './styles/CreatePostings.css';
+import './styles/JobPostingStyles.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
@@ -28,7 +28,11 @@ function CreatePostings() {
             </label>
             <label htmlFor='job_description'>
                 Job Description
-                <textarea className='Text-area'></textarea>
+                <textarea 
+                style= {{height: 150}}
+                className='Text-area'>
+
+                </textarea>
             </label>
             <label htmlFor='company_name'>
                 Company Name
