@@ -11,6 +11,7 @@ import EditProfile from './pages/EditProfile';
 import UserProfile from './pages/UserProfile';
 import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
+import CreatePostings from './pages/CreatePostings';
 
 function App() {
   return (
@@ -31,8 +32,9 @@ function App() {
             <Route path={'/user-profile'} element={<UserProfile />} />
             
             <Route path={'/posting/:jobId'} element={<PrivateRoute />}>
-              <Route path={'/posting/:jobId'} element={<JobPosting />} />
+              <Route path={'/posting/:jobId'} element={<JobPosting />} />  
             </Route>
+            <Route path={'/create-postings'} element={<CreatePostings />} />
           </Routes>
         </div>
       </Router>
