@@ -11,14 +11,21 @@ export interface Posting {
   };
 }
 export interface UserProfile {
-    role: 'recruiter' | 'student';
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    companyName?: string;
-    jobTitle?: string;
-    coverLetter?: string;
-    transcript?: string;
-    cv?: string;
+  role: 'recruiter' | 'student';
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  companyName?: string;
+  jobTitle?: string;
+  coverLetter?: string;
+  transcript?: string;
+  cv?: string;
+}
+
+export interface Job {
+  title: string;
+  description: string;
+  company: string;
+  deadline: string;
 }
