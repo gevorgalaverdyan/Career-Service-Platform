@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { IoCreateOutline } from 'react-icons/io5';
+import { Job } from '../common/types';
+import { createJob, reset } from '../features/jobs/jobsSlice';
 
 function CreatePostings() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Job>({
     title: '',
     description: '',
     company: '',
@@ -16,6 +18,13 @@ function CreatePostings() {
 
   const { title, description, company, deadline } = formData;
 
+  const { isSuccess, isLoading, isError, message } = useSelector(
+    (state: any) => state.jobs
+  );
+
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
+
   const onChange = (e: any) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -23,10 +32,37 @@ function CreatePostings() {
     }));
   };
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess) {
+      dispatch(reset());
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [isError, message, isSuccess, navigate, dispatch]);
+
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (!title || !description || !company || !deadline) {
+      toast.error('Missing Data');
+    } else {
+      dispatch(createJob(formData))
+        .then(() => {
+          navigate('/');
+          toast.success('New Job created!');
+        })
+        .catch(toast.error);
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
