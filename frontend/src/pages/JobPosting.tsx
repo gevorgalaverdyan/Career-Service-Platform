@@ -5,9 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { getJob } from '../features/jobs/jobsSlice';
+import { createApplication } from '../features/application/applicationSlice';
 
 function JobPosting() {
-  // eslint-disable-next-line
   const isCompany = false; //fixable
 
   //useeffect that will get the ticket from the state through _id
@@ -15,11 +15,14 @@ function JobPosting() {
     (state: any) => state.jobs
   );
 
+  const { user } = useSelector((state: any) => state.auth);
+
   const dispatch: any = useDispatch();
   const { jobId } = useParams();
   const navigate = useNavigate();
 
   const { title, company, description, deadline } = job;
+  const { userId } = user;
 
   useEffect(() => {
     if (isError) {
@@ -33,6 +36,21 @@ function JobPosting() {
       dispatch(getJob(jobId));
     }
   }, [isError, message, jobId, navigate, dispatch]);
+
+  const onClick = (e: any) => {
+    e.preventDefault();
+
+    try {
+      const applicationIDs = {
+        jobId,
+        userId,
+      };
+      
+      dispatch(createApplication(applicationIDs));
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   if (isError) {
     return <h1>ERROR</h1>;
@@ -67,13 +85,9 @@ function JobPosting() {
         </tbody>
       </table>
 
-      <div className='upload'>
-        <label>Resume</label>
-        <input type='file' accept='.pdf,.doc,.docx' />
-      </div>
-      <br />
-
-      <button className='button'>Apply</button>
+      <button className='button' onClick={onClick}>
+        Apply
+      </button>
     </div>
   );
 }
