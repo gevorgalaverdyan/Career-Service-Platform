@@ -4,7 +4,7 @@
   "description": "MERN project",
   "main": "server.ts",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest --detectOpenHandles --verbose",
     "start": "node backend/server.ts",
     "server": "nodemon backend/server.ts",
     "client": "npm start --prefix frontend",
@@ -43,6 +43,7 @@
     "firebase": "^9.17.2",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
+    "mongodb-memory-server": "^8.12.1",
     "mongoose": "^6.8.3",
     "multer": "^1.4.5-lts.1",
     "react": "^18.2.0",

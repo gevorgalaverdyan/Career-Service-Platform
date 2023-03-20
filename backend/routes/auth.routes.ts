@@ -17,4 +17,3 @@ module.exports = function (app) {
 
   app.post('/auth/logout', controller.logout);
 };
-export {};

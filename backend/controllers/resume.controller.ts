@@ -44,4 +44,3 @@ const createResume = async (req, res, next) => {
 };
 
 module.exports = { createResume };
-export {};

@@ -6,4 +6,4 @@ const counter = mongoose.model('counter', {
 });
 
 module.exports = counter;
-export {};
+export{}
