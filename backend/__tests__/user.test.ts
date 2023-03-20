@@ -34,7 +34,7 @@ describe('login to profile', () => {
           password: '123',
         };
 
-        return await supertest(app).post(`${API_URL}login`).send(userData).expect(404);
+        await supertest(app).post(`${API_URL}login`).send(userData).expect(404);
       });
     });
   });
