@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { getJob } from '../features/jobs/jobsSlice';
 
 function JobPosting() {
+  // eslint-disable-next-line
   const isCompany = false; //fixable
 
   //useeffect that will get the ticket from the state through _id
@@ -42,41 +43,26 @@ function JobPosting() {
   }
 
   return (
-    <div>
+    <div className='job-posting'>
       <section className='heading'>
-        <h3 className='title'>{job.title}</h3>
+        <h3 className='title'>{title}</h3>
       </section>
 
       <table>
         <tbody>
-        <tr>
-            <td className='boldpart'>Company</td>
-            <td>
-            {job.company}
-            </td>
-          </tr>
-          
           <tr>
-            <td className='boldpart'>Job Description</td>
-            <td>
-              {job.description}
-            </td>
+            <td className='boldpart'>Company</td>
+            <td>{company}</td>
           </tr>
 
           <tr>
-            <td className='boldpart'>Required Documents</td>
-            <td>
-              <ol>
-                <li>CV</li>
-                <li>Cover Letter</li>
-                <li>Transcript</li>
-              </ol>
-            </td>
+            <td className='boldpart'>Job Description</td>
+            <td>{description}</td>
           </tr>
 
           <tr>
             <td className='boldpart'>Expiration Date:</td>
-            <td>{job.deadline}</td>
+            <td>{deadline}</td>
           </tr>
         </tbody>
       </table>
@@ -84,19 +70,10 @@ function JobPosting() {
       <div className='upload'>
         <label>Resume</label>
         <input type='file' accept='.pdf,.doc,.docx' />
-        <br></br>
-        <label>Cover Letter</label>
-        <input type='file' accept='.pdf,.doc,.docx' />
-        <br></br>
-        <label>Transcript</label>
-        <input type='file' accept='.pdf,.doc,.docx' />
-        <br></br>
       </div>
+      <br />
 
-      <button className='button' style={{ float: 'left' }}>
-        {' '}
-        Apply
-      </button>
+      <button className='button'>Apply</button>
     </div>
   );
 }

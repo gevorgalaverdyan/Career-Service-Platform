@@ -58,6 +58,7 @@ function Register() {
         firstName,
         lastName,
         email,
+        roles: [userType],
         password,
       };
 

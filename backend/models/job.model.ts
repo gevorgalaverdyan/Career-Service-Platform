@@ -30,3 +30,4 @@ jobSchema.pre('save', function (next) {
 const Job = mongoose.model('Job', new mongoose.Schema(jobSchema));
 
 module.exports = Job;
+export {};

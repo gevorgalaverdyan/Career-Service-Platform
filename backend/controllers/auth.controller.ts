@@ -116,3 +116,4 @@ const generateToken = (id) => {
 };
 
 module.exports = { register, login, logout };
+export {};

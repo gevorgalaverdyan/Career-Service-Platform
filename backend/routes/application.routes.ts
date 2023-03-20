@@ -26,3 +26,4 @@ module.exports = function(app) {
   //   applicationController.updateUser
   // );
 };
+export {};

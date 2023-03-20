@@ -5,8 +5,8 @@
   it.todo('User should see his information');
 });
 */
-import {app} from '../server'
-import supertest from 'supertest'
+const {app} = require('../server');
+const supertest = require('supertest')
 
 const API_URL = '/auth/';
 
@@ -15,8 +15,8 @@ describe('login to profile', () => {
     describe('given user does not exist', () => {
       it('should return 404', async () => {
         const userData = {
-          email: 'testJest@gmail.com',
-          password: "123"
+          email: 'ab@gmail.com',
+          password: "ab"
         }
 
         await supertest(app).post(`${API_URL}login`).send(userData).expect(404);

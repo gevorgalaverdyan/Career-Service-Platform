@@ -8,3 +8,4 @@ module.exports = function(app, upload) {
     resumeController.createResume
   );
 };
+export {};

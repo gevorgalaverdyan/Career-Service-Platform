@@ -67,3 +67,4 @@ const getAllJobs = async (req, res) => {
 };
 
 module.exports = { getJobById, getAllJobs, createJob };
+export {};
