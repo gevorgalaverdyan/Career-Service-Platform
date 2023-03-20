@@ -1,14 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import jobsService from './jobsService';
-
-// interface jobsState {
-//   jobs: Array<any>;
-//   job: {};
-//   isError: Boolean;
-//   isSuccess: Boolean;
-//   isLoading: Boolean;
-//   message: string;
-// }
+import { Job } from '../../common/types';
 
 const initialState = {
   jobs: [],
@@ -55,6 +47,19 @@ export const jobsSlice = createSlice({
         state.isError = true;
         state.message =
           typeof action.payload === 'string' ? action.payload : '';
+      })
+      .addCase(createJob.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createJob.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(createJob.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message =
+          typeof action.payload === 'string' ? action.payload : '';
       });
   },
 });
@@ -92,6 +97,25 @@ export const getJobs = createAsyncThunk('jobs/getAll', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const createJob = createAsyncThunk(
+  'jobs/createJob',
+  async (userData: Job, thunkAPI) => {
+    try {
+      const res = await jobsService.createJob(userData);
+      return res;
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const { reset } = jobsSlice.actions;
 export default jobsSlice.reducer;

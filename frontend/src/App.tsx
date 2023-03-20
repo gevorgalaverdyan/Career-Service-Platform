@@ -30,11 +30,12 @@ function App() {
             <Route path={'/edit-profile'} element={<EditProfile />} />{' '}
             {/*These Routes should also be protected*/}
             <Route path={'/user-profile'} element={<UserProfile />} />
-            
             <Route path={'/posting/:jobId'} element={<PrivateRoute />}>
-              <Route path={'/posting/:jobId'} element={<JobPosting />} />  
+              <Route path={'/posting/:jobId'} element={<JobPosting />} />
             </Route>
-            <Route path={'/create-postings'} element={<CreatePostings />} />
+            <Route path={'/create-postings'} element={<PrivateRoute />}>
+              <Route path={'/create-postings'} element={<CreatePostings />} />
+            </Route>
           </Routes>
         </div>
       </Router>
