@@ -27,12 +27,21 @@ function App() {
               {/*Maybe StudentRoute, AdminRoute, CompanyRoute?*/}
               <Route path={'/job-postings'} element={<JobBoardPostings />} />
             </Route>
-            <Route path={'/edit-profile'} element={<EditProfile />} />{' '}
-            {/*These Routes should also be protected*/}
-            <Route path={'/user-profile'} element={<UserProfile />} />
+
+            <Route path={'/edit-profile'} element={<PrivateRoute />}>
+              {/*Maybe StudentRoute, AdminRoute, CompanyRoute?*/}
+              <Route path={'/edit-profile'} element={<EditProfile />} />
+            </Route>
+
+            <Route path={'/user-profile'} element={<PrivateRoute />}>
+              {/*Maybe StudentRoute, AdminRoute, CompanyRoute?*/}
+              <Route path={'/user-profile'} element={<UserProfile />} />
+            </Route>
+
             <Route path={'/posting/:jobId'} element={<PrivateRoute />}>
               <Route path={'/posting/:jobId'} element={<JobPosting />} />
             </Route>
+
             <Route path={'/create-postings'} element={<PrivateRoute />}>
               <Route path={'/create-postings'} element={<CreatePostings />} />
             </Route>
