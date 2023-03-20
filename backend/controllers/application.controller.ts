@@ -131,3 +131,4 @@ module.exports = {
   getApplicationById,
   getApplicationsByUserId,
 };
+export {};

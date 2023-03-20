@@ -91,3 +91,4 @@ const authJWT = {
 module.exports = {
   ...authJWT,
 };
+export {};

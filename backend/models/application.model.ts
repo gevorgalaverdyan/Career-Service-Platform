@@ -39,3 +39,4 @@ const Application = mongoose.model(
 );
 
 module.exports = Application;
+export {};
