@@ -49,6 +49,7 @@ const register = async (req, res, next) => {
           email: user.email,
           token: generateToken(user._id),
           roles: authorities,
+          userId: user.userId,
         });
       });
     });
@@ -96,6 +97,7 @@ const login = async (req, res, next) => {
         email: user.email,
         token: token,
         roles: authorities,
+        userId: user.userId,
       });
     });
 };
