@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { getJob } from '../features/jobs/jobsSlice';
 import { createApplication } from '../features/application/applicationSlice';
+import { reset } from '../features/application/applicationSlice';
 
 function JobPosting() {
   const isCompany = false; //fixable
@@ -14,6 +15,13 @@ function JobPosting() {
   const { job, isLoading, isError, message } = useSelector(
     (state: any) => state.jobs
   );
+
+  const {
+    isLoading: applicationIsLoading,
+    isError: applicationIsError,
+    isSuccess: applicationIsSuccess,
+    message: applicationMessage,
+  } = useSelector((state: any) => state.applications);
 
   const { user } = useSelector((state: any) => state.auth);
 
@@ -37,6 +45,23 @@ function JobPosting() {
     }
   }, [isError, message, jobId, navigate, dispatch]);
 
+  useEffect(() => {
+    if (applicationIsError) {
+      toast.error(applicationMessage);
+    }
+
+    if (applicationIsSuccess) {
+      dispatch(reset());
+      navigate('/job-postings');
+    }
+  }, [
+    applicationIsError,
+    applicationIsSuccess,
+    applicationMessage,
+    navigate,
+    dispatch,
+  ]);
+
   const onClick = (e: any) => {
     e.preventDefault();
 
@@ -45,8 +70,13 @@ function JobPosting() {
         jobId,
         userId,
       };
-      
-      dispatch(createApplication(applicationIDs));
+
+      dispatch(createApplication(applicationIDs))
+        .then(() => {
+          navigate('/job-postings');
+          toast.success('Applied successfully');
+        })
+        .catch(toast.error);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -56,7 +86,7 @@ function JobPosting() {
     return <h1>ERROR</h1>;
   }
 
-  if (isLoading) {
+  if (isLoading || applicationIsLoading) {
     return <Spinner />;
   }
 

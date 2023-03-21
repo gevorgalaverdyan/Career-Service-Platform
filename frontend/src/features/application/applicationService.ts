@@ -8,15 +8,13 @@ const createApplication = async (applicationIDs: any) => {
   return res.data;
 };
 
-//get :id
+//getAppilicationById :id params
 const getJobApplication = async () => {};
 
-//delete :id
-const removeJobApplication = async () => {};
+//getAppilicationForUser(userId) : localStorage
 
 const applicationService = {
   createApplication,
   getJobApplication,
-  removeJobApplication,
 };
 export default applicationService;

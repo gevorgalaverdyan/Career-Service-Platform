@@ -36,7 +36,7 @@ export const createApplication = createAsyncThunk(
   'application/createApplication',
   async (applicationIDs: any, thunkAPI) => {
     try {
-      console.log('REDUX');
+      return await applicationService.createApplication(applicationIDs);
     } catch (error: any) {
       const message =
         (error.response &&
