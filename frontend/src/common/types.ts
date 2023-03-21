@@ -31,10 +31,8 @@ export interface Job {
 }
 
 export interface Application {
-  application: {
-    company: string;
-    deadline: string;
-    title: string;
-    status: string;
-  };
+  company: string;
+  deadline: string;
+  title: string;
+  status: string;
 }
