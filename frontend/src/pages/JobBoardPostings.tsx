@@ -4,17 +4,30 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getJobs } from '../features/jobs/jobsSlice';
 import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function JobBoardPostings() {
-  const { jobs } = useSelector((state: any) => state.jobs);
+  const { jobs, isLoading, isError, message } = useSelector(
+    (state: any) => state.jobs
+  );
 
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getJobs());
-  }, [dispatch]);
+    if (isError) {
+      toast.error(message);
+      if (message === 'No token provided!') {
+        toast.warn('LOGIN AGAIN');
+        navigate('/login');
+      }
+    }
 
-  if (!jobs) {
+    dispatch(getJobs());
+  }, [isError, message, dispatch, navigate]);
+
+  if (isLoading || !jobs) {
     return <Spinner />;
   }
 

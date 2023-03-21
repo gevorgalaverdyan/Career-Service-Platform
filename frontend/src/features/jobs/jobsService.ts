@@ -15,7 +15,7 @@ const getJob = async (jobId: String) => {
   return res.data;
 };
 
-const getJobs = async (/*TOKEN?*/) => {
+const getJobs = async () => {
   const res = await axios.get(API_URL);
 
   return res.data;
