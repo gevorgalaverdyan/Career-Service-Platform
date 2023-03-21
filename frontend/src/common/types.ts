@@ -29,3 +29,12 @@ export interface Job {
   company: string;
   deadline: string;
 }
+
+export interface Application {
+  application: {
+    company: string;
+    deadline: string;
+    title: string;
+    status: string;
+  };
+}

@@ -1,10 +1,19 @@
 import React from 'react';
 import { GrStatusGoodSmall } from 'react-icons/gr';
-
+import { MdWork } from 'react-icons/md';
 function UserApplications() {
   return (
     <>
-      <h1>My Applications</h1>
+      <h1
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <MdWork />
+        My Applications
+      </h1>
       <div className='tickets'>
         <div className='ticket-headings'>
           <div>Job Title</div>
