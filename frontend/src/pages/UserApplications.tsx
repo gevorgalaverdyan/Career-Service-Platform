@@ -1,11 +1,40 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GrStatusGoodSmall } from 'react-icons/gr';
 import { MdWork } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ApplicationItem from '../components/ApplicationItem';
+import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
+import { getAppilicationForUser } from '../features/application/applicationSlice';
 
 function UserApplications() {
-  
+  const { applications, isLoading, isError, message } = useSelector(
+    (state: any) => state.applications
+  );
+
+  const { user } = useSelector((state: any) => state.auth);
+
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+      if (message === 'No token provided!') {
+        toast.warn('LOGIN AGAIN');
+        navigate('/login');
+      }
+    }
+
+    dispatch(getAppilicationForUser(user.userId));
+  }, [isError, message, dispatch, navigate]);
+
+  if (isLoading || !applications) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <h1
@@ -28,21 +57,16 @@ function UserApplications() {
             <GrStatusGoodSmall style={{ color: 'green', marginLeft: '5px' }} />
           </div>
         </div>
-        {/* MAP */}
+        {applications.map((application: any) => (
+          <ApplicationItem
+            title={application.title}
+            status={application.status}
+            company={application.company}
+            deadline={application.deadline}
+            key={application.jobId}
+          />
+        ))}
       </div>
-
-      <button onClick={async(e:any)=>{
-        e.preventDefault();
-        const res = await axios.get('application/user/42');
-        const applications = res.data;
-        applications.map(async (application:any)=>{
-          const { applicationId, jobId, userId, status } = application;
-          const job = await axios.get(`/job/${jobId}`)
-          const jobInfo = job.data;
-          console.log(jobInfo);
-        })
-        
-      }}>get</button>
     </>
   );
 }

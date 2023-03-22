@@ -36,3 +36,12 @@ export interface Application {
   title: string;
   status: string;
 }
+
+export interface AppliedJob {
+  company: String;
+  deadline: String;
+  description: String;
+  jobId: Number | String;
+  status: String;
+  title: String;
+}

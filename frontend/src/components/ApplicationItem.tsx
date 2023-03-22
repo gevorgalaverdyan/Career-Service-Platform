@@ -3,6 +3,7 @@ import { Application } from '../common/types';
 
 function ApplicationItem(props: Application) {
   const { title, deadline, company, status } = props;
+
   return (
     <div className='ticket'>
       <div>{title}</div>
