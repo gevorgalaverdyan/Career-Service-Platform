@@ -29,3 +29,19 @@ export interface Job {
   company: string;
   deadline: string;
 }
+
+export interface Application {
+  company: string;
+  deadline: string;
+  title: string;
+  status: string;
+}
+
+export interface AppliedJob {
+  company: String;
+  deadline: String;
+  description: String;
+  jobId: Number | String;
+  status: String;
+  title: String;
+}

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import applicationService from './applicationService';
 
 const initialState = {
+  applications: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -28,6 +29,21 @@ export const applicationSlice = createSlice({
         state.isError = true;
         state.message =
           typeof action.payload === 'string' ? action.payload : '';
+      })
+      .addCase(getAppilicationForUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAppilicationForUser.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        // @ts-ignore
+        state.applications = action.payload;
+      })
+      .addCase(getAppilicationForUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message =
+          typeof action.payload === 'string' ? action.payload : '';
       });
   },
 });
@@ -37,6 +53,24 @@ export const createApplication = createAsyncThunk(
   async (applicationIDs: any, thunkAPI) => {
     try {
       return await applicationService.createApplication(applicationIDs);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAppilicationForUser = createAsyncThunk(
+  'application/getAppilicationForUser',
+  async (userId: any, thunkAPI) => {
+    try {
+      return await applicationService.getAppilicationForUser(userId);
     } catch (error: any) {
       const message =
         (error.response &&

@@ -12,6 +12,7 @@ import UserProfile from './pages/UserProfile';
 import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePostings from './pages/CreatePostings';
+import UserApplications from './pages/UserApplications';
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
 
             <Route path={'/create-postings'} element={<PrivateRoute />}>
               <Route path={'/create-postings'} element={<CreatePostings />} />
+            </Route>
+            <Route path={'/user-applications'} element={<PrivateRoute />}>
+              <Route path={'/user-applications'} element={<UserApplications />} />
             </Route>
           </Routes>
         </div>
