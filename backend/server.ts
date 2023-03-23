@@ -3,7 +3,6 @@ const path = require('path');
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
 const createServer = require('./utils/app')
-// import createServer from './utils/app.js';
 
 const db = require('./models/index');
 const dbConfig = require('./config/db.config');
@@ -45,3 +44,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
+
+export {};
