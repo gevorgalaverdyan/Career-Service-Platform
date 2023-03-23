@@ -13,6 +13,7 @@ import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePostings from './pages/CreatePostings';
 import UserApplications from './pages/UserApplications';
+import EmployeeJobPostings from './pages/EmployeeJobPostings';
 
 function App() {
   return (
@@ -48,6 +49,10 @@ function App() {
             </Route>
             <Route path={'/user-applications'} element={<PrivateRoute />}>
               <Route path={'/user-applications'} element={<UserApplications />} />
+            </Route>
+
+            <Route path={'/employee-job-postings'} element={<PrivateRoute />}>
+              <Route path={'/employee-job-postings'} element={<EmployeeJobPostings />}></Route>
             </Route>
           </Routes>
         </div>
