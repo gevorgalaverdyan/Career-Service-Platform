@@ -21,24 +21,27 @@ function EditProfile() {
     email: user.email,
     password: '',
     confirmPassword: '',
+    resume: '',
+    companyName: user.companyName,
   });
 
-  const { firstName, lastName, email, password, confirmPassword } = formData;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    resume,
+    companyName,
+  } = formData;
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    // if (isSuccess) {
-    //   navigate('/user-profile');
-    // }
-
     dispatch(reset());
-    //same as login dispatch
   }, [user, isSuccess, message, isError, navigate, dispatch]);
-
-  //* check for types TS
 
   const onChange = (e: any) => {
     setFormData({
@@ -55,7 +58,18 @@ function EditProfile() {
       }
 
       const _id = user?._id;
-      const userData = { firstName, lastName, email, _id };
+      let userData;
+      // const userData = { firstName, lastName, email, _id };
+      if (isEmployer) {
+        userData = { firstName, lastName, email, _id, companyName };
+      } else if (isStudent) {
+        userData = { firstName, lastName, email, _id, resume };
+      }
+      else {
+        toast.error("UserTypeError");
+        return;
+      }
+        
 
       navigate('/user-profile');
       dispatch(update(userData));
@@ -63,6 +77,13 @@ function EditProfile() {
       toast.error(error.message);
     }
   };
+
+  const userRoles = user.roles.map((role: any) =>
+    role.split('_')[1].toLowerCase()
+  );
+
+  const isStudent = userRoles.find((role: any) => role === 'student') != null;
+  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
 
   if (isLoading) {
     return <Spinner />;
@@ -119,44 +140,29 @@ function EditProfile() {
                 required
               />
             </label>
-            {/* <label htmlFor='passsword'>
-              Password
-              <input
-                type='password'
-                name='password'
-                id='password'
-                className='form-control'
-                placeholder='Password'
-                value={formData.password}
-                onChange={onChange}
-                required
-              />
-            </label>
-            <label htmlFor='confirm_password'>
-              Confirm Password
-              <input
-                type='password'
-                name='confirm_password'
-                id='confirm_password'
-                className='form-control'
-                placeholder='Confirm Password'
-                value={formData.confirmPassword}
-                onChange={onChange}
-                required
-              />
-            </label> */}
-
-            <label>Resume</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Cover Letter</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Transcript</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-          </div>
-          <div>
-            <div className='form-group'>
-              <button className='btn btn-block'>Save Changes</button>
-            </div>
+            {isStudent && (
+              <label>
+                Resume
+                <input type='file' name='resume' onChange={onChange} />
+              </label>
+            )}
+            {isEmployer && (
+              <label htmlFor='company_name'>
+                Company Name
+                <input
+                  type='text'
+                  className='form-control'
+                  id='company_name'
+                  placeholder='Enter your company name'
+                  name='companyName'
+                  value={formData.companyName}
+                  onChange={onChange}
+                />
+              </label>
+            )}
+            <button type='submit' className='btn btn-primary'>
+              Save
+            </button>
           </div>
         </form>
       </section>
