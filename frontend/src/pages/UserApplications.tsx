@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { GrStatusGoodSmall } from 'react-icons/gr';
 import { MdWork } from 'react-icons/md';
@@ -52,7 +51,13 @@ function UserApplications() {
           <div>Job Title</div>
           <div>Company</div>
           <div>Deadline</div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             Status
             <GrStatusGoodSmall style={{ color: 'green', marginLeft: '5px' }} />
           </div>
