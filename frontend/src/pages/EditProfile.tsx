@@ -58,18 +58,17 @@ function EditProfile() {
       }
 
       const _id = user?._id;
+      
       let userData;
-      // const userData = { firstName, lastName, email, _id };
+
       if (isEmployer) {
         userData = { firstName, lastName, email, _id, companyName };
       } else if (isStudent) {
         userData = { firstName, lastName, email, _id, resume };
-      }
-      else {
-        toast.error("UserTypeError");
+      } else {
+        toast.error('UserTypeError');
         return;
       }
-        
 
       navigate('/user-profile');
       dispatch(update(userData));

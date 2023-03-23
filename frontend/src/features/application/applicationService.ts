@@ -12,6 +12,7 @@ const createApplication = async (applicationIDs: any) => {
 let appliedJobs: Array<AppliedJob> = [];
 //getAppilicationForUser
 const getAppilicationForUser = async (userId: any) => {
+  appliedJobs.splice(0, appliedJobs.length)
   const res = await axios.get(`${API_URL}user/${userId}`);
   const applications = res.data;
 

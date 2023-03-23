@@ -1,7 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import applicationService from './applicationService';
+import { AppliedJob } from '../../common/types';
 
-const initialState = {
+interface A {
+  applications: Array<AppliedJob>;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: String;
+}
+
+const initialState: A = {
   applications: [],
   isError: false,
   isSuccess: false,
