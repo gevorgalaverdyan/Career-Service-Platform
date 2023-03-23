@@ -22,14 +22,12 @@ function UserProfile() {
     return <Spinner />;
   }
 
+  const userRoles = user.roles.map((role: any) =>
+    role.split('_')[1].toLowerCase()
+  );
 
-  const userRoles = user.roles.map((role:any) => role.split('_')[1].toLowerCase());
-
-  const isStudent = userRoles.find((role:any) => role ==='student') != null;
-  const isEmployer = userRoles.find((role:any) => role ==='employer') != null;
-
-  console.log(isStudent)
-  console.log(isEmployer)
+  const isStudent = userRoles.find((role: any) => role === 'student') != null;
+  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
 
   return (
     <>
@@ -77,14 +75,18 @@ function UserProfile() {
       <div>
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Link className='profile-button' to='/edit-profile'>
+            <Link className='profile-button' to={'/edit-profile'}>
               Edit Profile
             </Link>
             {isStudent && (
-              <Link className='profile-button' to='/user-applications'>My Applications</Link>
+              <Link className='profile-button' to={'/user-applications'}>
+                My Applications
+              </Link>
             )}
             {isEmployer && (
-              <Link className='profile-button' to ='/'>My Jobs</Link>
+              <Link className='profile-button' to={'/'}>
+                My Jobs
+              </Link>
             )}
           </div>
         </div>
