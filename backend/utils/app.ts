@@ -19,6 +19,7 @@ function createServer() {
   );
 
   app.use(errorHandler);
+
   // routes
   require('../routes/auth.routes')(app);
   require('../routes/user-info.routes')(app);
@@ -29,4 +30,4 @@ function createServer() {
   return app;
 }
 
-export default createServer;
+module.exports = createServer ;

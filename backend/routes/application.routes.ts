@@ -14,16 +14,22 @@ module.exports = function(app) {
     applicationController.getApplicationsByUserId
   );
 
+  app.get(
+    '/application/job/:id',
+    [verifyJWT.verifyToken],
+    applicationController.getApplicationsByJobId
+  );
+
   app.post(
     '/application',
     [verifyJWT.verifyToken],
     applicationController.createApplication
   );
 
-  // app.put(
-  //   '/application',
-  //   [verifyJWT.verifyToken],
-  //   applicationController.updateUser
-  // );
+  app.put(
+    '/application/:applicationId',
+    [verifyJWT.verifyToken],
+    applicationController.updateApplication
+  );
 };
 export {};

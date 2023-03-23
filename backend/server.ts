@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
-import createServer from './utils/app';
+const createServer = require('./utils/app')
+// import createServer from './utils/app.js';
 
 const db = require('./models/index');
 const dbConfig = require('./config/db.config');
@@ -28,7 +29,7 @@ db.mongoose
     process.exit();
   });
 
-const app: any = createServer();
+const app = createServer();
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {
