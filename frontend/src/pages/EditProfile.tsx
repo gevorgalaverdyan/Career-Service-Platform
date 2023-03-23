@@ -21,24 +21,20 @@ function EditProfile() {
     email: user.email,
     password: '',
     confirmPassword: '',
+    resume: '',
+    companyName: user.companyName
   });
 
-  const { firstName, lastName, email, password, confirmPassword } = formData;
+  const { firstName, lastName, email, password, confirmPassword, resume, companyName } =
+    formData;
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    // if (isSuccess) {
-    //   navigate('/user-profile');
-    // }
-
     dispatch(reset());
-    //same as login dispatch
   }, [user, isSuccess, message, isError, navigate, dispatch]);
-
-  //* check for types TS
 
   const onChange = (e: any) => {
     setFormData({
@@ -119,44 +115,29 @@ function EditProfile() {
                 required
               />
             </label>
-            {/* <label htmlFor='passsword'>
-              Password
-              <input
-                type='password'
-                name='password'
-                id='password'
-                className='form-control'
-                placeholder='Password'
-                value={formData.password}
-                onChange={onChange}
-                required
-              />
-            </label>
-            <label htmlFor='confirm_password'>
-              Confirm Password
-              <input
-                type='password'
-                name='confirm_password'
-                id='confirm_password'
-                className='form-control'
-                placeholder='Confirm Password'
-                value={formData.confirmPassword}
-                onChange={onChange}
-                required
-              />
-            </label> */}
-
-            <label>Resume</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Cover Letter</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Transcript</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-          </div>
-          <div>
-            <div className='form-group'>
-              <button className='btn btn-block'>Save Changes</button>
-            </div>
+            {user.role === 'student' && (
+              <label>
+                Resume
+                <input type='file' name='resume' onChange={onChange} />
+              </label>
+            )}
+            {user.role === 'recruiter' && (
+              <label htmlFor='company_name'>
+                Company Name
+                <input
+                  type='text'
+                  className='form-control'
+                  id='company_name'
+                  placeholder='Enter your company name'
+                  name='companyName'
+                  value={formData.companyName}
+                  onChange={onChange}
+                />
+              </label>
+            )}
+            <button type='submit' className='btn btn-primary'>
+              Save
+            </button>
           </div>
         </form>
       </section>
