@@ -22,11 +22,18 @@ function EditProfile() {
     password: '',
     confirmPassword: '',
     resume: '',
-    companyName: user.companyName
+    companyName: user.companyName,
   });
 
-  const { firstName, lastName, email, password, confirmPassword, resume, companyName } =
-    formData;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    resume,
+    companyName,
+  } = formData;
 
   useEffect(() => {
     if (isError) {
@@ -51,7 +58,18 @@ function EditProfile() {
       }
 
       const _id = user?._id;
-      const userData = { firstName, lastName, email, _id };
+      let userData;
+      // const userData = { firstName, lastName, email, _id };
+      if (isEmployer) {
+        userData = { firstName, lastName, email, _id, companyName };
+      } else if (isStudent) {
+        userData = { firstName, lastName, email, _id, resume };
+      }
+      else {
+        toast.error("UserTypeError");
+        return;
+      }
+        
 
       navigate('/user-profile');
       dispatch(update(userData));
@@ -59,6 +77,13 @@ function EditProfile() {
       toast.error(error.message);
     }
   };
+
+  const userRoles = user.roles.map((role: any) =>
+    role.split('_')[1].toLowerCase()
+  );
+
+  const isStudent = userRoles.find((role: any) => role === 'student') != null;
+  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
 
   if (isLoading) {
     return <Spinner />;
@@ -115,13 +140,13 @@ function EditProfile() {
                 required
               />
             </label>
-            {user.role === 'student' && (
+            {isStudent && (
               <label>
                 Resume
                 <input type='file' name='resume' onChange={onChange} />
               </label>
             )}
-            {user.role === 'recruiter' && (
+            {isEmployer && (
               <label htmlFor='company_name'>
                 Company Name
                 <input

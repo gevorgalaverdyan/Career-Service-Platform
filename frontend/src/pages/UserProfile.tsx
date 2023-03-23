@@ -26,10 +26,10 @@ function UserProfile() {
   const userRoles = user.roles.map((role:any) => role.split('_')[1].toLowerCase());
 
   const isStudent = userRoles.find((role:any) => role ==='student') != null;
-  const isEmplyer = userRoles.find((role:any) => role ==='employer') != null;
+  const isEmployer = userRoles.find((role:any) => role ==='employer') != null;
 
   console.log(isStudent)
-  console.log(isEmplyer)
+  console.log(isEmployer)
 
   return (
     <>
@@ -65,7 +65,7 @@ function UserProfile() {
                 </td>
               </tr>
             )}
-            {isEmplyer && (
+            {isEmployer && (
               <tr>
                 <td className='fields'>Company Name</td>
                 <td>{user.companyName}</td>
@@ -81,10 +81,10 @@ function UserProfile() {
               Edit Profile
             </Link>
             {isStudent && (
-              <button className='profile-button'>My Applications</button>
+              <Link className='profile-button' to='/user-applications'>My Applications</Link>
             )}
-            {isEmplyer && (
-              <button className='profile-button'>My Jobs</button>
+            {isEmployer && (
+              <Link className='profile-button' to ='/'>My Jobs</Link>
             )}
           </div>
         </div>
