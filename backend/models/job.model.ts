@@ -3,6 +3,10 @@ const counter = require('./counter.model');
 
 const jobSchema = mongoose.Schema({
   jobId: { type: String },
+  employer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   title: String,
   company: String,
   description: String,

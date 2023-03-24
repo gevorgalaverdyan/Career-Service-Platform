@@ -145,3 +145,4 @@ const deleteResume = async(req, res) => {
 };
 
 module.exports = { createResume, updateResume, deleteResume};
+export {};

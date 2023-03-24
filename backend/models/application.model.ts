@@ -11,7 +11,11 @@ const applicationSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  status: String,
+  status: {
+    type: String,
+        enum : ['PENDING','HIRED', 'DECLINED'],
+        default: 'PENDING'
+  },
   createdOn: String,
 });
 

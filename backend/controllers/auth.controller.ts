@@ -7,12 +7,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const register = async (req, res, next) => {
-  const { firstName, lastName, email, password, roles } = req.body;
+  const { firstName, lastName, email, password, roles, company } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 8);
   const user = new User({
     firstName,
     lastName,
     email,
+    company,
     password: hashedPassword,
   });
 
@@ -47,6 +48,7 @@ const register = async (req, res, next) => {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          company,
           token: generateToken(user._id),
           roles: authorities,
           userId: user.userId,
@@ -95,6 +97,7 @@ const login = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        company: user.company,
         token: token,
         roles: authorities,
         userId: user.userId,
