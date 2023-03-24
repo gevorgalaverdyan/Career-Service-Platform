@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ApplicationItem from '../components/ApplicationItem';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
-import { getAppilicationForUser } from '../features/application/applicationSlice';
+import { getApplicationForUser } from '../features/application/applicationSlice';
 
 function UserApplications() {
   const { applications, isLoading, isError, message } = useSelector(
@@ -27,7 +27,7 @@ function UserApplications() {
       }
     }
 
-    dispatch(getAppilicationForUser(user.userId));
+    dispatch(getApplicationForUser(user.userId));
   }, [isError, message, dispatch, navigate]);
 
   if (isLoading || !applications) {

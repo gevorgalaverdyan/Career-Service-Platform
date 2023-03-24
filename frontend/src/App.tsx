@@ -48,6 +48,10 @@ function App() {
             <Route path={'/create-postings'} element={<PrivateRoute />}>
               <Route path={'/create-postings'} element={<CreatePostings />} />
             </Route>
+
+            {/*
+              Students can view their applications
+            */}
             <Route path={'/user-applications'} element={<PrivateRoute />}>
               <Route
                 path={'/user-applications'}
@@ -55,6 +59,9 @@ function App() {
               />
             </Route>
 
+            {/*
+              View Applicants for a Job
+            */}
             <Route path={'/job-applicants/:jobId'} element={<PrivateRoute />}>
               <Route
                 path={'/job-applicants/:jobId'}

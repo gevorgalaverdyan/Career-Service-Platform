@@ -1,12 +1,15 @@
-import React, {useEffect} from 'react';
-import {BsPeopleFill} from 'react-icons/bs'
+import React, { useEffect } from 'react';
+import { BsPeopleFill } from 'react-icons/bs';
 import JobApplicantItem from '../components/JobApplicantItem';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 function JobApplicants() {
   const jobId = useParams();
-  const dispatch:any = useDispatch();
+  const dispatch: any = useDispatch();
+
+  const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     // if (isError) {
@@ -16,10 +19,9 @@ function JobApplicants() {
     //     navigate('/login');
     //   }
     // }
-
     //dispatch(getApplicantsbyjobid())
-  }, [])
-  
+  }, []);
+
   return (
     <>
       <h1
@@ -31,7 +33,7 @@ function JobApplicants() {
       >
         <BsPeopleFill />
         <pre> </pre>
-        Applicants Board (company)
+        Applicants Board ({user.company})
       </h1>
       <div className='tickets'>
         <div className='ticket-headings'>
@@ -42,8 +44,25 @@ function JobApplicants() {
           <div>Recruit</div>
         </div>
         {/* {'MAP'} */}
-        <JobApplicantItem/>
+        <JobApplicantItem />
       </div>
+      <button
+        onClick={async () => {
+          const res = await axios.get(`/application/job/8`);
+          const data = res.data;
+          let applicantsID: any = [];
+          data.map((application: any) => {
+            const { userId } = application;
+            applicantsID = [...applicantsID, userId];
+          });
+          console.log(data);
+          console.log(applicantsID);
+          const students = await axios.get(`/user-info/${applicantsID[0]}`);
+          console.log(students);
+        }}
+      >
+        Click
+      </button>
     </>
   );
 }
