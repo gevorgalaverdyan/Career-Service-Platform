@@ -93,5 +93,23 @@ export const getApplicationForUser = createAsyncThunk(
   }
 );
 
+export const getApplicantsByJobId = createAsyncThunk(
+  'application/getApplicantsByJobId',
+  async (jobId: Number, thunkAPI) => {
+    try {
+      return await applicationService.getApplicantsByJobId(jobId);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const { reset } = applicationSlice.actions;
 export default applicationSlice.reducer;

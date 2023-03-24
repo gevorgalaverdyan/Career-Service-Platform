@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import JobApplicantItem from '../components/JobApplicantItem';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import { toast } from 'react-toastify';
+import { getApplicantsByJobId } from '../features/application/applicationSlice';
 
 function JobApplicants() {
-  const jobId = useParams();
+  const {jobId} = useParams();
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state: any) => state.auth);
+  const { applicants, isError, message } = useSelector(
+    (state: any) => state.applicants
+  );
 
   useEffect(() => {
-    // if (isError) {
-    //   toast.error(message);
-    //   if (message === 'No token provided!') {
-    //     toast.warn('LOGIN AGAIN');
-    //     navigate('/login');
-    //   }
-    // }
-    //dispatch(getApplicantsbyjobid())
+    if (isError) {
+      toast.error(message);
+      if (message === 'No token provided!') {
+        toast.warn('LOGIN AGAIN');
+        navigate('/login');
+      }
+    }
+    //dispatch(getApplicantsByJobId(jobId));
   }, []);
 
   return (
@@ -46,23 +51,6 @@ function JobApplicants() {
         {/* {'MAP'} */}
         <JobApplicantItem />
       </div>
-      <button
-        onClick={async () => {
-          const res = await axios.get(`/application/job/8`);
-          const data = res.data;
-          let applicantsID: any = [];
-          data.map((application: any) => {
-            const { userId } = application;
-            applicantsID = [...applicantsID, userId];
-          });
-          console.log(data);
-          console.log(applicantsID);
-          const students = await axios.get(`/user-info/${applicantsID[0]}`);
-          console.log(students);
-        }}
-      >
-        Click
-      </button>
     </>
   );
 }
