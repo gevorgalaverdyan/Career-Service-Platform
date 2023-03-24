@@ -22,7 +22,7 @@ function EditProfile() {
     password: '',
     confirmPassword: '',
     resume: '',
-    companyName: user.companyName,
+    company: user.company,
   });
 
   const {
@@ -32,7 +32,7 @@ function EditProfile() {
     password,
     confirmPassword,
     resume,
-    companyName,
+    company,
   } = formData;
 
   useEffect(() => {
@@ -58,11 +58,11 @@ function EditProfile() {
       }
 
       const _id = user?._id;
-      
+
       let userData;
 
       if (isEmployer) {
-        userData = { firstName, lastName, email, _id, companyName };
+        userData = { firstName, lastName, email, _id, company };
       } else if (isStudent) {
         userData = { firstName, lastName, email, _id, resume };
       } else {
@@ -152,10 +152,9 @@ function EditProfile() {
                   type='text'
                   className='form-control'
                   id='company_name'
-                  placeholder='Enter your company name'
                   name='companyName'
-                  value={formData.companyName}
-                  onChange={onChange}
+                  value={formData.company}
+                  disabled
                 />
               </label>
             )}

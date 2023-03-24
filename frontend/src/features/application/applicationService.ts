@@ -3,15 +3,16 @@ import { AppliedJob } from '../../common/types';
 
 const API_URL = '/application/';
 
-//add
+//add application
 const createApplication = async (applicationIDs: any) => {
   const res = await axios.post(API_URL, applicationIDs);
   return res.data;
 };
 
+//array of applied jobs
 let appliedJobs: Array<AppliedJob> = [];
 //getAppilicationForUser
-const getAppilicationForUser = async (userId: any) => {
+const getApplicationForUser = async (userId: any) => {
   appliedJobs.splice(0, appliedJobs.length)
   const res = await axios.get(`${API_URL}user/${userId}`);
   const applications = res.data;
@@ -28,10 +29,16 @@ const getAppilicationForUser = async (userId: any) => {
   return appliedJobs;
 };
 
-//getJobApplicationByID() :id
+//gets the applicants
+const getApplicantsByJobId = async (jobId: Number) => {
+  const res = await axios.get(`${API_URL}job/${jobId}`);
+  const data = res.data;
+  
+  return;
+};
 
 const applicationService = {
   createApplication,
-  getAppilicationForUser,
+  getApplicationForUser,
 };
 export default applicationService;
