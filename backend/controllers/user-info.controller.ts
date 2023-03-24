@@ -1,12 +1,11 @@
 const db = require('../models');
 const User = db.user;
-const Role = db.role;
 
 const bcrypt = require('bcryptjs');
 
 const getUserById = async (req, res) => {
   User.findOne({
-    _id: db.mongoose.Types.ObjectId(req.params.id),
+    userId: req.params.id,
   })
     .populate('roles', '-__v')
     .exec((err, user) => {
@@ -21,10 +20,11 @@ const getUserById = async (req, res) => {
 
       res.status(200).json({
         _id: user._id,
+        userId: user.userId,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        company: user.company
+        company: user.company,
       });
     });
 };
@@ -40,7 +40,7 @@ const updateUser = async (req, res) => {
     password: hashedPassword,
   });
 
-  User.findOneAndUpdate({ _id: req.params.id }, user, { new: true })
+  User.findOneAndUpdate({ userId: req.params.id }, user, { new: true })
     .populate('roles', '-__v')
     .exec((err, user) => {
       if (err) {
@@ -57,7 +57,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  User.deleteOne({ _id: req.params.id })
+  User.deleteOne({ userId: req.params.id })
     .then(res.json('delete success!'))
     .catch(res.json('delete err!'));
 };
