@@ -24,16 +24,18 @@ const getUserById = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        company: user.company
       });
     });
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, company } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 8);
   const user = new User({
     firstName,
     lastName,
+    company,
     email,
     password: hashedPassword,
   });

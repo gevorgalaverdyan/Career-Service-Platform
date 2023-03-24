@@ -5,7 +5,7 @@
   it.todo('User should see his information');
 });
 */
-import createServer from '../utils/app';
+const createServer = require('../utils/app')
 const supertest = require('supertest');
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
