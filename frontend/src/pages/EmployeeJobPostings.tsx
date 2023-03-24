@@ -1,5 +1,5 @@
 import React from 'react';
-import JobBoardItem from '../components/JobBoardRowItem';
+import EmployeeBoardRowItem from '../components/EmployeeBoardRowItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getJobs } from '../features/jobs/jobsSlice';
@@ -58,7 +58,7 @@ function EmployeeJobPostings() {
         </div>
         {jobs.map((job: any) => {
           if (job.company === user.company)
-            return <JobBoardItem job={job} key={job.jobId} />;
+            return <EmployeeBoardRowItem job={job} key={job.jobId} />;
         })}
       </div>
     );
