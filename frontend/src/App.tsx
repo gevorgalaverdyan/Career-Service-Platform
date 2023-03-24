@@ -50,7 +50,7 @@ function App() {
             </Route>
 
             <Route path={'/manage-posting'} element={<PrivateRoute />}>
-              <Route path={'/manage-posting'} element={<ManagePostings />} />
+              <Route path={'/manage-posting/:jobId'} element={<ManagePostings />} />
             </Route>
 
             <Route path={'/user-applications'} element={<PrivateRoute />}>

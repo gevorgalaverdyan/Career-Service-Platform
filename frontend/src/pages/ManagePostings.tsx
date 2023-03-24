@@ -9,28 +9,22 @@ import { Job } from '../common/types';
 import { createJob, reset } from '../features/jobs/jobsSlice';
 
 function ManagePostings() {
-    const [formData, setFormData] = useState<Job>({
-        title: '',
+    
+    const dispatch: any = useDispatch();
+    const navigate = useNavigate();
+
+    const { job, isSuccess, isLoading, isError, message } = useSelector(
+        (state: any) => state.jobs
+    );
+    
+    const [formData, setFormData] = useState({
+        title: job.title,
         description: '',
         company: '',
         deadline: formatDate(new Date()),
     });
 
     const { title, description, company, deadline } = formData;
-
-    const { isSuccess, isLoading, isError, message } = useSelector(
-    (state: any) => state.jobs
-    );
-
-    const dispatch: any = useDispatch();
-    const navigate = useNavigate();
-
-    const onChange = (e: any) => {
-        setFormData((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.value,
-        }));
-    };
 
     useEffect(() => {
         if (isError) {
@@ -43,7 +37,20 @@ function ManagePostings() {
         }
 
         dispatch(reset());
-    }, [isError, message, isSuccess, navigate, dispatch]);
+    }, [job, isError, message, isSuccess, navigate, dispatch]);
+
+
+
+
+
+    const onChange = (e: any) => {
+        setFormData((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+        }));
+    };
+
+
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -84,7 +91,7 @@ function ManagePostings() {
                     className='form-control'
                     id='job_title'
                     placeholder='Enter the job title'
-                    value={title}
+                    value={formData.title}
                     onChange={onChange}
                     required
                 />
