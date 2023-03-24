@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { update, reset } from '../features/auth/authSlice';
-import {
-  updateResume,
-  getResume,
-  uploadResume,
-} from '../features/resume/resumeSlice';
+import { getResume, uploadResume } from '../features/resume/resumeSlice';
 import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
@@ -84,16 +80,7 @@ function EditProfile() {
     const formData = new FormData();
     formData.append('resume', file);
 
-    console.log(user.userId);
-    dispatch(getResume(user.userId));
-
-    if (hasResume) {
-      console.log('Updating resume');
-      dispatch(updateResume({ studentId: user.userId, payload: formData }));
-    } else {
-      console.log('uploading resume');
-      dispatch(uploadResume({ studentId: user.userId, payload: formData }));
-    }
+    dispatch(uploadResume({ studentId: user.userId, payload: formData }));
   };
 
   const userRoles = user.roles.map((role: any) =>

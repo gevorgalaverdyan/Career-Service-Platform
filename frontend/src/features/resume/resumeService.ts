@@ -9,18 +9,8 @@ const getResume = async (studentId: String) => {
   return res.data;
 };
 
-const createResume = async (studentId: String, payload: any) => {
+const uploadResume = async (studentId: String, payload: any) => {
   const res = await axios.post(`${API_URL}/upload/${studentId}`, payload, {
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-  });
-
-  return res.data;
-};
-
-const updateResume = async (studentId: String, payload: any) => {
-  const res = await axios.post(`${API_URL}/update/${studentId}`, payload, {
     headers: {
       'content-type': 'multipart/form-data',
     },
@@ -31,8 +21,7 @@ const updateResume = async (studentId: String, payload: any) => {
 
 const resumeService = {
   getResume,
-  createResume,
-  updateResume,
+  uploadResume,
 };
 
 export default resumeService;

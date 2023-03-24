@@ -18,7 +18,7 @@ export const resumeSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getResume.rejected, (state, action) => {
+      .addCase(getResume.rejected, (state) => {
         state.hasResume = false;
       })
       .addCase(getResume.fulfilled, (state, action) => {
@@ -32,27 +32,7 @@ export const uploadResume = createAsyncThunk(
   'resume/upload',
   async ({ studentId, payload }: any, thunkAPI) => {
     try {
-      const res = await resumeService.createResume(studentId, payload);
-      return res;
-    } catch (error: any) {
-      console.log(error);
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-export const updateResume = createAsyncThunk(
-  'resume/update',
-  async ({ studentId, payload }: any, thunkAPI) => {
-    try {
-      const res = await resumeService.updateResume(studentId, payload);
+      const res = await resumeService.uploadResume(studentId, payload);
       return res;
     } catch (error: any) {
       const message =

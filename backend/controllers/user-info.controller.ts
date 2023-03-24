@@ -24,23 +24,24 @@ const getUserById = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        company: user.company
+        company: user.company,
       });
     });
 };
 
 const updateUser = async (req, res) => {
   const { firstName, lastName, email, password, company } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 8);
-  const user = new User({
-    firstName,
-    lastName,
-    company,
-    email,
-    password: hashedPassword,
-  });
 
-  User.findOneAndUpdate({ _id: req.params.id }, user, { new: true })
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      firstName,
+      lastName,
+      company,
+      email,
+    },
+    { new: true }
+  )
     .populate('roles', '-__v')
     .exec((err, user) => {
       if (err) {

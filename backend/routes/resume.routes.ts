@@ -5,13 +5,7 @@ module.exports = function (app, upload) {
   app.post(
     '/resume/upload/:studentId',
     [verifyJWT.verifyToken, upload.single('resume')],
-    resumeController.createResume
-  );
-
-  app.put(
-    '/resume/update/:studentId',
-    [verifyJWT.verifyToken, upload.single('resume')],
-    resumeController.updateResume
+    resumeController.uploadResume
   );
 
   app.delete(
