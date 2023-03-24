@@ -57,14 +57,14 @@ function EditProfile() {
         throw Error('No User | Not signed in');
       }
 
-      const _id = user?._id;
+      const userId = user?.userId;
 
       let userData;
 
       if (isEmployer) {
-        userData = { firstName, lastName, email, _id, company };
+        userData = { firstName, lastName, email, userId, company };
       } else if (isStudent) {
-        userData = { firstName, lastName, email, _id, resume };
+        userData = { firstName, lastName, email, userId, resume };
       } else {
         toast.error('UserTypeError');
         return;

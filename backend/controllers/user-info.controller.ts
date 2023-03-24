@@ -30,14 +30,15 @@ const getUserById = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email, password, company } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 8);
+  console.log(req.body);
+  const { firstName, lastName, email, /*password,*/ company } = req.body;
+  //const hashedPassword = bcrypt.hashSync(password, 8);
   const user = new User({
     firstName,
     lastName,
     company,
     email,
-    password: hashedPassword,
+    // password: hashedPassword,
   });
 
   User.findOneAndUpdate({ userId: req.params.id }, user, { new: true })
