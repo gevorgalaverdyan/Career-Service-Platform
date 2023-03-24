@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { update, reset } from '../features/auth/authSlice';
+import {
+  updateResume,
+  getResume,
+  uploadResume,
+} from '../features/resume/resumeSlice';
 import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
@@ -15,25 +20,19 @@ function EditProfile() {
     (state: any) => state.auth
   );
 
+  const { resume, hasResume } = useSelector((state: any) => state.resume);
+
   const [formData, setFormData] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
     password: '',
     confirmPassword: '',
-    resume: '',
     companyName: user.companyName,
   });
 
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    confirmPassword,
-    resume,
-    companyName,
-  } = formData;
+  const { firstName, lastName, email, password, confirmPassword, companyName } =
+    formData;
 
   useEffect(() => {
     if (isError) {
@@ -58,13 +57,13 @@ function EditProfile() {
       }
 
       const _id = user?._id;
-      
+
       let userData;
 
       if (isEmployer) {
         userData = { firstName, lastName, email, _id, companyName };
       } else if (isStudent) {
-        userData = { firstName, lastName, email, _id, resume };
+        userData = { firstName, lastName, email, _id };
       } else {
         toast.error('UserTypeError');
         return;
@@ -74,6 +73,26 @@ function EditProfile() {
       dispatch(update(userData));
     } catch (error: any) {
       toast.error(error.message);
+    }
+  };
+
+  const onUploadResumeHandler = (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    console.log(user.userId);
+    dispatch(getResume(user.userId));
+
+    if (hasResume) {
+      console.log('Updating resume');
+      dispatch(updateResume({ studentId: user.userId, payload: formData }));
+    } else {
+      console.log('uploading resume');
+      dispatch(uploadResume({ studentId: user.userId, payload: formData }));
     }
   };
 
@@ -142,7 +161,11 @@ function EditProfile() {
             {isStudent && (
               <label>
                 Resume
-                <input type='file' name='resume' onChange={onChange} />
+                <input
+                  type='file'
+                  name='resume'
+                  onChange={onUploadResumeHandler}
+                />
               </label>
             )}
             {isEmployer && (

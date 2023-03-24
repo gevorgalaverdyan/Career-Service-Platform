@@ -1,5 +1,10 @@
 const db = require('../models');
-const { getStorage, ref, uploadBytes, deleteObject } = require('firebase/storage');
+const {
+  getStorage,
+  ref,
+  uploadBytes,
+  deleteObject,
+} = require('firebase/storage');
 const Resume = db.resume;
 const User = db.user;
 
@@ -33,7 +38,7 @@ const createResume = async (req, res, next) => {
 
       resumeToCreate.resume = path;
 
-      uploadBytes(storageRef, req.file.buffer).then(snapshot => {
+      uploadBytes(storageRef, req.file.buffer).then((snapshot) => {
         console.log(snapshot);
         res.status(201).json({
           message: 'Resume succesfully uploaded!',
@@ -43,16 +48,16 @@ const createResume = async (req, res, next) => {
   });
 };
 
-const updateResume = async(req,res) => {
+const updateResume = async (req, res) => {
   //console.log('reached method');
   const StudentId = req.params.studentId;
   const resumeToUpdate = new Resume({
-    StudentId
+    StudentId,
   });
 
-  User.findOne({ userId: StudentId}).exec((err, student) => {
+  User.findOne({ userId: StudentId }).exec((err, student) => {
     if (err) {
-      res.status(500).send( {message: err } );
+      res.status(500).send({ message: err });
       return;
     }
 
@@ -63,11 +68,9 @@ const updateResume = async(req,res) => {
     resumeToUpdate.student = student._id;
     //console.log('student found with id of ' + student._id);
 
-
-
-    
-  Resume.findOneAndUpdate({ student: req.param.studentId }, req.file, { new: true })
-    .exec((err, updatedResume) => {
+    Resume.findOneAndUpdate({ student: req.param.studentId }, req.file, {
+      new: true,
+    }).exec((err, updatedResume) => {
       if (err) {
         //console.log('ERROR');
         res.status(500).send({ message: err });
@@ -79,10 +82,8 @@ const updateResume = async(req,res) => {
       const storageRef = ref(getStorage(), path);
 
       resumeToUpdate.resume = path;
-      //console.log('path created: ready to upload');
 
-      uploadBytes(storageRef, req.file.buffer).then(snapshot => {
-        console.log(snapshot);
+      uploadBytes(storageRef, req.file.buffer).then((snapshot) => {
         res.status(201).json({
           message: 'Resume succesfully updated!',
         });
@@ -113,15 +114,15 @@ const updateResume = async(req,res) => {
   });
 };
 
-const deleteResume = async(req, res) => {
+const deleteResume = async (req, res) => {
   const StudentId = req.params.studentId;
   const resumeToDelete = new Resume({
-    StudentId
+    StudentId,
   });
 
-  User.findOne({userId: StudentId}).exec((err, student) => {
+  User.findOne({ userId: StudentId }).exec((err, student) => {
     if (err) {
-      res.status(500).send( {message: err } );
+      res.status(500).send({ message: err });
       return;
     }
 
@@ -130,19 +131,44 @@ const deleteResume = async(req, res) => {
     }
 
     resumeToDelete.student = student._id;
-    //console.log('studen found wirth id of ' + student._id);
 
     const path = `files/${student.userId}_CV`;
 
     const storageRef = ref(getStorage(), path);
 
     deleteObject(storageRef).then(() => {
-        res.status(201).json({
-          message: 'Resume succesfully updated!',
-        });
+      res.status(201).json({
+        message: 'Resume succesfully updated!',
+      });
     });
   });
 };
 
-module.exports = { createResume, updateResume, deleteResume};
+const getResume = async (req, res) => {
+  const StudentId = req.params.studentId;
+
+  User.findOne({ userId: StudentId }).exec((err, student) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    if (!student) {
+      return res.satus(404).send({ mesage: 'Student not found' });
+    }
+
+    Resume.findOne({ student: student._id }).exec((err, resumeUrl) => {
+      if (!resumeUrl) {
+        res.status(404).send({ message: 'Resume not found!' });
+        return;
+      }
+
+      res.status(200).json({
+        resume: resumeUrl.resume,
+      });
+    });
+  });
+};
+
+module.exports = { createResume, updateResume, deleteResume, getResume };
 export {};
