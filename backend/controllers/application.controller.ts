@@ -45,7 +45,7 @@ const createApplication = async (req, res, next) => {
 
         application.candidate = associatedCandidate._id;
         application.createdOn = moment().format('yyyy-mm-DD:hh:mm:ss');
-        application.status = 'Submitted';
+        application.status = 'PENDING';
 
         application.save((err, application) => {
           if (err) {

@@ -39,16 +39,16 @@ export const applicationSlice = createSlice({
         state.message =
           typeof action.payload === 'string' ? action.payload : '';
       })
-      .addCase(getAppilicationForUser.pending, (state) => {
+      .addCase(getApplicationForUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAppilicationForUser.fulfilled, (state, action) => {
+      .addCase(getApplicationForUser.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
         // @ts-ignore
         state.applications = action.payload;
       })
-      .addCase(getAppilicationForUser.rejected, (state, action) => {
+      .addCase(getApplicationForUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message =
@@ -75,11 +75,11 @@ export const createApplication = createAsyncThunk(
   }
 );
 
-export const getAppilicationForUser = createAsyncThunk(
-  'application/getAppilicationForUser',
+export const getApplicationForUser = createAsyncThunk(
+  'application/getApplicationForUser',
   async (userId: any, thunkAPI) => {
     try {
-      return await applicationService.getAppilicationForUser(userId);
+      return await applicationService.getApplicationForUser(userId);
     } catch (error: any) {
       const message =
         (error.response &&

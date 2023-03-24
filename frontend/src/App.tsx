@@ -13,6 +13,8 @@ import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePostings from './pages/CreatePostings';
 import UserApplications from './pages/UserApplications';
+import JobApplicants from './pages/JobApplicants';
+import NotFound from './pages/NotFound';
 import EmployeeJobPostings from './pages/EmployeeJobPostings';
 import ManagePostings from './pages/ManagePostings';
 
@@ -49,13 +51,32 @@ function App() {
               <Route path={'/create-postings'} element={<CreatePostings />} />
             </Route>
 
+            {/*
+              Students can view their applications
+            */}
+
             <Route path={'/manage-posting'} element={<PrivateRoute />}>
               <Route path={'/manage-posting/:jobId'} element={<ManagePostings />} />
             </Route>
 
             <Route path={'/user-applications'} element={<PrivateRoute />}>
-              <Route path={'/user-applications'} element={<UserApplications />} />
+              <Route
+                path={'/user-applications'}
+                element={<UserApplications />}
+              />
             </Route>
+
+            {/*
+              View Applicants for a Job
+            */}
+            <Route path={'/job-applicants/:jobId'} element={<PrivateRoute />}>
+              <Route
+                path={'/job-applicants/:jobId'}
+                element={<JobApplicants />}
+              />
+            </Route>
+
+            <Route path='/*' element={<NotFound />} />
 
             <Route path={'/employee-job-postings'} element={<PrivateRoute />}>
               <Route path={'/employee-job-postings'} element={<EmployeeJobPostings />}></Route>
