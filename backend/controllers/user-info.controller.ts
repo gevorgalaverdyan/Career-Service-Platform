@@ -25,7 +25,6 @@ const getUserById = async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         company: user.company,
-        company: user.company,
       });
     });
 };
