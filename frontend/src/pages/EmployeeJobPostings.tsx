@@ -14,8 +14,12 @@ function EmployeeJobPostings() {
     (state: any) => state.jobs
     );
 
+    const { user } = useSelector(
+    (state: any) => state.auth
+    );
+
     const [formData, setFormData] = useState({
-        company: jobs.company
+        company: user.company
     });
 
     const {
@@ -35,7 +39,9 @@ function EmployeeJobPostings() {
     }
 
     dispatch(getJobs());
-    }, [isError, message, dispatch, navigate]);
+    }, [ isError, message, dispatch, navigate]);
+
+    
 
         if (isLoading || !jobs) {
     return <Spinner />;
@@ -43,17 +49,18 @@ function EmployeeJobPostings() {
 
     
     return (
-    <div className='tickets'>
+      <div className='tickets'>
         <div className='ticket-headings'>
-            <div>More Info</div>
-            <div>Deadline</div>
-            <div>Job Title</div>
-            <div>Company</div>
+          <div>More Info</div>
+          <div>Deadline</div>
+          <div>Job Title</div>
+          <div>Company</div>
         </div>
-        {jobs.map((job: any) => (
-            <JobBoardItem job={job} key={job.jobId} />
-        ))}
-    </div>
+        {jobs.map((job: any) => {
+          if (job.company === user.company)
+            return <JobBoardItem job={job} key={job.jobId} />;
+        })}
+      </div>
     );
 }
 
