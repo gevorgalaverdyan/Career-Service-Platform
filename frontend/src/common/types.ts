@@ -38,10 +38,16 @@ export interface Application {
 }
 
 export interface AppliedJob {
-  company: String;
-  deadline: String;
-  description: String;
-  jobId: Number | String;
-  status: String;
-  title: String;
+  company: string;
+  deadline: string;
+  description: string;
+  jobId: number | string;
+  status: string;
+  title: string;
+}
+
+export enum APPLICATION_STATUS {
+  PENDING,
+  HIRED,
+  DECLINED,
 }

@@ -66,7 +66,7 @@ function UserProfile() {
             {isEmployer && (
               <tr>
                 <td className='fields'>Company Name</td>
-                <td>{user.companyName}</td>
+                <td>{user.company}</td>
               </tr>
             )}
           </tbody>
