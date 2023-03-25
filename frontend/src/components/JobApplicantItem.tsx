@@ -2,8 +2,10 @@ import React from 'react';
 import { FaFilePdf } from 'react-icons/fa';
 import { IoCheckmarkCircle } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { Applicant } from '../common/types';
 
-function JobApplicantItem() {
+function JobApplicantItem(applicant: Applicant) {
+  const { jobTitle, deadline, resume, status } = applicant;
   return (
     <div className='ticket'>
       <div>{'title'}</div>

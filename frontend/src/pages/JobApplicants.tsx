@@ -4,14 +4,16 @@ import JobApplicantItem from '../components/JobApplicantItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getApplicantsByJobId } from '../features/application/applicationSlice';
+import { getApplicantsByJobId } from '../features/applicants/applicantsSlice';
+import { APPLICATION_STATUS } from '../common/types';
 
 function JobApplicants() {
-  const {jobId} = useParams();
+  const { jobId } = useParams();
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
 
   const { user } = useSelector((state: any) => state.auth);
+
   const { applicants, isError, message } = useSelector(
     (state: any) => state.applicants
   );
@@ -24,8 +26,11 @@ function JobApplicants() {
         navigate('/login');
       }
     }
-    //dispatch(getApplicantsByJobId(jobId));
-  }, []);
+
+    if (jobId) {
+      dispatch(getApplicantsByJobId(jobId));
+    }
+  }, [isError, message, dispatch, navigate]);
 
   return (
     <>
@@ -44,12 +49,12 @@ function JobApplicants() {
         <div className='ticket-headings'>
           <div>Job Title</div>
           <div>Deadline</div>
-          <div>Resume(CV)</div>
           {/*Link to CV*/}
+          <div>Resume(CV)</div>
           <div>Recruit</div>
         </div>
         {/* {'MAP'} */}
-        <JobApplicantItem />
+        {/* <JobApplicantItem jobTitle='' deadline='' status={APPLICATION_STATUS.PENDING}/> */}
       </div>
     </>
   );

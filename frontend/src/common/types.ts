@@ -11,16 +11,12 @@ export interface Posting {
   };
 }
 export interface UserProfile {
-  role: 'recruiter' | 'student';
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  companyName?: string;
-  jobTitle?: string;
-  coverLetter?: string;
-  transcript?: string;
-  cv?: string;
+  company?: string;
+  resume?: string;
 }
 
 export interface Job {
@@ -44,6 +40,13 @@ export interface AppliedJob {
   jobId: number | string;
   status: string;
   title: string;
+}
+
+export interface Applicant {
+  jobTitle: string;
+  deadline: string;
+  resume?: any;
+  status: APPLICATION_STATUS;
 }
 
 export enum APPLICATION_STATUS {
