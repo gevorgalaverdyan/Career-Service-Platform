@@ -84,7 +84,7 @@ function UserProfile() {
               </Link>
             )}
             {isEmployer && (
-              <Link className='profile-button' to={'/'}>
+              <Link className='profile-button' to={'/employee-job-postings'}>
                 My Jobs
               </Link>
             )}

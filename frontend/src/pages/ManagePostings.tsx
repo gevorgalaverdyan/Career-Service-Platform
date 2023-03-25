@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { IoCreateOutline } from 'react-icons/io5';
 import { Job } from '../common/types';
 import { createJob, reset, getJob } from '../features/jobs/jobsSlice';
+import { Link } from 'react-router-dom';
 
 function ManagePostings() {
   const dispatch: any = useDispatch();
@@ -127,7 +128,7 @@ function ManagePostings() {
             </label>
             <button className='btn btn-block'>Edit and Save</button>
             <button className='btn btn-block'>Delete Current Posting</button>
-            <button className='btn btn-block'>View Applicants</button>
+            <Link to={`/job-applicants/${jobId}`} className='btn'>View Applicants</Link>
           </div>
         </form>
       </section>
