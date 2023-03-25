@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './styles/JobPostingStyles.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { IoCreateOutline } from 'react-icons/io5';
 import { Job } from '../common/types';
-import { createJob, reset } from '../features/jobs/jobsSlice';
+import { createJob, reset, getJob } from '../features/jobs/jobsSlice';
 
 function ManagePostings() {
     
@@ -16,28 +16,34 @@ function ManagePostings() {
     const { job, isSuccess, isLoading, isError, message } = useSelector(
         (state: any) => state.jobs
     );
+
+    const { jobId } = useParams(); 
+    
     
     const [formData, setFormData] = useState({
-        title: job.title,
+        title: '',
         description: '',
         company: '',
         deadline: formatDate(new Date()),
     });
 
-    const { title, description, company, deadline } = formData;
+    const { title, description, company, deadline } = job;
 
     useEffect(() => {
         if (isError) {
         toast.error(message);
         }
 
-        if (isSuccess) {
-        dispatch(reset());
-        navigate('/');
+        if (typeof jobId ==='undefined') {
+            toast.error('WRONG jobID');
+            navigate('/employee-job-postings');
+        //navigate('/');
+        } else if (typeof jobId === 'string') {
+            dispatch(getJob(jobId));
         }
 
         dispatch(reset());
-    }, [job, isError, message, isSuccess, navigate, dispatch]);
+    }, [jobId, job, isError, message, isSuccess, navigate, dispatch]);
 
 
 
@@ -91,7 +97,7 @@ function ManagePostings() {
                     className='form-control'
                     id='job_title'
                     placeholder='Enter the job title'
-                    value={formData.title}
+                    value={title}
                     onChange={onChange}
                     required
                 />
