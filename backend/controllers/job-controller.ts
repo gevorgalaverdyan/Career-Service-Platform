@@ -92,5 +92,20 @@ const editJob = async (req, res) => {
     })
 }
 
-module.exports = { getJobById, getAllJobs, createJob, editJob };
+const deleteJob = async (req,res) => {
+  Job.deleteOne({ jobId: req.params.id })
+    .exec((err, job) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      if (!job) {
+        return res.status(404).send({ message: 'Job Not Found' });
+      }
+
+      res.status(200).send(job);
+    })
+}
+
+module.exports = { getJobById, getAllJobs, createJob, editJob, deleteJob };
 export {};
