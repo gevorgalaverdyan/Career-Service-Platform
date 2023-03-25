@@ -12,11 +12,19 @@ function EditProfile() {
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
+  const [resumeMessage, setResumeMessage] = useState('');
+
   const { user, isLoading, isSuccess, message, isError } = useSelector(
     (state: any) => state.auth
   );
 
-  const { resume, hasResume } = useSelector((state: any) => state.resume);
+  const {
+    resume,
+    hasResume,
+    isLoading: resumeIsLoading,
+    message: resumeErrorMessage,
+    isError: resumeIsError,
+  } = useSelector((state: any) => state.resume);
 
   const [formData, setFormData] = useState({
     firstName: user.firstName,
@@ -32,8 +40,16 @@ function EditProfile() {
     formData;
 
   useEffect(() => {
-    if (isError) {
+    if (isError || resumeIsError) {
       toast.error(message);
+    }
+
+    dispatch(getResume(user.userId));
+
+    if (!hasResume && message === 'Resume not found!') {
+      setResumeMessage('upload A resume');
+    } else {
+      setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
     }
 
     dispatch(reset());
@@ -53,14 +69,14 @@ function EditProfile() {
         throw Error('No User | Not signed in');
       }
 
-      const _id = user?._id;
+      const userId = user?.userId;
 
       let userData;
 
       if (isEmployer) {
-        userData = { firstName, lastName, email, _id, company };
+        userData = { firstName, lastName, email, userId, company };
       } else if (isStudent) {
-        userData = { firstName, lastName, email, _id };
+        userData = { firstName, lastName, email, userId, resume };
       } else {
         toast.error('UserTypeError');
         return;
@@ -74,14 +90,17 @@ function EditProfile() {
   };
 
   const onUploadResumeHandler = (e: any) => {
-    const file = e.target.files[0];
+    try {
+      const file = e.target.files[0];
 
-    if (!file) return;
+      if (!file) return;
 
-    const formData = new FormData();
-    formData.append('resume', file);
+      const formData = new FormData();
+      formData.append('resume', file);
 
-    dispatch(uploadResume({ studentId: user.userId, payload: formData }));
+      dispatch(uploadResume({ studentId: user.userId, payload: formData }));
+      toast.success('Uploaded');
+    } catch (error) {}
   };
 
   const userRoles = user.roles.map((role: any) =>
@@ -91,7 +110,7 @@ function EditProfile() {
   const isStudent = userRoles.find((role: any) => role === 'student') != null;
   const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
 
-  if (isLoading) {
+  if (isLoading || resumeIsLoading) {
     return <Spinner />;
   }
 
@@ -147,14 +166,19 @@ function EditProfile() {
               />
             </label>
             {isStudent && (
-              <label>
-                Resume
-                <input
-                  type='file'
-                  name='resume'
-                  onChange={onUploadResumeHandler}
-                />
-              </label>
+              <>
+                <label>
+                  Resume
+                  <input
+                    type='file'
+                    name='resume'
+                    onChange={onUploadResumeHandler}
+                  />
+                </label>
+                <span style={{ color: 'red' }}>
+                  {'CV status: ' + resumeMessage}
+                </span>
+              </>
             )}
             {isEmployer && (
               <label htmlFor='company_name'>

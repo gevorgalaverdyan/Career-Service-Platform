@@ -1,26 +1,36 @@
 import React, { useEffect } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import JobApplicantItem from '../components/JobApplicantItem';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import { toast } from 'react-toastify';
+import { getApplicantsByJobId } from '../features/applicant/applicantsSlice'
+import { Student } from '../common/types';
 
 function JobApplicants() {
-  const jobId = useParams();
-  const dispatch: any = useDispatch();
 
+  const { jobId } = useParams();
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state: any) => state.auth);
 
+  const { applicants, isError, message } = useSelector(
+    (state: any) => state.applicants
+  );
+
   useEffect(() => {
-    // if (isError) {
-    //   toast.error(message);
-    //   if (message === 'No token provided!') {
-    //     toast.warn('LOGIN AGAIN');
-    //     navigate('/login');
-    //   }
-    // }
-    //dispatch(getApplicantsbyjobid())
-  }, []);
+    if (isError) {
+      toast.error(message);
+      if (message === 'No token provided!') {
+        toast.warn('LOGIN AGAIN');
+        navigate('/login');
+      }
+    }
+
+    if (jobId) {
+      dispatch(getApplicantsByJobId(jobId));
+    }
+  }, [isError, message, dispatch, navigate]);
 
   return (
     <>
@@ -37,32 +47,21 @@ function JobApplicants() {
       </h1>
       <div className='tickets'>
         <div className='ticket-headings'>
-          <div>Job Title</div>
-          <div>Deadline</div>
+          <div>Name</div>
+          <div>Status</div>
           <div>Resume(CV)</div>
-          {/*Link to CV*/}
           <div>Recruit</div>
         </div>
-        {/* {'MAP'} */}
-        <JobApplicantItem />
+        {applicants.map((applicant: Student) => (
+          <JobApplicantItem
+            name={applicant.firstName + ' ' + applicant.lastName}
+            status={applicant.status}
+            userId={applicant.userId}
+            key={applicant._id}
+            applicationId={applicant.applicationId}
+          />
+        ))}
       </div>
-      <button
-        onClick={async () => {
-          const res = await axios.get(`/application/job/8`);
-          const data = res.data;
-          let applicantsID: any = [];
-          data.map((application: any) => {
-            const { userId } = application;
-            applicantsID = [...applicantsID, userId];
-          });
-          console.log(data);
-          console.log(applicantsID);
-          const students = await axios.get(`/user-info/${applicantsID[0]}`);
-          console.log(students);
-        }}
-      >
-        Click
-      </button>
     </>
   );
 }

@@ -11,16 +11,12 @@ export interface Posting {
   };
 }
 export interface UserProfile {
-  role: 'recruiter' | 'student';
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  companyName?: string;
-  jobTitle?: string;
-  coverLetter?: string;
-  transcript?: string;
-  cv?: string;
+  company?: string;
+  resume?: string;
 }
 
 export interface Job {
@@ -46,8 +42,26 @@ export interface AppliedJob {
   title: string;
 }
 
-export enum APPLICATION_STATUS {
-  PENDING,
-  HIRED,
-  DECLINED,
+export interface Applicant {
+  name: string;
+  resume?: any;
+  status?: string;
+  userId: string;
+  applicationId: string;
+}
+
+export const APPLICATION_STATUS = {
+  PENDING: 'PENDING',
+  HIRED: 'HIRED',
+  DECLINED: 'DECLINED',
+}
+
+export interface Student {
+  email: string;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  _id?: string;
+  status?: string;
+  applicationId: string;
 }

@@ -27,7 +27,7 @@ const uploadResume = async (req, res, next) => {
         return;
       }
 
-      const path = `files/${student.userId}_CV`;
+      const path = `files/${student.userId}_CV.pdf`;
       const storageRef = ref(getStorage(), path);
 
       if (!resume) {
@@ -78,7 +78,7 @@ const deleteResume = async (req, res) => {
 
     resumeToDelete.student = student._id;
 
-    const path = `files/${student.userId}_CV`;
+    const path = `files/${student.userId}_CV.pdf`;
 
     const storageRef = ref(getStorage(), path);
 

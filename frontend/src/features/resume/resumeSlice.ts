@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 import resumeService from './resumeService';
 
 const initialState = {
@@ -8,6 +7,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   hasResume: false,
+  message: '',
 };
 
 export const resumeSlice = createSlice({
@@ -18,12 +18,21 @@ export const resumeSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getResume.rejected, (state) => {
-        state.hasResume = false;
+      .addCase(getResume.pending, (state) => {
+        state.isLoading = true;
       })
       .addCase(getResume.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
         state.hasResume = true;
         state.resume = action.payload;
+      })
+      .addCase(getResume.rejected, (state, action) => {
+        state.hasResume = false;
+        state.isLoading = false;
+        state.isError = true;
+        state.message =
+          typeof action.payload === 'string' ? action.payload : '';
       });
   },
 });
