@@ -6,8 +6,10 @@ import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { IoCreateOutline } from 'react-icons/io5';
 import { Job } from '../common/types';
-import { createJob, reset, getJob } from '../features/jobs/jobsSlice';
+import { getJob } from '../features/jobs/jobsSlice';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+const API_URL = '/job/';
 
 function ManagePostings() {
   const dispatch: any = useDispatch();
@@ -29,7 +31,6 @@ function ManagePostings() {
   const { title, description, company, deadline } = formData;
 
   useEffect(() => {
-    console.log(formData);
     if (isError) {
       toast.error(message);
     }
@@ -44,18 +45,16 @@ function ManagePostings() {
     }));
   };
 
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!title || !description || !company || !deadline) {
       toast.error('Missing Data');
     } else {
-      dispatch(createJob(formData))
-        .then(() => {
-          //navigate('/');
-          //.success('New Job created!');
-        })
-        .catch(toast.error);
+      const response = await axios.put(API_URL + jobId, formData);
+      navigate('/employee-job-postings');
+      toast.success('Job Updated');
+      return response.data;
     }
   };
 
@@ -126,9 +125,23 @@ function ManagePostings() {
                 required
               />
             </label>
-            <button className='btn btn-block'>Edit and Save</button>
-            <button className='btn btn-block'>Delete Current Posting</button>
-            <Link to={`/job-applicants/${jobId}`} className='btn'>View Applicants</Link>
+            <button className='btn btn-block' type='submit'>
+              Edit and Save
+            </button>
+            <button
+              className='btn btn-block'
+              onClick={async () => {
+                const res = await axios.delete(API_URL + jobId);
+                navigate('/employee-job-postings');
+                toast.success('Job DELETED');
+                return res.data;
+              }}
+            >
+              Delete Current Posting
+            </button>
+            <Link to={`/job-applicants/${jobId}`} className='btn'>
+              View Applicants
+            </Link>
           </div>
         </form>
       </section>
@@ -137,3 +150,14 @@ function ManagePostings() {
 }
 
 export default ManagePostings;
+/*const updateJob = async (jobData: any, jobId: string) => {
+  const response = await axios.put(API_URL + jobId, jobData);
+
+  return response.data;
+};
+
+const deleteJob = async (jobId: any) => {
+  const res = await axios.delete(API_URL + jobId);
+
+  return res.data;
+};*/

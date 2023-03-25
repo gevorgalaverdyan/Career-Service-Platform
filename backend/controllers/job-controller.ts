@@ -70,42 +70,40 @@ const editJob = async (req, res) => {
   const { title, description, company, deadline } = req.body;
 
   Job.findOneAndUpdate(
-    {jobId: req.params.id}, 
+    { jobId: req.params.id },
     {
       title,
       description,
       company,
-      deadline
+      deadline,
     },
-    {new: true}
-  )
-    .exec((err, job) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      if (!job) {
-        return res.status(404).send({ message: 'Job Not Found' });
-      }
+    { new: true }
+  ).exec((err, job) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (!job) {
+      return res.status(404).send({ message: 'Job Not Found' });
+    }
 
-      res.status(200).send(job);
-    })
-}
+    res.status(200).send(job);
+  });
+};
 
-const deleteJob = async (req,res) => {
-  Job.deleteOne({ jobId: req.params.id })
-    .exec((err, job) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      if (!job) {
-        return res.status(404).send({ message: 'Job Not Found' });
-      }
+const deleteJob = async (req, res) => {
+  Job.deleteOne({ jobId: req.params.id }).exec(async (err, job) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (!job) {
+      return res.status(404).send({ message: 'Job Not Found' });
+    }
 
-      res.status(200).send(job);
-    })
-}
+    res.status(200).send(job);
+  });
+};
 
 module.exports = { getJobById, getAllJobs, createJob, editJob, deleteJob };
 export {};
