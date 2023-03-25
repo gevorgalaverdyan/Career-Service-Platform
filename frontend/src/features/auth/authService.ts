@@ -24,8 +24,8 @@ const login = async (userData: any) => {
 };
 
 //Update
-const update = async (userData: any, _id: string) => {
-  const response = await axios.put(`/user-info/${_id}`, userData);
+const update = async (userData: any, userId: string) => {
+  const response = await axios.put(`/user-info/${userId}`, userData);
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));

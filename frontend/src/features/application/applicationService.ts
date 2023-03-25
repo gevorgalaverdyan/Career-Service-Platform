@@ -13,7 +13,7 @@ const createApplication = async (applicationIDs: any) => {
 let appliedJobs: Array<AppliedJob> = [];
 //getAppilicationForUser
 const getApplicationForUser = async (userId: any) => {
-  appliedJobs.splice(0, appliedJobs.length)
+  appliedJobs.splice(0, appliedJobs.length);
   const res = await axios.get(`${API_URL}user/${userId}`);
   const applications = res.data;
 
@@ -27,14 +27,6 @@ const getApplicationForUser = async (userId: any) => {
   });
 
   return appliedJobs;
-};
-
-//gets the applicants
-const getApplicantsByJobId = async (jobId: Number) => {
-  const res = await axios.get(`${API_URL}job/${jobId}`);
-  const data = res.data;
-  
-  return;
 };
 
 const applicationService = {

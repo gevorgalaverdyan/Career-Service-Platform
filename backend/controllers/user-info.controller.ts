@@ -31,16 +31,17 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { firstName, lastName, email, password, company } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 8);
-  const user = new User({
-    firstName,
-    lastName,
-    company,
-    email,
-    password: hashedPassword,
-  });
 
-  User.findOneAndUpdate({ userId: req.params.id }, user, { new: true })
+  User.findOneAndUpdate(
+    { userId: req.params.id },
+    {
+      firstName,
+      lastName,
+      company,
+      email,
+    },
+    { new: true }
+  )
     .populate('roles', '-__v')
     .exec((err, user) => {
       if (err) {
