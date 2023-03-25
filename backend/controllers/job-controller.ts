@@ -66,5 +66,31 @@ const getAllJobs = async (req, res) => {
     });
 };
 
-module.exports = { getJobById, getAllJobs, createJob };
+const editJob = async (req, res) => {
+  const { title, description, company, deadline } = req.body;
+
+  Job.findOneAndUpdate(
+    {jobId: req.params.id}, 
+    {
+      title,
+      description,
+      company,
+      deadline
+    },
+    {new: true}
+  )
+    .exec((err, job) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      if (!job) {
+        return res.status(404).send({ message: 'Job Not Found' });
+      }
+
+      res.status(200).send(job);
+    })
+}
+
+module.exports = { getJobById, getAllJobs, createJob, editJob };
 export {};

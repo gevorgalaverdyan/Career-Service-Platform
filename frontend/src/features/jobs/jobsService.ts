@@ -21,6 +21,10 @@ const getJobs = async () => {
   return res.data;
 };
 
+// const updateJob = async (jobData: any, jobId: string) => {
+//   const response = await.axios.put('')
+// }
+
 const jobsService = {
   createJob,
   getJob,

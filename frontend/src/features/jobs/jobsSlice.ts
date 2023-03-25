@@ -117,5 +117,16 @@ export const createJob = createAsyncThunk(
   }
 );
 
+// export const updateJob = createAsyncThunk(
+//   'jobs/updateJob',
+//   async(userData: any, thunkAPI: any) => {
+//     console.log(userData);
+
+//     try {
+//       return await jobsService
+//     }
+//   }
+// )
+
 export const { reset } = jobsSlice.actions;
 export default jobsSlice.reducer;
