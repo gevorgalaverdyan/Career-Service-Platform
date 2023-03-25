@@ -45,11 +45,16 @@ describe('create job', () => {
   it.todo('A recruiter should be able to create a job posting');
   it.todo('Sign in as a company and then create a posting ');
   it.todo('A user(Job Seeking user) should see the posting with all the details')
-});
+
   
   beforeAll(async () => {
     const mongoServer = await MongoMemoryServer.create();
     await mongoose.connect(mongoServer.getUri());
+  });
+  
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoose.connection.close();
   });
 
   describe('get login route', () => {
@@ -78,9 +83,7 @@ describe('create job', () => {
   })})});
   
 
-  afterAll(async () => {
-    await mongoose.disconnect();
-    await mongoose.connection.close();
+
 
 });
 
