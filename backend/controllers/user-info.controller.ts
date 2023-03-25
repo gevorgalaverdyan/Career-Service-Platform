@@ -1,8 +1,6 @@
 const db = require('../models');
 const User = db.user;
 
-const bcrypt = require('bcryptjs');
-
 const getUserById = async (req, res) => {
   User.findOne({
     userId: req.params.id,
@@ -30,7 +28,7 @@ const getUserById = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email, password, company } = req.body;
+  const { firstName, lastName, email, company, roles } = req.body;
 
   User.findOneAndUpdate(
     { userId: req.params.id },
@@ -53,7 +51,15 @@ const updateUser = async (req, res) => {
         return res.status(404).send({ message: 'User Not Found' });
       }
 
-      res.status(200).send(user);
+      res.status(200).json({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        company,
+        roles,
+        userId: user.userId,
+      });
     });
 };
 
