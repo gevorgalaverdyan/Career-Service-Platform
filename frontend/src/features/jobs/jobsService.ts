@@ -9,7 +9,7 @@ const createJob = async (jobData: any) => {
   return res.data;
 };
 
-const getJob = async (jobId: String) => {
+const getJob = async (jobId: any) => {
   const res = await axios.get(API_URL + jobId);
 
   return res.data;

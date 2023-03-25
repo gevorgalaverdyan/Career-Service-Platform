@@ -65,8 +65,8 @@ export const jobsSlice = createSlice({
 });
 
 export const getJob = createAsyncThunk(
-  'jobs/get',
-  async (jobId: String, thunkAPI) => {
+  'job/get',
+  async (jobId: any, thunkAPI) => {
     try {
       const res = await jobsService.getJob(jobId);
       return res;
