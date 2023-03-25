@@ -18,6 +18,8 @@ function EditProfile() {
     (state: any) => state.auth
   );
 
+  const {roles} = user
+
   const {
     resume,
     hasResume,
@@ -44,12 +46,14 @@ function EditProfile() {
       toast.error(message);
     }
 
-    dispatch(getResume(user.userId));
+    if (isStudent) {
+      dispatch(getResume(user.userId));
 
-    if (!hasResume && message === 'Resume not found!') {
-      setResumeMessage('upload A resume');
-    } else {
-      setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
+      if (!hasResume && message === 'Resume not found!') {
+        setResumeMessage('upload A resume');
+      } else {
+        setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
+      }
     }
 
     dispatch(reset());
@@ -74,9 +78,9 @@ function EditProfile() {
       let userData;
 
       if (isEmployer) {
-        userData = { firstName, lastName, email, userId, company };
+        userData = { firstName, lastName, email, userId, company, roles};
       } else if (isStudent) {
-        userData = { firstName, lastName, email, userId, resume };
+        userData = { firstName, lastName, email, userId, roles };
       } else {
         toast.error('UserTypeError');
         return;
