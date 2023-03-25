@@ -43,14 +43,25 @@ export interface AppliedJob {
 }
 
 export interface Applicant {
-  jobTitle: string;
-  deadline: string;
+  name: string;
   resume?: any;
-  status: APPLICATION_STATUS;
+  status?: string;
+  userId: string;
+  applicationId: string;
 }
 
-export enum APPLICATION_STATUS {
-  PENDING,
-  HIRED,
-  DECLINED,
+export const APPLICATION_STATUS = {
+  PENDING: 'PENDING',
+  HIRED: 'HIRED',
+  DECLINED: 'DECLINED',
+}
+
+export interface Student {
+  email: string;
+  firstName: string;
+  lastName: string;
+  userId: string;
+  _id?: string;
+  status?: string;
+  applicationId: string;
 }

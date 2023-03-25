@@ -4,14 +4,14 @@ import JobApplicantItem from '../components/JobApplicantItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getApplicantsByJobId } from '../features/applicants/applicantsSlice';
-import { APPLICATION_STATUS } from '../common/types';
+import { getApplicantsByJobId } from '../features/applicant/applicantsSlice'
+import { Student } from '../common/types';
 
 function JobApplicants() {
+
   const { jobId } = useParams();
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
-
   const { user } = useSelector((state: any) => state.auth);
 
   const { applicants, isError, message } = useSelector(
@@ -47,14 +47,20 @@ function JobApplicants() {
       </h1>
       <div className='tickets'>
         <div className='ticket-headings'>
-          <div>Job Title</div>
-          <div>Deadline</div>
-          {/*Link to CV*/}
+          <div>Name</div>
+          <div>Status</div>
           <div>Resume(CV)</div>
           <div>Recruit</div>
         </div>
-        {/* {'MAP'} */}
-        {/* <JobApplicantItem jobTitle='' deadline='' status={APPLICATION_STATUS.PENDING}/> */}
+        {applicants.map((applicant: Student) => (
+          <JobApplicantItem
+            name={applicant.firstName + ' ' + applicant.lastName}
+            status={applicant.status}
+            userId={applicant.userId}
+            key={applicant._id}
+            applicationId={applicant.applicationId}
+          />
+        ))}
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { update, reset } from '../features/auth/authSlice';
+import { getResume, uploadResume } from '../features/resume/resumeSlice';
 import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
@@ -14,6 +15,8 @@ function EditProfile() {
   const { user, isLoading, isSuccess, message, isError } = useSelector(
     (state: any) => state.auth
   );
+
+  const { resume, hasResume } = useSelector((state: any) => state.resume);
 
   const [formData, setFormData] = useState({
     firstName: user.firstName,
@@ -25,15 +28,8 @@ function EditProfile() {
     company: user.company,
   });
 
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    confirmPassword,
-    resume,
-    company,
-  } = formData;
+  const { firstName, lastName, email, password, confirmPassword, company } =
+    formData;
 
   useEffect(() => {
     if (isError) {
@@ -75,6 +71,17 @@ function EditProfile() {
     } catch (error: any) {
       toast.error(error.message);
     }
+  };
+
+  const onUploadResumeHandler = (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    dispatch(uploadResume({ studentId: user.userId, payload: formData }));
   };
 
   const userRoles = user.roles.map((role: any) =>
@@ -142,7 +149,11 @@ function EditProfile() {
             {isStudent && (
               <label>
                 Resume
-                <input type='file' name='resume' onChange={onChange} />
+                <input
+                  type='file'
+                  name='resume'
+                  onChange={onUploadResumeHandler}
+                />
               </label>
             )}
             {isEmployer && (
