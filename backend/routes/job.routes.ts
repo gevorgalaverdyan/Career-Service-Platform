@@ -8,10 +8,10 @@ module.exports = function (app) {
 
   app.post('/job', [verifyJWT.verifyToken], jobController.createJob);
 
-  //   app.delete(
-  //     '/job/:id',
-  //     [verifyJWT.verifyToken],
-  //     userInfoController.deleteUser
-  //   );
+  app.put('/job/:id', [verifyJWT.verifyToken], jobController.editJob);
+
+  app.delete('/job/:id', [verifyJWT.verifyToken], jobController.deleteJob);
+
+
 };
 export {};

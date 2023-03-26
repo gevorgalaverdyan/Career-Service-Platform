@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
 import './styles/userProfileStyles.css';
@@ -6,16 +6,30 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase.config';
 
 function UserProfile() {
   const { user, isLoading, isSuccess, message, isError } = useSelector(
     (state: any) => state.auth
   );
 
+  const starsRef = ref(storage, `files/${user.userId}_CV.pdf`);
+
+  const linkRef: any = useRef();
+
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
+
+    getDownloadURL(starsRef)
+      .then((url) => {
+        linkRef.current.href = url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [user, isSuccess, message, isError]);
 
   if (isLoading) {
@@ -57,7 +71,7 @@ function UserProfile() {
               <tr>
                 <td className='fields'>Resume</td>
                 <td>
-                  <a className='links' href='path/to/resume.pdf' download>
+                  <a className='links' ref={linkRef} download>
                     Download Resume
                   </a>
                 </td>
@@ -84,7 +98,7 @@ function UserProfile() {
               </Link>
             )}
             {isEmployer && (
-              <Link className='profile-button' to={'/'}>
+              <Link className='profile-button' to={'/employee-job-postings'}>
                 My Jobs
               </Link>
             )}

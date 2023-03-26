@@ -65,8 +65,8 @@ export const jobsSlice = createSlice({
 });
 
 export const getJob = createAsyncThunk(
-  'jobs/get',
-  async (jobId: String, thunkAPI) => {
+  'job/get',
+  async (jobId: any, thunkAPI) => {
     try {
       const res = await jobsService.getJob(jobId);
       return res;
@@ -116,6 +116,42 @@ export const createJob = createAsyncThunk(
     }
   }
 );
+
+// export const updateJob = createAsyncThunk(
+//   'jobs/update',
+//   async (jobData: any, thunkAPI) => {
+//     try {
+//       return await jobsService.updateJob(jobData, jobData.jobId);
+//     } catch (error: any) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
+
+// export const deleteJob = createAsyncThunk(
+//   'jobs/delete',
+//   async (jobId: any, thunkAPI) => {
+//     try {
+//       return await jobsService.deleteJob(jobId);
+//     } catch (error: any) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
 
 export const { reset } = jobsSlice.actions;
 export default jobsSlice.reducer;

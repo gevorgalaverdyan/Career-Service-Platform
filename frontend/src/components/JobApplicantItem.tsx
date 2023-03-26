@@ -15,31 +15,13 @@ function JobApplicantItem(applicant: Applicant) {
   const onClick = async (e: any) => {
     e.preventDefault();
 
-    // const docRef = doc(db, 'files', `68_CV`);
-    // const docSnap = await getDoc(docRef);
-
     getDownloadURL(starsRef)
       .then((url) => {
         window.location.href = url;
       })
       .catch((error) => {
-        switch (error.code) {
-          case 'storage/object-not-found':
-            break;
-          case 'storage/unauthorized':
-            break;
-          case 'storage/canceled':
-            break;
-
-          case 'storage/unknown':
-            break;
-        }
+        console.log(error);
       });
-    // if (docSnap.exists()) {
-    //   window.location.href = docSnap.data().resume;
-    // } else {
-    //   toast.error('No such PDF');
-    // }
   };
 
   return (

@@ -15,6 +15,8 @@ import CreatePostings from './pages/CreatePostings';
 import UserApplications from './pages/UserApplications';
 import JobApplicants from './pages/JobApplicants';
 import NotFound from './pages/NotFound';
+import EmployeeJobPostings from './pages/EmployeeJobPostings';
+import ManagePostings from './pages/ManagePostings';
 
 function App() {
   return (
@@ -52,6 +54,11 @@ function App() {
             {/*
               Students can view their applications
             */}
+
+            <Route path={'/manage-posting'} element={<PrivateRoute />}>
+              <Route path={'/manage-posting/:jobId'} element={<ManagePostings />} />
+            </Route>
+
             <Route path={'/user-applications'} element={<PrivateRoute />}>
               <Route
                 path={'/user-applications'}
@@ -70,6 +77,10 @@ function App() {
             </Route>
 
             <Route path='/*' element={<NotFound />} />
+
+            <Route path={'/employee-job-postings'} element={<PrivateRoute />}>
+              <Route path={'/employee-job-postings'} element={<EmployeeJobPostings />}></Route>
+            </Route>
           </Routes>
         </div>
       </Router>
