@@ -111,7 +111,7 @@ const getApplicationsByUserId = async (req, res) => {
           return res.status(404).send({ message: 'Applications not found.' });
         }
 
-        const applicationsFormatted = applications.map(application => {
+        const applicationsFormatted = applications.map((application) => {
           return {
             applicationId: application.applicationId,
             jobId: application.job._doc.jobId,
@@ -126,7 +126,7 @@ const getApplicationsByUserId = async (req, res) => {
   });
 };
 
-const getApplicationsByJobId= async (req, res) => {
+const getApplicationsByJobId = async (req, res) => {
   Job.findOne({ jobId: req.params.id }).exec((err, job) => {
     if (!job) {
       return res.status(404).send({ message: 'Job not found.' });
@@ -145,7 +145,7 @@ const getApplicationsByJobId= async (req, res) => {
           return res.status(404).send({ message: 'Applications not found.' });
         }
 
-        const applicationsFormatted = applications.map(application => {
+        const applicationsFormatted = applications.map((application) => {
           return {
             applicationId: application.applicationId,
             jobId: application.job._doc.jobId,
@@ -161,11 +161,15 @@ const getApplicationsByJobId= async (req, res) => {
 };
 
 const updateApplication = async (req, res) => {
-  const {status} = req.body;
-  
-  Application.findOneAndUpdate({
-    applicationId: req.params.applicationId
-  }, {status}, { new: true }).exec((err, application) => {
+  const { status } = req.body;
+
+  Application.findOneAndUpdate(
+    {
+      applicationId: req.params.applicationId,
+    },
+    { status },
+    { new: true }
+  ).exec((err, application) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -176,15 +180,15 @@ const updateApplication = async (req, res) => {
     }
 
     res.status(200).send(application);
-  })
-}
+  });
+};
 
 module.exports = {
   createApplication,
   getApplicationById,
   getApplicationsByJobId,
   getApplicationsByUserId,
-  updateApplication
+  updateApplication,
 };
 
 export {};

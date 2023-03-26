@@ -1,5 +1,6 @@
 const db = require('../models');
 const Job = db.job;
+const Application = db.application;
 
 const createJob = async (req, res, next) => {
   const { title, company, description, deadline } = req.body;
@@ -92,16 +93,32 @@ const editJob = async (req, res) => {
 };
 
 const deleteJob = async (req, res) => {
-  Job.deleteOne({ jobId: req.params.id }).exec(async (err, job) => {
+  Job.findOne({ jobId: req.params.id }).exec(async (err, job) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
+
     if (!job) {
-      return res.status(404).send({ message: 'Job Not Found' });
+      res.status(500).send({ message: 'Job does not exist!' });
+      return;
     }
 
-    res.status(200).send(job);
+    Application.deleteMany({ job: job._id }, (err, result) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+    });
+
+    Job.deleteOne({ _id: job._id }, (err, result) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+
+      res.status(200).send();
+    });
   });
 };
 
