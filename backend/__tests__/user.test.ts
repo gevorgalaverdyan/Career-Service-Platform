@@ -48,4 +48,29 @@ describe('user can signup', () => {
   it.todo(
     'After typing valid information, user is signed up and exists in the DB'
   );
+  
+  beforeAll(async () => {
+    const mongoServer = await MongoMemoryServer.create();
+
+    await mongoose.connect(mongoServer.getUri())
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoose.connection.close();
+  })
+
+  describe('get sign up route', () => {
+      describe ('given user enters valid data', () => {
+        it('should return 200', async () => {
+          const userData = {
+            email: 'HelloTest@gmail.com',
+            password: '345',
+          };
+
+          await supertest(app).post(`${API_URL}register`).send(userData).expect(200);
+        });
+      });
+  });
+
 });
