@@ -18,7 +18,7 @@ function EditProfile() {
     (state: any) => state.auth
   );
 
-  const {roles} = user
+  const { roles } = user;
 
   const {
     resume,
@@ -42,14 +42,18 @@ function EditProfile() {
     formData;
 
   useEffect(() => {
-    if (isError || resumeIsError) {
+    if (isError) {
       toast.error(message);
+    }
+
+    if (resumeIsError) {
+      toast.error(resumeErrorMessage);
     }
 
     if (isStudent) {
       dispatch(getResume(user.userId));
 
-      if (!hasResume && message === 'Resume not found!') {
+      if (resumeErrorMessage == 'Resume not found!') {
         setResumeMessage('upload A resume');
       } else {
         setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
@@ -57,7 +61,15 @@ function EditProfile() {
     }
 
     dispatch(reset());
-  }, [user, isSuccess, message, isError, navigate, dispatch]);
+  }, [
+    resumeErrorMessage,
+    user,
+    isSuccess,
+    message,
+    isError,
+    navigate,
+    dispatch,
+  ]);
 
   const onChange = (e: any) => {
     setFormData({
@@ -78,7 +90,7 @@ function EditProfile() {
       let userData;
 
       if (isEmployer) {
-        userData = { firstName, lastName, email, userId, company, roles};
+        userData = { firstName, lastName, email, userId, company, roles };
       } else if (isStudent) {
         userData = { firstName, lastName, email, userId, roles };
       } else {
@@ -94,17 +106,17 @@ function EditProfile() {
   };
 
   const onUploadResumeHandler = (e: any) => {
-    try {
-      const file = e.target.files[0];
+    const file = e.target.files[0];
 
-      if (!file) return;
+    if (!file) return;
 
-      const formData = new FormData();
-      formData.append('resume', file);
+    const formData = new FormData();
+    formData.append('resume', file);
 
-      dispatch(uploadResume({ studentId: user.userId, payload: formData }));
-      toast.success('Uploaded');
-    } catch (error) {}
+    dispatch(uploadResume({ studentId: user.userId, payload: formData }));
+    toast.success('Uploaded');
+
+    setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
   };
 
   const userRoles = user.roles.map((role: any) =>
