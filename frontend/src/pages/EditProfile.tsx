@@ -5,15 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { update, reset } from '../features/auth/authSlice';
+import { getResume, uploadResume } from '../features/resume/resumeSlice';
 import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
+  const [resumeMessage, setResumeMessage] = useState('');
+
   const { user, isLoading, isSuccess, message, isError } = useSelector(
     (state: any) => state.auth
   );
+
+  const { roles } = user;
+
+  const {
+    resume,
+    hasResume,
+    isLoading: resumeIsLoading,
+    message: resumeErrorMessage,
+    isError: resumeIsError,
+  } = useSelector((state: any) => state.resume);
 
   const [formData, setFormData] = useState({
     firstName: user.firstName,
@@ -21,24 +34,42 @@ function EditProfile() {
     email: user.email,
     password: '',
     confirmPassword: '',
+    resume: '',
+    company: user.company,
   });
 
-  const { firstName, lastName, email, password, confirmPassword } = formData;
+  const { firstName, lastName, email, password, confirmPassword, company } =
+    formData;
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    // if (isSuccess) {
-    //   navigate('/user-profile');
-    // }
+    if (resumeIsError) {
+      toast.error(resumeErrorMessage);
+    }
+
+    if (isStudent) {
+      dispatch(getResume(user.userId));
+
+      if (resumeErrorMessage == 'Resume not found!') {
+        setResumeMessage('upload A resume');
+      } else {
+        setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
+      }
+    }
 
     dispatch(reset());
-    //same as login dispatch
-  }, [user, isSuccess, message, isError, navigate, dispatch]);
-
-  //* check for types TS
+  }, [
+    resumeErrorMessage,
+    user,
+    isSuccess,
+    message,
+    isError,
+    navigate,
+    dispatch,
+  ]);
 
   const onChange = (e: any) => {
     setFormData({
@@ -54,8 +85,18 @@ function EditProfile() {
         throw Error('No User | Not signed in');
       }
 
-      const _id = user?._id;
-      const userData = { firstName, lastName, email, _id };
+      const userId = user?.userId;
+
+      let userData;
+
+      if (isEmployer) {
+        userData = { firstName, lastName, email, userId, company, roles };
+      } else if (isStudent) {
+        userData = { firstName, lastName, email, userId, roles };
+      } else {
+        toast.error('UserTypeError');
+        return;
+      }
 
       navigate('/user-profile');
       dispatch(update(userData));
@@ -64,7 +105,28 @@ function EditProfile() {
     }
   };
 
-  if (isLoading) {
+  const onUploadResumeHandler = (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    dispatch(uploadResume({ studentId: user.userId, payload: formData }));
+    toast.success('Uploaded');
+
+    setResumeMessage(`already uploaded => ${user.userId}_CV.pdf`);
+  };
+
+  const userRoles = user.roles.map((role: any) =>
+    role.split('_')[1].toLowerCase()
+  );
+
+  const isStudent = userRoles.find((role: any) => role === 'student') != null;
+  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
+
+  if (isLoading || resumeIsLoading) {
     return <Spinner />;
   }
 
@@ -119,44 +181,37 @@ function EditProfile() {
                 required
               />
             </label>
-            {/* <label htmlFor='passsword'>
-              Password
-              <input
-                type='password'
-                name='password'
-                id='password'
-                className='form-control'
-                placeholder='Password'
-                value={formData.password}
-                onChange={onChange}
-                required
-              />
-            </label>
-            <label htmlFor='confirm_password'>
-              Confirm Password
-              <input
-                type='password'
-                name='confirm_password'
-                id='confirm_password'
-                className='form-control'
-                placeholder='Confirm Password'
-                value={formData.confirmPassword}
-                onChange={onChange}
-                required
-              />
-            </label> */}
-
-            <label>Resume</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Cover Letter</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-            <label>Transcript</label>
-            <input type='file' accept='.pdf,.doc,.docx' />
-          </div>
-          <div>
-            <div className='form-group'>
-              <button className='btn btn-block'>Save Changes</button>
-            </div>
+            {isStudent && (
+              <>
+                <label>
+                  Resume
+                  <input
+                    type='file'
+                    name='resume'
+                    onChange={onUploadResumeHandler}
+                  />
+                </label>
+                <span style={{ color: 'red' }}>
+                  {'CV status: ' + resumeMessage}
+                </span>
+              </>
+            )}
+            {isEmployer && (
+              <label htmlFor='company_name'>
+                Company Name
+                <input
+                  type='text'
+                  className='form-control'
+                  id='company_name'
+                  name='companyName'
+                  value={formData.company}
+                  disabled
+                />
+              </label>
+            )}
+            <button type='submit' className='btn btn-primary'>
+              Save
+            </button>
           </div>
         </form>
       </section>

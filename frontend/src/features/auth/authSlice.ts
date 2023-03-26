@@ -36,11 +36,11 @@ export const register = createAsyncThunk(
 
 export const update = createAsyncThunk(
   'auth/update',
-  async (user: any, thunkAPI: any) => {
-    console.log(user);
+  async (userData: any, thunkAPI: any) => {
+    console.log(userData);
 
     try {
-      return await authService.update(user, user._id);
+      return await authService.update(userData, userData.userId);
     } catch (error: any) {
       const message =
         (error.response &&

@@ -8,3 +8,4 @@ const Role = mongoose.model(
 );
 
 module.exports = Role;
+export {};

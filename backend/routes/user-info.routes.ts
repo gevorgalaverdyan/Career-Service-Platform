@@ -1,5 +1,3 @@
-import { verify } from 'crypto';
-
 const userInfoController = require('../controllers/user-info.controller');
 const verifyJWT = require('../middleware/VerifyJWT');
 
@@ -22,3 +20,4 @@ module.exports = function (app) {
     userInfoController.deleteUser
   );
 };
+export {};

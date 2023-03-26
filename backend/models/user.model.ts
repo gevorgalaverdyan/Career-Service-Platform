@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   userId: { type: String },
   firstName: String,
   lastName: String,
+  company: String,
   email: String,
   password: String,
   roles: [
@@ -24,7 +25,6 @@ userSchema.pre('save', function (next) {
       { new: true, upsert: true }
     )
     .then(function (count) {
-      console.log('...count: ' + JSON.stringify(count));
       doc.userId = count.seq;
       next();
     })
@@ -37,3 +37,4 @@ userSchema.pre('save', function (next) {
 const User = mongoose.model('User', new mongoose.Schema(userSchema));
 
 module.exports = User;
+export{}

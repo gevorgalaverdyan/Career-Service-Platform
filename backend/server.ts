@@ -1,15 +1,18 @@
 const express = require('express');
-const dotenv = require('dotenv').config();
 const path = require('path');
+const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 8000;
-// const { errorHandler } = require('./middleware/errorMiddleware');
-const { errorHandler } = require('./middleware/errorMiddleware');
-// const dbConfig = require('./config/db.config');
-const cookieSession = require('cookie-session');
-const db = require('./models/index');
+const createServer = require('./utils/app')
 
-// const dbConnectionString = `mongodb://${dbConfig.USERNAME}:${dbConfig.PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}`;
-const dbConnectionString = `mongodb+srv://DB_User:CSP@careerserviceplatform.oyvurkm.mongodb.net/?retryWrites=true&w=majority`;
+const db = require('./models/index');
+const dbConfig = require('./config/db.config');
+
+const firebase = require('firebase/app');
+const firebaseConfig = require('./config/firebase.config');
+
+firebase.initializeApp(firebaseConfig);
+
+const dbConnectionString = `${dbConfig.ATLAS}`;
 /** Connect to database */
 db.mongoose
   .connect(dbConnectionString, {
@@ -25,22 +28,7 @@ db.mongoose
     process.exit();
   });
 
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  cookieSession({
-    name: 'career-service-platform-session',
-    secret: 'COOKIE_SECRET',
-    httpOnly: true,
-  })
-);
-
-// routes
-require('./routes/auth.routes')(app);
-require('./routes/user-info.routes')(app);
+const app = createServer();
 
 //server Frontend
 if (process.env.NODE_ENV === 'production') {
@@ -55,5 +43,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use(errorHandler);
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
+
+export {};

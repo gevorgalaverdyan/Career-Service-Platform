@@ -54,12 +54,17 @@ function Register() {
     if (password !== password2) {
       toast.error('Passwords must match');
     } else {
-      const userData = {
+      let userData: any = {
         firstName,
         lastName,
         email,
+        roles: [userType],
         password,
       };
+
+      if (userType === 'employer') {
+        userData.company = company;
+      }
 
       dispatch(register(userData));
     }

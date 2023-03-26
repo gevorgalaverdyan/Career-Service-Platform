@@ -1,76 +1,125 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import './styles/JobPostingStyles.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
+import { getJob } from '../features/jobs/jobsSlice';
+import { createApplication } from '../features/application/applicationSlice';
+import { reset } from '../features/application/applicationSlice';
 
 function JobPosting() {
-    const isCompany = false;
+  const isCompany = false; //fixable
 
-    function applyf()
-    {
-        console.log("EY GEVORG");
+  //useeffect that will get the ticket from the state through _id
+  const { job, isLoading, isError, message } = useSelector(
+    (state: any) => state.jobs
+  );
+
+  const {
+    isLoading: applicationIsLoading,
+    isError: applicationIsError,
+    isSuccess: applicationIsSuccess,
+    message: applicationMessage,
+  } = useSelector((state: any) => state.applications);
+
+  const { user } = useSelector((state: any) => state.auth);
+
+  const dispatch: any = useDispatch();
+  const { jobId } = useParams();
+  const navigate = useNavigate();
+
+  const { title, company, description, deadline } = job;
+  const { userId } = user;
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
     }
 
-    return (
-        <div>
-            <section className='heading'>
-                <h3 className='title'>
-                    Job Item (title + Company)
-                </h3>
+    if (typeof jobId === 'undefined') {
+      toast.error('WRONG jobID');
+      navigate('/job-postings');
+    } else if (typeof jobId === 'string') {
+      dispatch(getJob(jobId));
+    }
+  }, [isError, message, jobId, navigate, dispatch]);
 
-            </section>
-            
+  useEffect(() => {
+    if (applicationIsError) {
+      toast.error(applicationMessage);
+    }
 
-        <table>
-          <tbody>
+    if (applicationIsSuccess) {
+      dispatch(reset());
+      navigate('/job-postings');
+    }
+  }, [
+    applicationIsError,
+    applicationIsSuccess,
+    applicationMessage,
+    navigate,
+    dispatch,
+  ]);
 
-            <tr>
-              <td className='boldpart'>Job Description</td>
-              <td>Here we will find the job description information for the job(Location, Location type, Salary, duration, etc.)</td>
-            </tr>
+  const onClick = (e: any) => {
+    e.preventDefault();
 
-            <tr>
-              <td className='boldpart'>Job Requirements</td>
-              <td>Here we will find the job description information for the job(Location, Location type, Salary, duration, etc.)</td>
-            </tr>
+    try {
+      const applicationIDs = {
+        jobId,
+        userId,
+      };
 
-            <tr>
-              <td className='boldpart'>Required Documents</td>
-              <td>
-                <ol>
-                    <li>CV</li>
-                    <li>Cover Letter</li>
-                    <li>Transcript</li>
-                </ol>
-              </td>
-            </tr>
+      dispatch(createApplication(applicationIDs))
+        .then(() => {
+          navigate('/job-postings');
+          toast.success('Applied successfully');
+        })
+        .catch(toast.error);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
-            <tr>
-                <td className='boldpart'>
-                    Expiration Date:
-                </td>
-                <td>
-                    10/05/2023
-                </td>
-            </tr>
+  if (isError) {
+    return <h1>ERROR</h1>;
+  }
 
-          </tbody>
-        </table>
+  if (isLoading || applicationIsLoading) {
+    return <Spinner />;
+  }
 
-        <div className='upload'>
-        <label>Resume</label>
-            <input type='file' accept='.pdf,.doc,.docx' /><br></br>
-            <label>Cover Letter</label>
-            <input type='file' accept='.pdf,.doc,.docx' /><br></br>
-            <label>Transcript</label>
-            <input type='file' accept='.pdf,.doc,.docx' /><br></br>
-        </div>
+  return (
+    <div className='job-posting'>
+      <section className='heading'>
+        <h3 className='title'>{title}</h3>
+      </section>
 
+      <table>
+        <tbody>
+          <tr>
+            <td className='boldpart'>Company</td>
+            <td>{company}</td>
+          </tr>
 
+          <tr>
+            <td className='boldpart'>Job Description</td>
+            <td>{description}</td>
+          </tr>
 
-        <button className='button' style={{ float: 'left' }}   onClick={applyf} > Apply</button>
+          <tr>
+            <td className='boldpart'>Expiration Date:</td>
+            <td>{deadline}</td>
+          </tr>
+        </tbody>
+      </table>
 
-        </div>
-    )
-
+      <button className='button' onClick={onClick}>
+        Apply
+      </button>
+    </div>
+  );
 }
 
-export default JobPosting
+export default JobPosting;
