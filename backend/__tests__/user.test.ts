@@ -5,7 +5,7 @@
   it.todo('User should see his information');
 });
 */
-const createServer = require('../utils/app')
+const createServer = require('../utils/app');
 const supertest = require('supertest');
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
@@ -44,14 +44,15 @@ describe('login to profile', () => {
 describe('create job', () => {
   it.todo('A recruiter should be able to create a job posting');
   it.todo('Sign in as a company and then create a posting ');
-  it.todo('A user(Job Seeking user) should see the posting with all the details')
+  it.todo(
+    'A user(Job Seeking user) should see the posting with all the details'
+  );
 
-  
   beforeAll(async () => {
     const mongoServer = await MongoMemoryServer.create();
     await mongoose.connect(mongoServer.getUri());
   });
-  
+
   afterAll(async () => {
     await mongoose.disconnect();
     await mongoose.connection.close();
@@ -66,27 +67,26 @@ describe('create job', () => {
         };
 
         await supertest(app).post(`${API_URL}login`).send(userData).expect(404);
-      })
-    })
+      });
+    });
   });
 
   describe('Post Job Posting', () => {
     describe('given field left empty', () => {
       it('should return 404', async () => {
-    const postingData = {
-      CompanyName: 'Genetec',
-      Description: 'Full Stack, 12$/h,etc..',
-      Deadline: '10/10/2009'
-
-  };
-  await supertest(app).post(`${API_URL}postPosting`).send(postingData).expect(404);
-  })})});
-  
-
-
-
+        const postingData = {
+          CompanyName: 'Genetec',
+          Description: 'Full Stack, 12$/h,etc..',
+          Deadline: '10/10/2009',
+        };
+        await supertest(app)
+          .post(`${API_URL}postPosting`)
+          .send(postingData)
+          .expect(404);
+      });
+    });
+  });
 });
-
 
 /////Afif's test
 describe('user can signup', () => {
