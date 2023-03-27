@@ -65,3 +65,7 @@ export interface Student {
   status?: string;
   applicationId: string;
 }
+
+export interface LeafletProps {
+  address: string;
+}
