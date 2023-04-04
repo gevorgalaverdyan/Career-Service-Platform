@@ -3,12 +3,13 @@ const Job = db.job;
 const Application = db.application;
 
 const createJob = async (req, res, next) => {
-  const { title, company, description, deadline } = req.body;
+  const { title, company, description, deadline, address} = req.body;
   const job = new Job({
     title,
     company,
     description,
     deadline,
+    address,
   });
 
   job.save((err, job) => {
@@ -23,6 +24,7 @@ const createJob = async (req, res, next) => {
       company: job.company,
       description: job.description,
       deadline: job.deadline,
+      address: job.address
     });
   });
 };

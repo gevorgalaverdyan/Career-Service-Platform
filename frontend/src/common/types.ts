@@ -24,6 +24,7 @@ export interface Job {
   description: string;
   company: string;
   deadline: string;
+  address: string;
 }
 
 export interface Application {
