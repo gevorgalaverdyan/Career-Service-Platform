@@ -16,12 +16,11 @@ function Register() {
     password2: '',
     userType: 'student',
     company: '',
-    address:'',
   });
 
   const navigate = useNavigate();
 
-  const { firstName, lastName, email, password, password2, userType, company, address } =
+  const { firstName, lastName, email, password, password2, userType, company } =
     formData;
 
   const dispatch: any = useDispatch();
@@ -65,7 +64,6 @@ function Register() {
 
       if (userType === 'employer') {
         userData.company = company;
-        userData.address = address;
       }
       
 
@@ -99,18 +97,6 @@ function Register() {
                 value={company}
                 onChange={onChange}
                 placeholder='Company Name'
-                required
-              />
-            )}
-            {userType === 'employer' && (
-              <input
-                type='text'
-                name='address'
-                id='address'
-                className='form-control'
-                value={address}
-                onChange={onChange}
-                placeholder='Address'
                 required
               />
             )}
