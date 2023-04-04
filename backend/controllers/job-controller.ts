@@ -48,6 +48,7 @@ const getJobById = async (req, res) => {
       company: job.company,
       description: job.description,
       deadline: job.deadline,
+      address: job.address,
     });
   });
 };
