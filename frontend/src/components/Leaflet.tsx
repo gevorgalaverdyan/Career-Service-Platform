@@ -44,7 +44,7 @@ function Leaflet({ address }: LeafletProps) {
       center={position}
       zoom={13}
       scrollWheelZoom={true}
-      style={{ height: '100vw', width: '100%' }}
+      style={{ aspectRatio: '2 / 1', width: '100%' }}
     >
       <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
       <Marker position={position}>
