@@ -1,0 +1,20 @@
+.SortButton {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    position: relative;
+    right: 40%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
+  .SortButton:hover{
+    border-radius: 7px;
+  }

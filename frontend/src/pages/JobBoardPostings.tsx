@@ -6,6 +6,7 @@ import { getJobs } from '../features/jobs/jobsSlice';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import './styles/JobBoardPosting.css';
 
 function JobBoardPostings() {
   const { jobs, isLoading, isError, message } = useSelector(
@@ -33,6 +34,8 @@ function JobBoardPostings() {
 
   return (
     <div className='tickets'>
+      <button className='SortButton'>Filter By Deadline</button>
+
       <div className='ticket-headings'>
         <div>Apply</div>
         <div>Deadline</div>

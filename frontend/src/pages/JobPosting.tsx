@@ -95,7 +95,7 @@ function JobPosting() {
       <section className='heading'>
         <h3 className='title'>{title}</h3>
       </section>
-
+        
       <table>
         <tbody>
           <tr>
