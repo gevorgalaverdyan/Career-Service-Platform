@@ -14,9 +14,10 @@ function CreatePostings() {
     description: '',
     company: '',
     deadline: formatDate(new Date()),
+    address:'',
   });
 
-  const { title, description, company, deadline } = formData;
+  const { title, description, company, deadline, address } = formData;
 
   const { isSuccess, isLoading, isError, message } = useSelector(
     (state: any) => state.jobs
@@ -48,7 +49,7 @@ function CreatePostings() {
   const onSubmit = (e: any) => {
     e.preventDefault();
 
-    if (!title || !description || !company || !deadline) {
+    if (!title || !description || !company || !deadline || !address) {
       toast.error('Missing Data');
     } else {
       dispatch(createJob(formData))
@@ -125,6 +126,19 @@ function CreatePostings() {
                 id='job_duedate'
                 name='deadline'
                 required
+              />
+            </label>
+            <label htmlFor="address">
+              Address
+              <input 
+              type='text'
+              className='form-control'
+              id='address'
+              placeholder='Enter the location of the job'
+              name='address'
+              value={address}
+              onChange={onChange}
+              required
               />
             </label>
             <button className='btn btn-block'>Submit</button>

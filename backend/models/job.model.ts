@@ -11,6 +11,7 @@ const jobSchema = mongoose.Schema({
   company: String,
   description: String,
   deadline: String,
+  address: String
 });
 
 jobSchema.pre('save', function (next) {

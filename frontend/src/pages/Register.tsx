@@ -65,6 +65,7 @@ function Register() {
       if (userType === 'employer') {
         userData.company = company;
       }
+      
 
       dispatch(register(userData));
     }

@@ -24,6 +24,7 @@ export interface Job {
   description: string;
   company: string;
   deadline: string;
+  address: string;
 }
 
 export interface Application {
@@ -64,4 +65,8 @@ export interface Student {
   _id?: string;
   status?: string;
   applicationId: string;
+}
+
+export interface LeafletProps {
+  address: string;
 }
