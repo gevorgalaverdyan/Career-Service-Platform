@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { getJob } from '../features/jobs/jobsSlice';
 import { createApplication } from '../features/application/applicationSlice';
 import { reset } from '../features/application/applicationSlice';
+import Leaflet from '../components/Leaflet';
 
 function JobPosting() {
   const isCompany = false; //fixable
@@ -29,7 +30,7 @@ function JobPosting() {
   const { jobId } = useParams();
   const navigate = useNavigate();
 
-  const { title, company, description, deadline } = job;
+  const { title, company, description, deadline, address} = job;
   const { userId } = user;
 
   useEffect(() => {
@@ -95,7 +96,7 @@ function JobPosting() {
       <section className='heading'>
         <h3 className='title'>{title}</h3>
       </section>
-
+        
       <table>
         <tbody>
           <tr>
@@ -118,6 +119,10 @@ function JobPosting() {
       <button className='button' onClick={onClick}>
         Apply
       </button>
+      <br></br>
+      <Leaflet
+        address = {address}
+      />
     </div>
   );
 }
