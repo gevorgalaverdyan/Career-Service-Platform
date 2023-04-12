@@ -14,7 +14,7 @@ jobs:
       - run: npm run test
         env:
             CI: true
-    codacy-coverage-reporter:
+  codacy-coverage-reporter:
     name: codacy-coverage-reporter
     runs-on: ubuntu-latest
     steps:
