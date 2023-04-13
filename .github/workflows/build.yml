@@ -26,12 +26,12 @@ jobs:
       - run: npm i ts-node -g
       - run: npm install --force
       - run: npm run test
-      
-      - name: Debug 1
-        run: ls
 
       - name: Debug coverage directory contents
-        run: ls -R coverage/
+        run: ls coverage/
+        
+      - name: Debug coverage file contents
+        run: cat coverage/lcov.info
 
       - uses: actions/checkout@v2
 
