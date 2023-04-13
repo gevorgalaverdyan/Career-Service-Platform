@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/checkout@v2
       - name: Install Codacy coverage reporter
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
+        run: curl -Ls https://coverage.codacy.com/get.sh | bash
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
