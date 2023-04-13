@@ -6,23 +6,67 @@ jobs:
     runs-on: ubuntu-latest
     container: node:16
     steps:
-      - run: node --version
-      - run: npm --version
-      - uses: actions/checkout@v3
-      - run: npm i ts-node -g
-      - run: npm install --force
-      - run: npm run test
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - uses: actions/checkout@v2
-      - name: Install Codacy coverage reporter
-        run: curl -Ls https://coverage.codacy.com/get.sh | bash
-      - name: Run codacy-coverage-reporter
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install packages
+        run: |
+          sudo chown -R $USER /usr/local/lib/node_modules
+          curl -Ls https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          npm ci --no-optional --prefer-offline --no-audit --progress=false
+          npm fund
+          npm audit --audit-level=high
+
+      - name: Run tests
+        run: |
+          npm run test
+
+      - name: Send coverage report to Codacy
+        if: always()
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage/lcov.info
         env:
-            CI: true
+          CI: true
+
+      - name: Install Codacy coverage reporter
+        run: curl -Ls https://coverage.codacy.com/get.sh | bash
+
+# on: push
+
+# jobs: 
+#   build-node:
+#     name: Running Tests
+#     runs-on: ubuntu-latest
+#     container: node:16
+#     steps:
+#       - run: node --version
+#       - run: npm --version
+#       - uses: actions/checkout@v3
+#       - run: npm i ts-node -g
+#       - run: npm install --force
+#       - run: npm run test
+
+#       - uses: actions/checkout@v2
+#       - name: Install Codacy coverage reporter
+#         run: curl -Ls https://coverage.codacy.com/get.sh | bash
+#       - name: Run codacy-coverage-reporter
+#         uses: codacy/codacy-coverage-reporter-action@v1
+#         with:
+#           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+#           coverage-reports: coverage/lcov.info
+#         env:
+#             CI: true
 
   # codacy-coverage-reporter:
   #   needs: build-node
