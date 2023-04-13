@@ -13,6 +13,10 @@
 
 </p>
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9bdb8e4eb6c64769ae5b79016e422cb7)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9bdb8e4eb6c64769ae5b79016e422cb7)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+
 ## Members & Roles
 
 <hr>
@@ -81,9 +85,3 @@ These are the scripts for running frontend/backend
 <li>"server": "nodemon backend/server.ts" → starts the server(backend) but nodemon restarts your node application when it detects any changes </li>
 <li>"client": "npm start --prefix frontend" → starts frontend</li>
 <li>"dev": "concurrently \"npm run server\" \"npm run client\"" → starts frontend & backend</li></ul></pre>
-
-TODO: 
-- in DB add company for recruiter -> backend guys
-- edit profile should also have this feature
-- same for user profile
-- recruiters shouldn't upload CV...
