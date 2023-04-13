@@ -19,9 +19,9 @@ jobs:
 
       - name: Install packages
         run: |
-          sudo chown -R $USER /usr/local/lib/node_modules
-          curl -Ls https://deb.nodesource.com/setup_16.x | sudo -E bash -
-          sudo apt-get install -y nodejs
+          chown -R $(whoami) /usr/local/lib/node_modules
+          curl -Ls https://deb.nodesource.com/setup_16.x | bash -
+          apt-get install -y nodejs
           npm ci --no-optional --prefer-offline --no-audit --progress=false
           npm fund
           npm audit --audit-level=high
@@ -38,9 +38,6 @@ jobs:
           coverage-reports: coverage/lcov.info
         env:
           CI: true
-
-      - name: Install Codacy coverage reporter
-        run: curl -Ls https://coverage.codacy.com/get.sh | bash
 
 # on: push
 
