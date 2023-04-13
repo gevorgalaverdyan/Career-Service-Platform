@@ -28,6 +28,7 @@ function UserApplications() {
     }
 
     dispatch(getApplicationForUser(user.userId));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, message, dispatch, navigate]);
 
   if (isLoading || !applications) {

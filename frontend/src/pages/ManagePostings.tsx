@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { IoCreateOutline } from 'react-icons/io5';
-import { Job } from '../common/types';
 import { getJob } from '../features/jobs/jobsSlice';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -150,14 +149,3 @@ function ManagePostings() {
 }
 
 export default ManagePostings;
-/*const updateJob = async (jobData: any, jobId: string) => {
-  const response = await axios.put(API_URL + jobId, jobData);
-
-  return response.data;
-};
-
-const deleteJob = async (jobId: any) => {
-  const res = await axios.delete(API_URL + jobId);
-
-  return res.data;
-};*/

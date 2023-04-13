@@ -10,8 +10,6 @@ import { reset } from '../features/application/applicationSlice';
 import Leaflet from '../components/Leaflet';
 
 function JobPosting() {
-  const isCompany = false; //fixable
-
   //useeffect that will get the ticket from the state through _id
   const { job, isLoading, isError, message } = useSelector(
     (state: any) => state.jobs
