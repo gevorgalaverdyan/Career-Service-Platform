@@ -4,11 +4,9 @@ jobs:
   build-node:
     name: Running Tests
     runs-on: ubuntu-latest
-    container: node:16
+    env:
+      CI: true
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -17,27 +15,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install packages
-        run: |
-          chown -R $(whoami) /usr/local/lib/node_modules
-          curl -Ls https://deb.nodesource.com/setup_16.x | bash -
-          apt-get install -y nodejs
-          npm ci --no-optional --prefer-offline --no-audit --progress=false
-          npm fund
-          npm audit --audit-level=high
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
 
-      - name: Run tests
-        run: |
-          npm run test
+      - run: node --version
+      - run: npm --version
+      - uses: actions/checkout@v3
+      - run: npm i ts-node -g
+      - run: npm install --force
+      - run: npm run test
 
-      - name: Send coverage report to Codacy
-        if: always()
+      - uses: actions/checkout@v2
+      - name: Install Codacy coverage reporter
+        run: curl -Ls https://coverage.codacy.com/get.sh | bash
+      - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage/lcov.info
-        env:
-          CI: true
 
 # on: push
 
