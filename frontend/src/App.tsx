@@ -11,6 +11,8 @@ import EditProfile from './pages/EditProfile';
 import UserProfile from './pages/UserProfile';
 import JobPosting from './pages/JobPosting';
 import PrivateRoute from './components/PrivateRoute';
+import CompanyRoute from './components/CompanyRoute';
+import StudentRoute from './components/StudentRoute';
 import CreatePostings from './pages/CreatePostings';
 import UserApplications from './pages/UserApplications';
 import JobApplicants from './pages/JobApplicants';
@@ -47,19 +49,21 @@ function App() {
               <Route path={'/posting/:jobId'} element={<JobPosting />} />
             </Route>
 
-            <Route path={'/create-postings'} element={<PrivateRoute />}>
+            <Route path={'/create-postings'} element={<CompanyRoute />}>
               <Route path={'/create-postings'} element={<CreatePostings />} />
+            </Route>
+
+            <Route path={'/manage-posting'} element={<CompanyRoute />}>
+              <Route
+                path={'/manage-posting/:jobId'}
+                element={<ManagePostings />}
+              />
             </Route>
 
             {/*
               Students can view their applications
             */}
-
-            <Route path={'/manage-posting'} element={<PrivateRoute />}>
-              <Route path={'/manage-posting/:jobId'} element={<ManagePostings />} />
-            </Route>
-
-            <Route path={'/user-applications'} element={<PrivateRoute />}>
+            <Route path={'/user-applications'} element={<StudentRoute />}>
               <Route
                 path={'/user-applications'}
                 element={<UserApplications />}
@@ -69,18 +73,21 @@ function App() {
             {/*
               View Applicants for a Job
             */}
-            <Route path={'/job-applicants/:jobId'} element={<PrivateRoute />}>
+            <Route path={'/job-applicants/:jobId'} element={<CompanyRoute />}>
               <Route
                 path={'/job-applicants/:jobId'}
                 element={<JobApplicants />}
               />
             </Route>
 
-            <Route path='/*' element={<NotFound />} />
-
-            <Route path={'/employee-job-postings'} element={<PrivateRoute />}>
-              <Route path={'/employee-job-postings'} element={<EmployeeJobPostings />}></Route>
+            <Route path={'/employee-job-postings'} element={<CompanyRoute />}>
+              <Route
+                path={'/employee-job-postings'}
+                element={<EmployeeJobPostings />}
+              ></Route>
             </Route>
+
+            <Route path='/*' element={<NotFound />} />
           </Routes>
         </div>
       </Router>

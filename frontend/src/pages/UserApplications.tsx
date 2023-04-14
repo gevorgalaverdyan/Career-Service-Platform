@@ -28,10 +28,14 @@ function UserApplications() {
     }
 
     dispatch(getApplicationForUser(user.userId));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, message, dispatch, navigate]);
 
-  if (isLoading || !applications) {
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!applications) {
     return <Spinner />;
   }
 
