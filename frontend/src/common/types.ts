@@ -55,7 +55,14 @@ export const APPLICATION_STATUS = {
   PENDING: 'PENDING',
   HIRED: 'HIRED',
   DECLINED: 'DECLINED',
-}
+};
+
+export const USER_ROLE = {
+  STUDENT: 'student',
+  EMPLOYER: 'employer',
+  ADMIN: 'admin',
+  OTHER: 'other'
+};
 
 export interface Student {
   email: string;

@@ -38,7 +38,7 @@ function UserProfile() {
         .catch((error) => {
           console.log(error);
         });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isSuccess, message, isError]);
 
   if (isLoading) {
@@ -88,24 +88,21 @@ function UserProfile() {
           </tbody>
         </table>
       </div>
-      <div>
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Link className='profile-button' to={'/edit-profile'}>
-              Edit Profile
-            </Link>
-            {isStudent && (
-              <Link className='profile-button' to={'/user-applications'}>
-                My Applications
-              </Link>
-            )}
-            {isEmployer && (
-              <Link className='profile-button' to={'/employee-job-postings'}>
-                My Jobs
-              </Link>
-            )}
-          </div>
-        </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Link className='profile-button' to={'/edit-profile'}>
+          Edit Profile
+        </Link>
+        {isStudent && (
+          <Link className='profile-button' to={'/user-applications'}>
+            My Applications
+          </Link>
+        )}
+        {isEmployer && (
+          <Link className='profile-button' to={'/employee-job-postings'}>
+            My Jobs
+          </Link>
+        )}
       </div>
     </>
   );

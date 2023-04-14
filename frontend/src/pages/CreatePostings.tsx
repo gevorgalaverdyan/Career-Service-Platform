@@ -37,12 +37,7 @@ function CreatePostings() {
     if (isError) {
       toast.error(message);
     }
-
-    if (isSuccess) {
-      dispatch(reset());
-      navigate('/');
-    }
-
+    
     dispatch(reset());
   }, [isError, message, isSuccess, navigate, dispatch]);
 

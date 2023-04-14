@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './styles/JobBoardPostingsStyles.css';
+import { FaSortNumericDown, FaSortNumericUp } from 'react-icons/fa';
 
 function JobBoardPostings() {
   const { jobs, isLoading, isError, message } = useSelector(
@@ -41,7 +42,18 @@ function JobBoardPostings() {
 
   return (
     <div className='tickets'>
-      <button className='SortButton' onClick={handleSort}>Sort by Deadline</button>
+      <button
+        className='btn'
+        onClick={handleSort}
+        style={{ marginBottom: '20px' }}
+      >
+        Sort by Deadline
+        {sortOrder === 'asc' ? (
+          <FaSortNumericDown style={{ marginLeft: '20px' }} size={20} />
+        ) : (
+          <FaSortNumericUp style={{ marginLeft: '20px' }} size={20} />
+        )}
+      </button>
       <div className='ticket-headings'>
         <div>Apply</div>
         <div>Deadline</div>
@@ -50,7 +62,7 @@ function JobBoardPostings() {
       </div>
       {jobs
         .filter((job: any) => job.deadline)
-        .sort((job1: { deadline: string; }, job2: { deadline: string; }) => {
+        .sort((job1: { deadline: string }, job2: { deadline: string }) => {
           if (sortOrder === 'asc') {
             return (
               new Date(job1.deadline as string).getTime() -
