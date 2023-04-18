@@ -2,7 +2,6 @@
   "name": "career-service-platform",
   "version": "1.0.0",
   "description": "MERN project",
-  "type": "module",
   "main": "server.ts",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit",
