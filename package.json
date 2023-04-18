@@ -9,7 +9,7 @@
     "server": "nodemon backend/server.ts",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build"
+    "build": "cd backend && npm install -g ts-node && npm install && cd ../frontend && npm install && npm run build"
   },
   "repository": {
     "type": "git",
