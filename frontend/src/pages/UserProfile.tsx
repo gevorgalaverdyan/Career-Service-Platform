@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FaUser } from 'react-icons/fa';
 import './styles/userTypeStyles.css';
 import './styles/userProfileStyles.css';
@@ -14,6 +14,13 @@ function UserProfile() {
     (state: any) => state.auth
   );
 
+  const userRoles = user.roles.map((role: any) =>
+    role.split('_')[1].toLowerCase()
+  );
+
+  const isStudent = userRoles.find((role: any) => role === 'student') != null;
+  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
+
   const starsRef = ref(storage, `files/${user.userId}_CV.pdf`);
 
   const linkRef: any = useRef();
@@ -23,25 +30,20 @@ function UserProfile() {
       toast.error(message);
     }
 
-    getDownloadURL(starsRef)
-      .then((url) => {
-        linkRef.current.href = url;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    isStudent &&
+      getDownloadURL(starsRef)
+        .then((url) => {
+          linkRef.current.href = url;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isSuccess, message, isError]);
 
   if (isLoading) {
     return <Spinner />;
   }
-
-  const userRoles = user.roles.map((role: any) =>
-    role.split('_')[1].toLowerCase()
-  );
-
-  const isStudent = userRoles.find((role: any) => role === 'student') != null;
-  const isEmployer = userRoles.find((role: any) => role === 'employer') != null;
 
   return (
     <>
@@ -86,24 +88,21 @@ function UserProfile() {
           </tbody>
         </table>
       </div>
-      <div>
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Link className='profile-button' to={'/edit-profile'}>
-              Edit Profile
-            </Link>
-            {isStudent && (
-              <Link className='profile-button' to={'/user-applications'}>
-                My Applications
-              </Link>
-            )}
-            {isEmployer && (
-              <Link className='profile-button' to={'/employee-job-postings'}>
-                My Jobs
-              </Link>
-            )}
-          </div>
-        </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Link className='profile-button' to={'/edit-profile'}>
+          Edit Profile
+        </Link>
+        {isStudent && (
+          <Link className='profile-button' to={'/user-applications'}>
+            My Applications
+          </Link>
+        )}
+        {isEmployer && (
+          <Link className='profile-button' to={'/employee-job-postings'}>
+            My Jobs
+          </Link>
+        )}
       </div>
     </>
   );

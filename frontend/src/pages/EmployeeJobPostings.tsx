@@ -7,8 +7,6 @@ import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function EmployeeJobPostings() {
     const { jobs, isLoading, isError, message } = useSelector(
     (state: any) => state.jobs
