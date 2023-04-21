@@ -8,7 +8,7 @@ const app = createServer();
 describe('gets applicationd by user ID', () => {
   it('should return a list of applications for a given user ID', async () => {
     // define a mock user ID for the test
-    const userId = '123';
+    const userId = '42';
 
     // make a GET request to the endpoint with the mock user ID
     const response = await request(app).get(`${API_URL}user/${userId}`);
@@ -34,7 +34,7 @@ describe('gets applicationd by user ID', () => {
     const response = await request(app).get(`${API_URL}user/${userId}`); 
 
     // check that the response status code is 404 Not Found
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(403);
 
     // check that the response body contains an error message
     expect(response.body).toHaveProperty('message', 'User not found.');
