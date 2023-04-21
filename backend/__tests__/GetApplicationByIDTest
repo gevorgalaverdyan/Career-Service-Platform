@@ -1,17 +1,17 @@
 const createServer = require('../utils/app');
 const request = require('supertest'); // assuming your Express app is defined in a separate file
 
-const API_URL = '/auth/';
+const API_URL = '/application/';
 
 const app = createServer();
 
-describe('getApplicationsByUserId', () => {
+describe('gets applicationd by user ID', () => {
   it('should return a list of applications for a given user ID', async () => {
     // define a mock user ID for the test
     const userId = '123';
 
     // make a GET request to the endpoint with the mock user ID
-    const response = await request(app).get(`${API_URL}${userId}`);
+    const response = await request(app).get(`${API_URL}user/${userId}`);
 
     // check that the response status code is 200 OK
     expect(response.status).toBe(200);
@@ -31,7 +31,7 @@ describe('getApplicationsByUserId', () => {
     const userId = '456';
 
     // make a GET request to the endpoint with the mock user ID
-    const response = await request(app).get(/api/applications/user/${userId}); 
+    const response = await request(app).get(`${API_URL}user/${userId}`); 
 
     // check that the response status code is 404 Not Found
     expect(response.status).toBe(404);
