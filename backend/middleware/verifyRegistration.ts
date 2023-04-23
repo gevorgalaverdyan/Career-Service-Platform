@@ -38,4 +38,4 @@ const checkRolesExisted = (req, res, next) => {
 };
 
 module.exports = { checkDuplicateEmail, checkRolesExisted };
-export{};
+export{checkRolesExisted};
