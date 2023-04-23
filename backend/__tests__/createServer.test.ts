@@ -8,3 +8,5 @@ describe('createServer', () => {
     expect(response.status).toBe(404);
   });
 });
+
+export{}
